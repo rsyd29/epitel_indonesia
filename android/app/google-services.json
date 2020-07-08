@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "762978292572",
+    "firebase_url": "https://epitel-indonesia-ab2f0.firebaseio.com",
+    "project_id": "epitel-indonesia-ab2f0",
+    "storage_bucket": "epitel-indonesia-ab2f0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:762978292572:android:0bcd31cffb6d647aeea799",
+        "android_client_info": {
+          "package_name": "com.example.Epitel_Indonesia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "762978292572-migngds78jmlggr8j9vpv3umi4g40om3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQvBXDDC7qDQnpAhGwBJ-eem5NNwINt5Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "762978292572-migngds78jmlggr8j9vpv3umi4g40om3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
