@@ -247,58 +247,29 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         ),
                       ),
                       SizedBox(height: 10),
-                      SizedBox(
-                        width: 250,
-                        height: 45,
-                        child: RaisedButton(
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20)),
-                          disabledColor: Color(0xFFE4E4E4),
-                          color: Colors.red[400],
-                          onPressed: (isUpdating)
-                              ? null
-                              : () async {
-                                  await AuthServices.resetPassword(
-                                      widget.user.email);
-                                  return Flushbar(
-                                    duration: Duration(seconds: 4),
-                                    flushbarPosition: FlushbarPosition.BOTTOM,
-                                    backgroundColor: Color(0xFFFF5C83),
-                                    message:
-                                        "The link to change your password has been sent to your email address, please check your email address!",
-                                  )..show(context);
-                                },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Icon(
-                                MdiIcons.alertOctagram,
-                                color: Colors.white,
-                                size: 20,
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                "Change Password",
-                                style: whiteTextFont.copyWith(
-                                    fontSize: 16,
-                                    color: (isUpdating)
-                                        ? Color(0xFFBEBEBE)
-                                        : Colors.white),
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Icon(
-                                MdiIcons.alertOctagram,
-                                color: Colors.white,
-                                size: 20,
-                              ),
-                            ],
-                          ),
-                        ),
+                      ReusableButton(
+                        color: Colors.red[400],
+                        disabledColor: Color(0xFFE4E4E4),
+                        icons: MdiIcons.alertOctagram,
+                        text: "Change Password",
+                        textStyle: whiteTextFont.copyWith(
+                            fontSize: 16,
+                            color: (isUpdating)
+                                ? Color(0xFFBEBEBE)
+                                : Colors.white),
+                        onPressed: (isUpdating)
+                            ? null
+                            : () async {
+                                await AuthServices.resetPassword(
+                                    widget.user.email);
+                                return Flushbar(
+                                  duration: Duration(seconds: 4),
+                                  flushbarPosition: FlushbarPosition.BOTTOM,
+                                  backgroundColor: Color(0xFFFF5C83),
+                                  message:
+                                      "The link to change your password has been sent to your email address, please check your email address!",
+                                )..show(context);
+                              },
                       ),
                       SizedBox(height: 10),
                       (isUpdating)
@@ -306,64 +277,54 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               color: mainColor,
                               colorBg: Colors.white,
                             )
-                          : SizedBox(
-                              height: 45,
-                              width: 250,
-                              child: RaisedButton(
-                                elevation: 0,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20)),
-                                child: Text(
-                                  "Update My Profile",
-                                  style: whiteTextFont.copyWith(
-                                      fontSize: 16,
-                                      color: (isDataEdited)
-                                          ? Colors.white
-                                          : Color(0xFFBEBEBE)),
-                                ),
-                                disabledColor: Color(0xFFE4E4E4),
-                                color: mainColor,
-                                onPressed: (isDataEdited)
-                                    ? () async {
-                                        setState(() {
-                                          isUpdating = true;
-                                        });
+                          : ReusableButton(
+                              color: mainColor,
+                              disabledColor: Color(0xFFE4E4E4),
+                              text: "Update My Profile",
+                              textStyle: whiteTextFont.copyWith(
+                                  fontSize: 16,
+                                  color: (isDataEdited)
+                                      ? Colors.white
+                                      : Color(0xFFBEBEBE)),
+                              onPressed: (isDataEdited)
+                                  ? () async {
+                                      setState(() {
+                                        isUpdating = true;
+                                      });
 
-                                        if (profileImageFile != null) {
-                                          profilePath = await uploadImage(
-                                              profileImageFile);
-                                        }
-
-                                        context.bloc<UserBloc>().add(UpdateData(
-                                            role: rolePath,
-                                            selectedBranch: branchPath,
-                                            selectedGender: genderPath,
-                                            name: nameController.text,
-                                            noHp: noHpController.text,
-                                            alamat: alamatController.text,
-                                            profilePicture: profilePath));
-
-                                        if (widget.user.role == "admin") {
-                                          context
-                                              .bloc<PageBloc>()
-                                              .add(GoToAdminPage());
-                                        } else {
-                                          context
-                                              .bloc<PageBloc>()
-                                              .add(GoToUserPage());
-                                        }
-
-                                        return Flushbar(
-                                          duration:
-                                              Duration(milliseconds: 1500),
-                                          flushbarPosition:
-                                              FlushbarPosition.BOTTOM,
-                                          backgroundColor: Color(0xFFFF5C83),
-                                          message: "Update profile success",
-                                        )..show(context);
+                                      if (profileImageFile != null) {
+                                        profilePath =
+                                            await uploadImage(profileImageFile);
                                       }
-                                    : null,
-                              ),
+
+                                      context.bloc<UserBloc>().add(UpdateData(
+                                          role: rolePath,
+                                          selectedBranch: branchPath,
+                                          selectedGender: genderPath,
+                                          name: nameController.text,
+                                          noHp: noHpController.text,
+                                          alamat: alamatController.text,
+                                          profilePicture: profilePath));
+
+                                      if (widget.user.role == "admin") {
+                                        context
+                                            .bloc<PageBloc>()
+                                            .add(GoToAdminPage());
+                                      } else {
+                                        context
+                                            .bloc<PageBloc>()
+                                            .add(GoToUserPage());
+                                      }
+
+                                      return Flushbar(
+                                        duration: Duration(milliseconds: 1500),
+                                        flushbarPosition:
+                                            FlushbarPosition.BOTTOM,
+                                        backgroundColor: Color(0xFFFF5C83),
+                                        message: "Update profile success",
+                                      )..show(context);
+                                    }
+                                  : null,
                             ),
                       SizedBox(height: 20),
                     ],

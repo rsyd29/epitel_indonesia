@@ -105,9 +105,11 @@ class _ErrorPageState extends State<ErrorPage> {
                 ReusableButton(
                     height: 45,
                     width: 120,
-                    icons: MdiIcons.backburger,
+                    icWidth: 0,
+                    icons: MdiIcons.chevronLeft,
                     color: Colors.red,
-                    text: "Back",
+                    text: "BACK",
+                    textStyle: whiteTextFont.copyWith(fontSize: 16),
                     onPressed: () {
                       context.bloc<UserBloc>().add(SignOut());
                       AuthServices.signOut();

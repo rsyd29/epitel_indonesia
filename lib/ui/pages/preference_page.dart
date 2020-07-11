@@ -59,7 +59,6 @@ class _PreferencePageState extends State<PreferencePage> {
                     child: GestureDetector(
                         onTap: () {
                           widget.registrationData.password = "";
-
                           context.bloc<PageBloc>().add(
                               GoToRegistrationPage(widget.registrationData));
                           return;

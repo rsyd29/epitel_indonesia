@@ -51,7 +51,7 @@ class _AboutPageState extends State<AboutPage> {
                       ),
                       Center(
                         child: Text(
-                          "About the Application",
+                          "About The \nApplication",
                           style: blackTextFont.copyWith(fontSize: 20),
                           textAlign: TextAlign.center,
                         ),

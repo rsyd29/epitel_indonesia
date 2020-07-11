@@ -44,7 +44,7 @@ class _UserPageState extends State<UserPage> {
             ProfilePage(),
           ],
         ),
-        createCustomBotomNavBar(),
+        createCustomBottomNavBar(),
         Align(
           alignment: Alignment.bottomCenter,
           child: BlocBuilder<UserBloc, UserState>(builder: (_, userState) {
@@ -191,7 +191,7 @@ class _UserPageState extends State<UserPage> {
     }
   }
 
-  Widget createCustomBotomNavBar() => Align(
+  Widget createCustomBottomNavBar() => Align(
         alignment: Alignment.bottomCenter,
         child: ClipPath(
           clipper: BottomNavBarClipper(),

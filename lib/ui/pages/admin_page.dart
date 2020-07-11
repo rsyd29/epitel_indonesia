@@ -43,7 +43,7 @@ class _AdminPageState extends State<AdminPage> {
             ProfilePage(),
           ],
         ),
-        createCustomBotomNavBar(),
+        createCustomBottomNavBar(),
         BlocBuilder<UserBloc, UserState>(
           builder: (_, userState) => Align(
             alignment: Alignment.bottomCenter,
@@ -72,7 +72,7 @@ class _AdminPageState extends State<AdminPage> {
     ));
   }
 
-  Widget createCustomBotomNavBar() => Align(
+  Widget createCustomBottomNavBar() => Align(
         alignment: Alignment.bottomCenter,
         child: ClipPath(
           clipper: BottomNavBarClipper(),

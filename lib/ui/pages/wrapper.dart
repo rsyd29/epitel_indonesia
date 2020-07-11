@@ -45,12 +45,11 @@ class Wrapper extends StatelessWidget {
                                         : (pageState is OnAboutPage)
                                             ? AboutPage(pageState.user)
                                             : (pageState is OnAddPage)
-                                                ? AddAdminPage()
+                                                ? AddAdminPage(pageState.user)
                                                 : (pageState
                                                         is OnUserDetailPage)
                                                     ? UserDetailPage(
                                                         pageState.user)
                                                     : CheckPage());
-    // : MainPage());
   }
 }
