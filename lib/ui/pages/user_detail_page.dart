@@ -14,7 +14,6 @@ class _UserDetailPageState extends State<UserDetailPage> {
   File profileImageFile;
 
   TextEditingController statusController = TextEditingController();
-
   TextEditingController roleController = TextEditingController();
   TextEditingController deviceIdController = TextEditingController();
 
@@ -24,7 +23,7 @@ class _UserDetailPageState extends State<UserDetailPage> {
     _profilePath = widget.user.profilePicture;
     statusController.text = widget.user.status;
     roleController.text = widget.user.role;
-    deviceIdController.text = widget.user.role;
+    deviceIdController.text = widget.user.deviceId;
   }
 
   @override
@@ -461,6 +460,7 @@ class _UserDetailPageState extends State<UserDetailPage> {
   }
 }
 
+// Class untuk membuat widget card custom
 class CardReflectionClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {

@@ -32,9 +32,10 @@ class _AccountConfirmationPageState extends State<AccountConfirmationPage> {
             child: ListView(
               children: [
                 Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      margin: EdgeInsets.only(top: 20, bottom: 110),
+                      margin: EdgeInsets.only(bottom: 50),
                       height: 56,
                       child: Stack(
                         children: [
@@ -89,10 +90,9 @@ class _AccountConfirmationPageState extends State<AccountConfirmationPage> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 3),
                     Text(
                       "Welcome",
-                      style: blackTextFont.copyWith(fontSize: 16),
+                      style: blackTextFont.copyWith(fontSize: 18),
                     ),
                     Text(
                       widget.registrationData.name,
@@ -102,7 +102,7 @@ class _AccountConfirmationPageState extends State<AccountConfirmationPage> {
                     Text("Your device ID: " + widget.registrationData.deviceId,
                         style: blackTextFont.copyWith(fontSize: 12)),
                     SizedBox(
-                      height: 100,
+                      height: 50,
                     ),
                     (isSigningUp)
                         ? Loading(colorBg: Colors.transparent, color: mainColor)

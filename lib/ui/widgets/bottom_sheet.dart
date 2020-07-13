@@ -4,6 +4,7 @@ class BottomSheetWidget extends StatelessWidget {
   final String latitude,
       longitude,
       qrcode,
+      date,
       time,
       account,
       result,
@@ -18,6 +19,7 @@ class BottomSheetWidget extends StatelessWidget {
       this.longitude,
       this.account,
       this.qrcode,
+      this.date,
       this.time,
       this.icon,
       this.color,
@@ -62,6 +64,16 @@ class BottomSheetWidget extends StatelessWidget {
                           style: blackTextFont.copyWith(
                               fontWeight: FontWeight.bold)),
                       Text(account, style: blackTextFont)
+                    ],
+                  ),
+                  SizedBox(height: 3.0),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("Date : ",
+                          style: blackTextFont.copyWith(
+                              fontWeight: FontWeight.bold)),
+                      Text(date, style: blackTextFont)
                     ],
                   ),
                   SizedBox(height: 3.0),

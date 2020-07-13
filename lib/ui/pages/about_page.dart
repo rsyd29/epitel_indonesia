@@ -10,7 +10,6 @@ class AboutPage extends StatefulWidget {
 class _AboutPageState extends State<AboutPage> {
   @override
   Widget build(BuildContext context) {
-    // Size size = MediaQuery.of(context).size;
     return WillPopScope(
       onWillPop: () async {
         if (widget.user.role == 'admin') {
@@ -28,7 +27,7 @@ class _AboutPageState extends State<AboutPage> {
             child: ListView(
               children: [
                 Container(
-                  margin: EdgeInsets.only(top: 20, bottom: 22),
+                  margin: EdgeInsets.only(top: 20, bottom: 20),
                   height: 56,
                   child: Stack(
                     children: [
@@ -59,8 +58,54 @@ class _AboutPageState extends State<AboutPage> {
                     ],
                   ),
                 ),
-                Text(
-                    "Aplikasi ini merupakan tugas Budiman Rasyid dari kelas 3IA13 di Universitas Gunadarma, tugas ini bertujuan untuk memenuhi salah satu syarat sidang yaitu penulisan ilmiah")
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 100,
+                      height: 100,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                              image: AssetImage("assets/budiman.png"),
+                              fit: BoxFit.cover)),
+                    ),
+                    SizedBox(height: 5),
+                    Text(
+                      "@rsyd29\nBudiman Rasyid",
+                      style: blackTextFont.copyWith(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    SocmedBox(
+                      onTap: null,
+                      socmed: "Instagram",
+                      acc: "@rsyd29",
+                    ),
+                    SocmedBox(
+                      onTap: null,
+                      socmed: "WhatsApp",
+                      acc: "089636986438",
+                    ),
+                    SocmedBox(
+                      onTap: null,
+                      socmed: "Email",
+                      acc: "brasyid@gmail.com",
+                    ),
+                    SocmedBox(
+                      onTap: null,
+                      socmed: "GitHub",
+                      acc: "github.com/rsyd29",
+                    ),
+                    SizedBox(height: 20),
+                    Text(
+                      "#EpitelIndonesia",
+                      style: blackTextFont.copyWith(fontSize: 12),
+                    )
+                  ],
+                ),
               ],
             ),
           ),

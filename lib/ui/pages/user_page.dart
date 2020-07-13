@@ -3,8 +3,9 @@ part of 'pages.dart';
 class UserPage extends StatefulWidget {
   final int bottomNavBarIndex;
   final User user;
+  final Absen absen;
 
-  UserPage({this.bottomNavBarIndex = 0, this.user});
+  UserPage({this.bottomNavBarIndex = 0, this.user, this.absen});
 
   @override
   _UserPageState createState() => _UserPageState();
@@ -14,6 +15,8 @@ class _UserPageState extends State<UserPage> {
   int bottomNavBarIndex;
   PageController pageController;
 
+  final _firestore = Firestore.instance;
+
   @override
   void initState() {
     super.initState();
@@ -21,6 +24,8 @@ class _UserPageState extends State<UserPage> {
     bottomNavBarIndex = widget.bottomNavBarIndex;
     pageController = PageController(initialPage: bottomNavBarIndex);
   }
+
+  void checkIn() {}
 
   @override
   Widget build(BuildContext context) {
@@ -67,16 +72,18 @@ class _UserPageState extends State<UserPage> {
                       } else {
                         String qrcode = '';
                         qrcode = await getScan();
-                        // var position;
-                        // position = await
                         var position = await getLocation();
-                        String latitude = position.latitude.toString();
-                        String longitude = position.longitude.toString();
+                        String latitude = position.latitude.toStringAsFixed(3);
+                        String longitude =
+                            position.longitude.toStringAsFixed(3);
 
-                        var checkIn = DateTime.now().millisecondsSinceEpoch;
-                        var checkOut = DateTime.now().millisecondsSinceEpoch;
+                        var time = DateFormat.jms().format(new DateTime.now());
+                        var date =
+                            DateFormat.yMMMEd().format(new DateTime.now());
 
-                        if (qrcode == "Jatinegara") {
+                        if (qrcode == "Setiabudi" &&
+                            latitude == '-6.217' &&
+                            longitude == '106.827') {
                           return showModalBottomSheet(
                               context: context,
                               builder: (context) {
@@ -90,21 +97,31 @@ class _UserPageState extends State<UserPage> {
                                   latitude: latitude,
                                   longitude: longitude,
                                   qrcode: qrcode,
-                                  time: DateTime.now()
-                                      .millisecondsSinceEpoch
-                                      .toString(),
+                                  date: date,
+                                  time: time,
                                   account: userState.user.name,
                                   buttonText: "Done",
                                   onPressed: () async {
-                                    var absenRecord = {
-                                      'uid': widget.user.uid,
+                                    var checkIn = {
+                                      'uid': userState.user.uid,
+                                      'name': userState.user.name,
                                       'location': qrcode,
-                                      'account': widget.user.name,
-                                      'checkIn': checkIn,
-                                      'checkOut': checkOut,
+                                      'checkIn': DateTime.now(),
+                                      'checkOut': null,
                                       'lat': latitude,
                                       'long': longitude,
                                     };
+
+                                    _firestore
+                                        .collection('absens')
+                                        .add(checkIn);
+                                    Navigator.pop(context);
+
+                                    var checkOut = {
+                                      'checkOut': DateTime.now(),
+                                    };
+
+                                    print(checkOut);
                                   },
                                 );
                               });
@@ -117,13 +134,12 @@ class _UserPageState extends State<UserPage> {
                                   color: Colors.red,
                                   result: "Failed!",
                                   text:
-                                      "The code is invalid,\nplease scan again!",
+                                      "The code is invalid or location not found,\nplease scan again!",
                                   latitude: latitude,
                                   longitude: longitude,
                                   qrcode: qrcode,
-                                  time: DateTime.now()
-                                      .millisecondsSinceEpoch
-                                      .toString(),
+                                  date: date,
+                                  time: time,
                                   account: userState.user.name,
                                   buttonText: "Back",
                                   onPressed: () {
