@@ -6,7 +6,7 @@ class HomeUserPage extends StatefulWidget {
 }
 
 class _HomeUserPageState extends State<HomeUserPage> {
-  bool isAddMember = false;
+  bool isToday = false;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -22,10 +22,20 @@ class _HomeUserPageState extends State<HomeUserPage> {
               return Container(
                 margin: EdgeInsets.symmetric(horizontal: defaultMargin),
                 child: StreamBuilder<QuerySnapshot>(
-                    stream: Firestore.instance
-                        .collection('absens')
-                        .where('uid', isEqualTo: userState.user.uid)
-                        .snapshots(),
+                    stream: (isToday)
+                        ? Firestore.instance
+                            .collection("absens")
+                            .where("uid", isEqualTo: userState.user.uid)
+                            .where('checkOut',
+                                isLessThanOrEqualTo: DateTime.now())
+                            .orderBy("checkOut", descending: true)
+                            .snapshots()
+                        : Firestore.instance
+                            .collection("absens")
+                            .where("uid", isEqualTo: userState.user.uid)
+                            .where('checkOut',
+                                isGreaterThanOrEqualTo: DateTime.now())
+                            .snapshots(),
                     builder: (BuildContext context,
                         AsyncSnapshot<QuerySnapshot> querySnapshot) {
                       if (querySnapshot.hasError) {
@@ -40,8 +50,12 @@ class _HomeUserPageState extends State<HomeUserPage> {
                             itemCount: list.length,
                             itemBuilder: (_, index) {
                               String absenID = list[index]['aid'];
-                              DateTime dateTime =
+                              DateTime checkIn =
                                   list[index]['checkIn'].toDate();
+
+                              DateTime checkOut =
+                                  list[index]['checkOut'].toDate();
+
                               return GestureDetector(
                                 onTap: () {
                                   print(
@@ -73,12 +87,8 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                                     color: Colors.white),
                                                 SizedBox(width: 5),
                                                 Text(list[index]['location'],
-                                                    style:
-                                                        whiteTextFont.copyWith(
-                                                            fontSize: 12,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold))
+                                                    style: whiteTextFont
+                                                        .copyWith(fontSize: 12))
                                               ],
                                             ),
                                           ],
@@ -93,20 +103,22 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                           ),
                                           color: Colors.white,
                                           child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
                                               Row(
                                                 children: [
                                                   Icon(
                                                     MdiIcons.mapMarker,
                                                     color: Colors.green,
-                                                    size: 50,
+                                                    size: 40,
                                                   ),
                                                   Column(
                                                     crossAxisAlignment:
                                                         CrossAxisAlignment
                                                             .start,
                                                     children: [
-                                                      Text("$dateTime",
+                                                      Text("${checkIn.dateNow}",
                                                           style: blackTextFont
                                                               .copyWith(
                                                                   fontSize: 10,
@@ -120,7 +132,7 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                                                       .green,
                                                                   fontSize:
                                                                       10)),
-                                                      Text("$dateTime",
+                                                      Text("${checkIn.timeNow}",
                                                           style: blackTextFont
                                                               .copyWith(
                                                                   fontSize: 10))
@@ -128,40 +140,48 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                                   )
                                                 ],
                                               ),
-                                              Row(
-                                                children: [
-                                                  Icon(
-                                                    MdiIcons.mapMarker,
-                                                    color: Colors.red,
-                                                    size: 50,
-                                                  ),
-                                                  Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text("$dateTime",
-                                                          style: blackTextFont
-                                                              .copyWith(
-                                                                  fontSize: 10,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold)),
-                                                      Text("Check Out",
-                                                          style: blackTextFont
-                                                              .copyWith(
-                                                                  color: Colors
-                                                                      .green,
-                                                                  fontSize:
-                                                                      10)),
-                                                      Text("$dateTime",
-                                                          style: blackTextFont
-                                                              .copyWith(
-                                                                  fontSize: 10))
-                                                    ],
-                                                  )
-                                                ],
-                                              ),
+                                              (checkOut != null)
+                                                  ? Row(
+                                                      children: [
+                                                        Icon(
+                                                          MdiIcons.mapMarker,
+                                                          color: Colors.red,
+                                                          size: 40,
+                                                        ),
+                                                        Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Text(
+                                                                "${checkOut.dateNow}",
+                                                                style: blackTextFont.copyWith(
+                                                                    fontSize:
+                                                                        10,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold)),
+                                                            Text("Check Out",
+                                                                style: blackTextFont
+                                                                    .copyWith(
+                                                                        color: Colors
+                                                                            .red,
+                                                                        fontSize:
+                                                                            10)),
+                                                            Text(
+                                                                "${checkOut.timeNow}",
+                                                                style: blackTextFont
+                                                                    .copyWith(
+                                                                        fontSize:
+                                                                            10))
+                                                          ],
+                                                        )
+                                                      ],
+                                                    )
+                                                  : IconButton(
+                                                      icon:
+                                                          Icon(MdiIcons.qrcode),
+                                                      onPressed: () {}),
                                             ],
                                           )),
                                     ],
@@ -289,14 +309,14 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                 GestureDetector(
                                   onTap: () {
                                     setState(() {
-                                      isAddMember = !isAddMember;
+                                      isToday = !isToday;
                                     });
                                   },
                                   child: Text(
                                     "Today",
                                     style: whiteTextFont.copyWith(
                                         fontSize: 16,
-                                        color: !isAddMember
+                                        color: !isToday
                                             ? Colors.white
                                             : Color(0xFF007CDB)),
                                   ),
@@ -305,7 +325,7 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                 Container(
                                     height: 4.0,
                                     width: size.width * 0.5,
-                                    color: !isAddMember
+                                    color: !isToday
                                         ? accentColor1
                                         : Colors.transparent),
                               ]),
@@ -313,14 +333,14 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                 GestureDetector(
                                   onTap: () {
                                     setState(() {
-                                      isAddMember = !isAddMember;
+                                      isToday = !isToday;
                                     });
                                   },
                                   child: Text(
                                     "Yesterday",
                                     style: whiteTextFont.copyWith(
                                         fontSize: 16,
-                                        color: isAddMember
+                                        color: isToday
                                             ? Colors.white
                                             : Color(0xFF007CDB)),
                                   ),
@@ -329,7 +349,7 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                 Container(
                                     height: 4.0,
                                     width: size.width * 0.5,
-                                    color: isAddMember
+                                    color: isToday
                                         ? accentColor1
                                         : Colors.transparent),
                               ]),

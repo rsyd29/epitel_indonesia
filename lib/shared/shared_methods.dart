@@ -13,7 +13,7 @@ Future<String> getScan() async {
 Future getLocation() async {
   try {
     Position position = await Geolocator()
-        .getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     return position;
   } catch (e) {
     print(e);

@@ -73,17 +73,19 @@ class _UserPageState extends State<UserPage> {
                         String qrcode = '';
                         qrcode = await getScan();
                         var position = await getLocation();
-                        String latitude = position.latitude.toStringAsFixed(3);
+                        String latitude = position.latitude.toStringAsFixed(2);
                         String longitude =
-                            position.longitude.toStringAsFixed(3);
+                            position.longitude.toStringAsFixed(2);
+                        String viewLat = position.latitude.toString();
+                        String viewLong = position.longitude.toString();
 
                         var time = DateFormat.jms().format(new DateTime.now());
                         var date =
                             DateFormat.yMMMEd().format(new DateTime.now());
 
                         if (qrcode == "Setiabudi" &&
-                            latitude == '-6.217' &&
-                            longitude == '106.827') {
+                            latitude == '-6.22' &&
+                            longitude == '106.83') {
                           return showModalBottomSheet(
                               context: context,
                               builder: (context) {
@@ -94,8 +96,8 @@ class _UserPageState extends State<UserPage> {
                                   text: "Your absense has succeed in the\n" +
                                       qrcode +
                                       " location",
-                                  latitude: latitude,
-                                  longitude: longitude,
+                                  latitude: viewLat,
+                                  longitude: viewLong,
                                   qrcode: qrcode,
                                   date: date,
                                   time: time,
@@ -110,18 +112,13 @@ class _UserPageState extends State<UserPage> {
                                       'checkOut': null,
                                       'lat': latitude,
                                       'long': longitude,
+                                      'status': "checkIn",
                                     };
 
                                     _firestore
                                         .collection('absens')
                                         .add(checkIn);
                                     Navigator.pop(context);
-
-                                    var checkOut = {
-                                      'checkOut': DateTime.now(),
-                                    };
-
-                                    print(checkOut);
                                   },
                                 );
                               });
@@ -134,9 +131,9 @@ class _UserPageState extends State<UserPage> {
                                   color: Colors.red,
                                   result: "Failed!",
                                   text:
-                                      "The code is invalid or location not found,\nplease scan again!",
-                                  latitude: latitude,
-                                  longitude: longitude,
+                                      "The code is invalid or \nlocation not found,\nplease scan again!",
+                                  latitude: viewLat,
+                                  longitude: viewLong,
                                   qrcode: qrcode,
                                   date: date,
                                   time: time,

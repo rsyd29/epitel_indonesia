@@ -6,7 +6,7 @@ class HomeAdminPage extends StatefulWidget {
 }
 
 class _HomeAdminPageState extends State<HomeAdminPage> {
-  bool isAddMember = false;
+  bool isToday = false;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -24,10 +24,19 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                   return Container(
                     margin: EdgeInsets.symmetric(horizontal: defaultMargin),
                     child: StreamBuilder<QuerySnapshot>(
-                        stream: Firestore.instance
-                            .collection('absens')
-                            .where('checkIn')
-                            .snapshots(),
+                        stream: (isToday)
+                            ? Firestore.instance
+                                .collection("absens")
+                                .where('checkOut',
+                                    isLessThanOrEqualTo: DateTime.now())
+                                .orderBy("checkOut", descending: true)
+                                .snapshots()
+                            : Firestore.instance
+                                .collection("absens")
+                                .where('checkOut',
+                                    isGreaterThanOrEqualTo: DateTime.now())
+                                .orderBy("checkOut", descending: true)
+                                .snapshots(),
                         builder: (BuildContext context,
                             AsyncSnapshot<QuerySnapshot> querySnapshot) {
                           if (querySnapshot.hasError) {
@@ -43,8 +52,12 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                                 itemCount: list.length,
                                 itemBuilder: (_, index) {
                                   String absenID = list[index]['aid'];
-                                  DateTime dateTime =
+                                  DateTime checkIn =
                                       list[index]['checkIn'].toDate();
+
+                                  DateTime checkOut =
+                                      list[index]['checkOut'].toDate();
+
                                   return GestureDetector(
                                     onTap: () {
                                       print("masuk menggunakan absenID: " +
@@ -82,10 +95,8 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                                                         list[index]['location'],
                                                         style: whiteTextFont
                                                             .copyWith(
-                                                                fontSize: 12,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold))
+                                                          fontSize: 12,
+                                                        ))
                                                   ],
                                                 ),
                                               ],
@@ -100,20 +111,24 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                                               ),
                                               color: Colors.white,
                                               child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
                                                 children: [
                                                   Row(
                                                     children: [
                                                       Icon(
                                                         MdiIcons.mapMarker,
                                                         color: Colors.green,
-                                                        size: 50,
+                                                        size: 40,
                                                       ),
                                                       Column(
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment
                                                                 .start,
                                                         children: [
-                                                          Text("$dateTime",
+                                                          Text(
+                                                              "${checkIn.dateNow}",
                                                               style: blackTextFont
                                                                   .copyWith(
                                                                       fontSize:
@@ -128,7 +143,8 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                                                                           .green,
                                                                       fontSize:
                                                                           10)),
-                                                          Text("$dateTime",
+                                                          Text(
+                                                              "${checkIn.timeNow}",
                                                               style: blackTextFont
                                                                   .copyWith(
                                                                       fontSize:
@@ -142,14 +158,15 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                                                       Icon(
                                                         MdiIcons.mapMarker,
                                                         color: Colors.red,
-                                                        size: 50,
+                                                        size: 40,
                                                       ),
                                                       Column(
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment
                                                                 .start,
                                                         children: [
-                                                          Text("$dateTime",
+                                                          Text(
+                                                              "${checkOut.dateNow}",
                                                               style: blackTextFont
                                                                   .copyWith(
                                                                       fontSize:
@@ -161,10 +178,11 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                                                               style: blackTextFont
                                                                   .copyWith(
                                                                       color: Colors
-                                                                          .green,
+                                                                          .red,
                                                                       fontSize:
                                                                           10)),
-                                                          Text("$dateTime",
+                                                          Text(
+                                                              "${checkOut.timeNow}",
                                                               style: blackTextFont
                                                                   .copyWith(
                                                                       fontSize:
@@ -172,7 +190,7 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                                                         ],
                                                       )
                                                     ],
-                                                  ),
+                                                  )
                                                 ],
                                               )),
                                         ],
@@ -297,14 +315,14 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                                 GestureDetector(
                                   onTap: () {
                                     setState(() {
-                                      isAddMember = !isAddMember;
+                                      isToday = !isToday;
                                     });
                                   },
                                   child: Text(
                                     "Today",
                                     style: whiteTextFont.copyWith(
                                         fontSize: 16,
-                                        color: !isAddMember
+                                        color: !isToday
                                             ? Colors.white
                                             : Color(0xFF007CDB)),
                                   ),
@@ -313,7 +331,7 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                                 Container(
                                     height: 4.0,
                                     width: size.width * 0.5,
-                                    color: !isAddMember
+                                    color: !isToday
                                         ? accentColor1
                                         : Colors.transparent),
                               ]),
@@ -321,14 +339,14 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                                 GestureDetector(
                                   onTap: () {
                                     setState(() {
-                                      isAddMember = !isAddMember;
+                                      isToday = !isToday;
                                     });
                                   },
                                   child: Text(
                                     "Yesterday",
                                     style: whiteTextFont.copyWith(
                                         fontSize: 16,
-                                        color: isAddMember
+                                        color: isToday
                                             ? Colors.white
                                             : Color(0xFF007CDB)),
                                   ),
@@ -337,7 +355,7 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                                 Container(
                                     height: 4.0,
                                     width: size.width * 0.5,
-                                    color: isAddMember
+                                    color: isToday
                                         ? accentColor1
                                         : Colors.transparent),
                               ]),

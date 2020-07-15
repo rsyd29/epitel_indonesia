@@ -31,6 +31,7 @@ class BottomSheetWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.all(5),
       color: Color(0xFF737373),
       child: Container(
         decoration: BoxDecoration(

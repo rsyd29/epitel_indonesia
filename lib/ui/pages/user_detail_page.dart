@@ -426,9 +426,10 @@ class _UserDetailPageState extends State<UserDetailPage> {
                                                     }
                                                   });
 
-                                                  context
-                                                      .bloc<PageBloc>()
-                                                      .add(GoToAdminPage());
+                                                  context.bloc<PageBloc>().add(
+                                                      GoToAddPage((userState
+                                                              as UserLoaded)
+                                                          .user));
 
                                                   return Flushbar(
                                                     duration: Duration(

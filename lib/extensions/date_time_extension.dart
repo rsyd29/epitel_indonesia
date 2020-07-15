@@ -1,7 +1,8 @@
 part of 'extensions.dart';
 
 extension DateTimeExtension on DateTime {
-  String get timeNow => "${this.shortDayName} ${this.day}, ${this.hour}:00";
+  String get timeNow =>
+      "${this.hour}:${this.minute}:${this.second} ${this.timeZoneName}";
   String get dateNow =>
       "${this.shortDayName}, ${this.shortMonthName} ${this.day} ${this.year}";
 

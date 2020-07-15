@@ -35,7 +35,7 @@ class _AccountConfirmationPageState extends State<AccountConfirmationPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      margin: EdgeInsets.only(bottom: 50),
+                      margin: EdgeInsets.only(top: 20, bottom: 50),
                       height: 56,
                       child: Stack(
                         children: [
