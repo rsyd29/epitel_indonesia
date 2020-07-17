@@ -26,7 +26,7 @@ class SplashPage extends StatelessWidget {
               child: MaterialButton(
                   elevation: 0,
                   child: Text(
-                    "Let\'s Get Started Now",
+                    "Daftar Akun Sekarang",
                     style: whiteTextFont.copyWith(fontSize: 18),
                   ),
                   color: mainColor,
@@ -40,14 +40,14 @@ class SplashPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Already have an account? ",
+                  "Sudah memiliki akun? ",
                   style: greyTextFont.copyWith(fontWeight: FontWeight.w400),
                 ),
                 BlocBuilder<UserBloc, UserState>(
                   builder: (_, userState) => GestureDetector(
                     onTap: () => context.bloc<PageBloc>().add(GoToLoginPage()),
                     child: Text(
-                      "Tap Here!",
+                      "Masuk sekarang",
                       style: blueTextFont,
                     ),
                   ),

@@ -62,7 +62,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                         Center(
                           child: Text(
-                            "Create New\nAccount",
+                            "Daftar Akun\nBaru",
                             style: blackTextFont.copyWith(fontSize: 20),
                             textAlign: TextAlign.center,
                           ),
@@ -144,8 +144,8 @@ class _SignUpPageState extends State<SignUpPage> {
                               borderRadius: BorderRadius.circular(10)),
                           labelText: (deviceIdController.text == null)
                               ? deviceIdController.text
-                              : "Device ID",
-                          hintText: "Device ID",
+                              : "ID Perangkat",
+                          hintText: "ID Perangkat",
                         ),
                       ),
                     ),
@@ -156,8 +156,8 @@ class _SignUpPageState extends State<SignUpPage> {
                     decoration: InputDecoration(
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10)),
-                        labelText: "Full Name",
-                        hintText: "Full Name"),
+                        labelText: "Nama Lengkap",
+                        hintText: "Nama Lengkap"),
                   ),
                   SizedBox(height: 16),
                   TextField(
@@ -165,8 +165,8 @@ class _SignUpPageState extends State<SignUpPage> {
                     decoration: InputDecoration(
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10)),
-                        labelText: "Email",
-                        hintText: "Email"),
+                        labelText: "Alamat Email",
+                        hintText: "Alamat Email"),
                   ),
                   SizedBox(height: 16),
                   TextField(
@@ -175,8 +175,8 @@ class _SignUpPageState extends State<SignUpPage> {
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10)),
-                      labelText: "Password",
-                      hintText: "Password",
+                      labelText: "Kata Sandi",
+                      hintText: "Kata Sandi",
                       suffixIcon: IconButton(
                           icon: Icon(MdiIcons.eye),
                           color:
@@ -194,8 +194,8 @@ class _SignUpPageState extends State<SignUpPage> {
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10)),
-                      labelText: "Retype Password",
-                      hintText: "Retype Password",
+                      labelText: "Ketik Ulang Kata Sandi",
+                      hintText: "Ketik Ulang Kata Sandi",
                       suffixIcon: IconButton(
                           icon: Icon(MdiIcons.eye),
                           color:

@@ -78,7 +78,7 @@ class _UserDetailPageState extends State<UserDetailPage> {
                               height: 20,
                             ),
                             Text(
-                              "Edit This\nUser Profile",
+                              "Ubah Profil\nAkun Ini",
                               textAlign: TextAlign.center,
                               style: blackTextFont.copyWith(fontSize: 20),
                             ),
@@ -195,7 +195,7 @@ class _UserDetailPageState extends State<UserDetailPage> {
                                                   CrossAxisAlignment.start,
                                               children: <Widget>[
                                                 Text(
-                                                  "Branch",
+                                                  "Cabang",
                                                   style: whiteTextFont.copyWith(
                                                       fontSize: 10,
                                                       fontWeight:
@@ -218,7 +218,7 @@ class _UserDetailPageState extends State<UserDetailPage> {
                                                       width: 14,
                                                       child: (statusController
                                                                   .text ==
-                                                              'active')
+                                                              'aktif')
                                                           ? Image.asset(
                                                               'assets/ic_check_active.png')
                                                           : Image.asset(
@@ -236,7 +236,7 @@ class _UserDetailPageState extends State<UserDetailPage> {
                                                   CrossAxisAlignment.start,
                                               children: <Widget>[
                                                 Text(
-                                                  "User ID",
+                                                  "ID Pengguna",
                                                   style: whiteTextFont.copyWith(
                                                       fontSize: 10,
                                                       fontWeight:
@@ -260,7 +260,7 @@ class _UserDetailPageState extends State<UserDetailPage> {
                                                       width: 14,
                                                       child: (statusController
                                                                   .text ==
-                                                              'active')
+                                                              'aktif')
                                                           ? Image.asset(
                                                               'assets/ic_check_active.png')
                                                           : Image.asset(
@@ -287,9 +287,9 @@ class _UserDetailPageState extends State<UserDetailPage> {
                                       (deviceIdController.text.trim() !=
                                                   widget.user.deviceId ||
                                               (((statusController.text ==
-                                                          'active') ||
+                                                          'aktif') ||
                                                       (statusController.text ==
-                                                          'not active')) &&
+                                                          'tidak aktif')) &&
                                                   ((roleController.text ==
                                                           'user') ||
                                                       (roleController.text ==
@@ -301,9 +301,9 @@ class _UserDetailPageState extends State<UserDetailPage> {
                               decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10)),
-                                  labelText: "Device ID",
+                                  labelText: "ID Pengguna",
                                   hintText: (widget.user.deviceId == null)
-                                      ? "Device ID"
+                                      ? "ID Pengguna"
                                       : widget.user.deviceId),
                             ),
                             SizedBox(height: 16),
@@ -315,9 +315,9 @@ class _UserDetailPageState extends State<UserDetailPage> {
                                       (deviceIdController.text.trim() !=
                                                   widget.user.deviceId ||
                                               (((statusController.text ==
-                                                          'active') ||
+                                                          'aktif') ||
                                                       (statusController.text ==
-                                                          'not active')) &&
+                                                          'tidak aktif')) &&
                                                   ((roleController.text ==
                                                           'user') ||
                                                       (roleController.text ==
@@ -326,11 +326,11 @@ class _UserDetailPageState extends State<UserDetailPage> {
                                           : false;
                                 });
                               },
-                              style: (statusController.text == 'active')
+                              style: (statusController.text == 'aktif')
                                   ? blackTextFont.copyWith(color: Colors.green)
                                   : blackTextFont.copyWith(color: Colors.red),
                               decoration: InputDecoration(
-                                  helperText: "fill 'active' or 'not active'",
+                                  helperText: "isi 'aktif' atau 'tidak aktif'",
                                   helperStyle:
                                       blackTextFont.copyWith(color: Colors.red),
                                   border: OutlineInputBorder(
@@ -347,9 +347,9 @@ class _UserDetailPageState extends State<UserDetailPage> {
                                       (deviceIdController.text.trim() !=
                                                   widget.user.deviceId ||
                                               (((statusController.text ==
-                                                          'active') ||
+                                                          'aktif') ||
                                                       (statusController.text ==
-                                                          'not active')) &&
+                                                          'tidak aktif')) &&
                                                   ((roleController.text ==
                                                           'user') ||
                                                       (roleController.text ==
@@ -360,7 +360,7 @@ class _UserDetailPageState extends State<UserDetailPage> {
                               },
                               style: blackTextFont,
                               decoration: InputDecoration(
-                                  helperText: "fill 'user' or 'admin'",
+                                  helperText: "isi 'user' atau 'admin'",
                                   helperStyle:
                                       blackTextFont.copyWith(color: Colors.red),
                                   border: OutlineInputBorder(
@@ -384,7 +384,7 @@ class _UserDetailPageState extends State<UserDetailPage> {
                                               borderRadius:
                                                   BorderRadius.circular(20)),
                                           child: Text(
-                                            "Update This User",
+                                            "Perbarui Profil Akun Ini",
                                             style: whiteTextFont.copyWith(
                                                 fontSize: 16,
                                                 color: (isDataEdited)

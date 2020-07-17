@@ -2,8 +2,8 @@ part of 'pages.dart';
 
 class PreferencePage extends StatefulWidget {
   final List<String> gender = [
-    "Male",
-    "Female",
+    "Pria",
+    "Wanita",
   ];
 
   final List<String> branch = [
@@ -30,7 +30,7 @@ class PreferencePage extends StatefulWidget {
 }
 
 class _PreferencePageState extends State<PreferencePage> {
-  String selectedGender = "Male";
+  String selectedGender = "Pria";
   String selectedBranch = "Jatinegara";
 
   @override
@@ -66,7 +66,7 @@ class _PreferencePageState extends State<PreferencePage> {
                         child: Icon(Icons.arrow_back)),
                   ),
                   Text(
-                    "Select your\nGender",
+                    "Silahkan Pilih\nJenis Kelamin",
                     style: blackTextFont.copyWith(fontSize: 20),
                   ),
                   SizedBox(height: 16),
@@ -77,7 +77,7 @@ class _PreferencePageState extends State<PreferencePage> {
                   ),
                   SizedBox(height: 24),
                   Text(
-                    "Select your branch\nTo work",
+                    "Silahkan Pilih\nTempatmu Bekerja",
                     style: blackTextFont.copyWith(fontSize: 20),
                   ),
                   SizedBox(height: 16),

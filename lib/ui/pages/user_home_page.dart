@@ -134,7 +134,7 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .bold)),
-                                                        Text("Check In",
+                                                        Text("Masuk",
                                                             style: blackTextFont
                                                                 .copyWith(
                                                                     color: Colors
@@ -172,7 +172,7 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .bold)),
-                                                              Text("Check Out",
+                                                              Text("Keluar",
                                                                   style: blackTextFont.copyWith(
                                                                       color: Colors
                                                                           .red,
@@ -475,7 +475,7 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                     });
                                   },
                                   child: Text(
-                                    "Today",
+                                    "Hari Ini",
                                     style: whiteTextFont.copyWith(
                                         fontSize: 16,
                                         color: !isToday
@@ -499,7 +499,7 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                     });
                                   },
                                   child: Text(
-                                    "Yesterday",
+                                    "Kemarin",
                                     style: whiteTextFont.copyWith(
                                         fontSize: 16,
                                         color: isToday

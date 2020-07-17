@@ -42,7 +42,7 @@ class _SignInPageState extends State<SignInPage> {
                     Container(
                       margin: EdgeInsets.only(top: 10, bottom: 10),
                       child: Text(
-                        "Welcome Back,\nMy Friend\'s!",
+                        "Selamat Datang!",
                         style: blackTextFont.copyWith(
                             fontSize: 26, fontWeight: FontWeight.bold),
                         textAlign: TextAlign.center,
@@ -51,7 +51,7 @@ class _SignInPageState extends State<SignInPage> {
                     Container(
                       margin: EdgeInsets.only(bottom: 30),
                       child: Text(
-                        "To attend attendance,\nplease login",
+                        "Silahkan masuk,\n untuk absen kamu hari ini",
                         style: blackTextFont.copyWith(
                             fontSize: 14, fontWeight: FontWeight.w400),
                         textAlign: TextAlign.center,
@@ -67,8 +67,8 @@ class _SignInPageState extends State<SignInPage> {
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10)),
-                        labelText: "Email",
-                        hintText: "Email",
+                        labelText: "Alamat Email",
+                        hintText: "Alamat Email",
                       ),
                     ),
                     SizedBox(height: 16),
@@ -83,8 +83,8 @@ class _SignInPageState extends State<SignInPage> {
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10)),
-                        labelText: "Password",
-                        hintText: "Password",
+                        labelText: "Kata Sandi",
+                        hintText: "Kata Sandi",
                         suffixIcon: IconButton(
                             icon: Icon(MdiIcons.eye),
                             color: this.showPassword
@@ -100,13 +100,13 @@ class _SignInPageState extends State<SignInPage> {
                     Row(
                       children: [
                         Text(
-                          "Forgot your password? ",
+                          "Lupa kata sandi? ",
                           style: greyTextFont.copyWith(
                               fontSize: 12, fontWeight: FontWeight.w400),
                         ),
                         GestureDetector(
                           child: Text(
-                            "Tap Here!",
+                            "Klik di sini",
                             style: blueTextFont.copyWith(
                                 fontSize: 12, fontWeight: FontWeight.bold),
                           ),
@@ -115,11 +115,11 @@ class _SignInPageState extends State<SignInPage> {
                                 EmailValidator.validate(emailController.text) ==
                                     false) {
                               return Flushbar(
-                                duration: Duration(seconds: 2),
+                                duration: Duration(seconds: 3),
                                 flushbarPosition: FlushbarPosition.BOTTOM,
                                 backgroundColor: Color(0xFFFF5C83),
                                 message:
-                                    "Please give your email address with right format",
+                                    "Masukkan alamat email Anda terlebih dahulu, dengan akun yang sudah terdaftar!",
                               )..show(context);
                             } else {
                               await AuthServices.resetPassword(
@@ -129,7 +129,7 @@ class _SignInPageState extends State<SignInPage> {
                                 flushbarPosition: FlushbarPosition.BOTTOM,
                                 backgroundColor: Color(0xFFFF5C83),
                                 message:
-                                    "The link to change your password has been sent to your email address, please check your email address!",
+                                    "Tautan untuk mengubah kata sandi Anda telah dikirim ke alamat email Anda, silakan periksa alamat email Anda!",
                               )..show(context);
                             }
                           },
@@ -185,11 +185,11 @@ class _SignInPageState extends State<SignInPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("Don\'t have an account? ",
+                        Text("Belum punya akun? ",
                             style: greyTextFont.copyWith(fontSize: 12)),
                         GestureDetector(
                           child: Text(
-                            "Tap Here!",
+                            "Buat sekarang",
                             style: blueTextFont.copyWith(
                                 fontSize: 12, fontWeight: FontWeight.bold),
                           ),

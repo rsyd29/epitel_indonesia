@@ -50,7 +50,7 @@ class _AboutPageState extends State<AboutPage> {
                       ),
                       Center(
                         child: Text(
-                          "About The \nApplication",
+                          "Tentang\nAplikasi",
                           style: blackTextFont.copyWith(fontSize: 20),
                           textAlign: TextAlign.center,
                         ),

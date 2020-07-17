@@ -25,7 +25,7 @@ class _AddAdminPageState extends State<AddAdminPage> {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: accentColor3,
-          title: Text('Page Add', style: whiteTextFont),
+          title: Text('Tambah Akun', style: whiteTextFont),
           leading: GestureDetector(
             onTap: () {
               context.bloc<PageBloc>().add(GoToAdminPage());
@@ -86,10 +86,10 @@ class _AddAdminPageState extends State<AddAdminPage> {
                         trailing: Container(
                           padding: EdgeInsets.all(5),
                           decoration: BoxDecoration(
-                              color: (list[index]['status'] == 'active')
+                              color: (list[index]['status'] == 'aktif')
                                   ? Colors.green
                                   : Colors.red,
-                              borderRadius: BorderRadius.circular(12)),
+                              borderRadius: BorderRadius.circular(8)),
                           child: Text(
                             list[index]['status'],
                             style: whiteTextFont.copyWith(

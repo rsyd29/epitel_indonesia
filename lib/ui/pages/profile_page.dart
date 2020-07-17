@@ -102,11 +102,11 @@ class ProfilePage extends StatelessWidget {
           }),
         ),
         ReusableSizedBox(height: 10),
-        ReusableStyleTextProfile(title: "Edit Profile"),
+        ReusableStyleTextProfile(title: "Ubah Profil"),
         BlocBuilder<UserBloc, UserState>(
           builder: (_, userState) => ReusableList(
             icon: MdiIcons.accountEdit,
-            title: "Edit Profile",
+            title: "Ubah Profil",
             onTap: () {
               context
                   .bloc<PageBloc>()
@@ -115,11 +115,11 @@ class ProfilePage extends StatelessWidget {
           ),
         ),
         ReusableSizedBox(height: 10),
-        ReusableStyleTextProfile(title: "About The Application"),
+        ReusableStyleTextProfile(title: "Tentang Aplikasi"),
         BlocBuilder<UserBloc, UserState>(
           builder: (_, userState) => ReusableList(
             icon: MdiIcons.information,
-            title: "About The Application",
+            title: "Tentang Aplikasi",
             onTap: () {
               context
                   .bloc<PageBloc>()
@@ -130,8 +130,8 @@ class ProfilePage extends StatelessWidget {
         ReusableSizedBox(height: 10),
         NotReusableSizedBoxAndButton(
           app: "Epitel Indonesia",
-          versi: "Version 1.0.0",
-          text: "Sign Out",
+          versi: "Versi 1.0.0",
+          text: "Keluar Akun",
           color: accentColor3,
           onPressed: () {
             context.bloc<UserBloc>().add(SignOut());
@@ -141,7 +141,8 @@ class ProfilePage extends StatelessWidget {
               duration: Duration(milliseconds: 1500),
               flushbarPosition: FlushbarPosition.TOP,
               backgroundColor: Color(0xFFFF5C83),
-              message: "You have left the account",
+              message:
+                  "Kamu telah keluar dari akun, terima kasih untuk hari ini",
             )..show(context);
           },
         ),

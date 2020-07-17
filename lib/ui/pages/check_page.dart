@@ -31,11 +31,11 @@ class _CheckPageState extends State<CheckPage> {
       builder: (_, userState) {
         if (userState is UserLoaded) {
           if (userState.user.role == 'admin' &&
-              userState.user.status == 'active' &&
+              userState.user.status == 'aktif' &&
               userState.user.deviceId == deviceId) {
             return AdminPage();
           } else if (userState.user.role == 'user' &&
-              userState.user.status == 'active' &&
+              userState.user.status == 'aktif' &&
               userState.user.deviceId == deviceId) {
             return UserPage();
           } else {

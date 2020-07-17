@@ -139,7 +139,7 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .bold)),
-                                                          Text("Check In",
+                                                          Text("Masuk",
                                                               style: blackTextFont
                                                                   .copyWith(
                                                                       color: Colors
@@ -177,8 +177,7 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                                                                             10,
                                                                         fontWeight:
                                                                             FontWeight.bold)),
-                                                                Text(
-                                                                    "Check Out",
+                                                                Text("Keluar",
                                                                     style: blackTextFont.copyWith(
                                                                         color: Colors
                                                                             .red,
@@ -322,7 +321,7 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                                     });
                                   },
                                   child: Text(
-                                    "Today",
+                                    "Hari Ini",
                                     style: whiteTextFont.copyWith(
                                         fontSize: 16,
                                         color: !isToday
@@ -346,7 +345,7 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                                     });
                                   },
                                   child: Text(
-                                    "Yesterday",
+                                    "Kemarin",
                                     style: whiteTextFont.copyWith(
                                         fontSize: 16,
                                         color: isToday

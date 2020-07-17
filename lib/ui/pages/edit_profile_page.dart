@@ -62,7 +62,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         height: 20,
                       ),
                       Text(
-                        "Edit Your\nProfile",
+                        "Ubah Profil\nKamu",
                         textAlign: TextAlign.center,
                         style: blackTextFont.copyWith(fontSize: 20),
                       ),
@@ -137,9 +137,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10)),
-                              labelText: "User ID",
+                              labelText: "ID Pengguna",
                               hintText: (widget.user.uid == null)
-                                  ? "User ID"
+                                  ? "ID Pengguna"
                                   : widget.user.uid),
                         ),
                       ),
@@ -151,9 +151,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10)),
-                              labelText: "Device ID",
+                              labelText: "ID Perangkat",
                               hintText: (widget.user.deviceId == null)
-                                  ? "Device ID"
+                                  ? "ID Perangkat"
                                   : widget.user.deviceId),
                         ),
                       ),
@@ -166,9 +166,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10)),
                             hintText: (widget.user.email == null)
-                                ? "Email"
+                                ? "Alamat Email"
                                 : widget.user.email,
-                            labelText: "Email",
+                            labelText: "Alamat Email",
                           ),
                         ),
                       ),
@@ -192,8 +192,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10)),
-                          hintText: "Full Name",
-                          labelText: "Full Name",
+                          hintText: "Nama Lengkap",
+                          labelText: "Nama Lengkap",
                         ),
                       ),
                       SizedBox(height: 16),
@@ -217,8 +217,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10)),
-                          hintText: "Phone Number",
-                          labelText: "Phone Number",
+                          hintText: "Nomor Handphone",
+                          labelText: "Nomor Handphone",
                         ),
                       ),
                       SizedBox(height: 16),
@@ -241,8 +241,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10)),
-                          hintText: "Address",
-                          labelText: "Address",
+                          hintText: "Alamat",
+                          labelText: "Alamat",
                         ),
                       ),
                       SizedBox(height: 10),
@@ -250,7 +250,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         color: Colors.red[400],
                         disabledColor: Color(0xFFE4E4E4),
                         icons: MdiIcons.alertOctagram,
-                        text: "Change Password",
+                        text: "Ganti Kata Sandi",
                         textStyle: whiteTextFont.copyWith(
                             fontSize: 16,
                             color: (isUpdating)
@@ -279,7 +279,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           : ReusableButton(
                               color: mainColor,
                               disabledColor: Color(0xFFE4E4E4),
-                              text: "Update My Profile",
+                              text: "Perbarui Profil Saya",
                               textStyle: whiteTextFont.copyWith(
                                   fontSize: 16,
                                   color: (isDataEdited)
@@ -306,13 +306,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                           profilePicture: profilePath));
 
                                       if (widget.user.role == "admin") {
-                                        context
-                                            .bloc<PageBloc>()
-                                            .add(GoToAdminPage());
+                                        context.bloc<PageBloc>().add(
+                                            GoToAdminPage(
+                                                bottomNavBarIndex: 1));
                                       } else {
-                                        context
-                                            .bloc<PageBloc>()
-                                            .add(GoToUserPage());
+                                        context.bloc<PageBloc>().add(
+                                            GoToUserPage(bottomNavBarIndex: 1));
                                       }
 
                                       return Flushbar(
@@ -320,7 +319,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                         flushbarPosition:
                                             FlushbarPosition.BOTTOM,
                                         backgroundColor: Color(0xFFFF5C83),
-                                        message: "Update profile success",
+                                        message: "Memperbarui profile berhasil",
                                       )..show(context);
                                     }
                                   : null,

@@ -52,7 +52,7 @@ class _AccountConfirmationPageState extends State<AccountConfirmationPage> {
                           ),
                           Center(
                             child: Text(
-                              "Confirm\nNew Account",
+                              "Konfirmasi\nAkun Baru",
                               style: blackTextFont.copyWith(fontSize: 20),
                               textAlign: TextAlign.center,
                             ),
@@ -91,7 +91,7 @@ class _AccountConfirmationPageState extends State<AccountConfirmationPage> {
                       ),
                     ),
                     Text(
-                      "Welcome",
+                      "Selamat Datang",
                       style: blackTextFont.copyWith(fontSize: 18),
                     ),
                     Text(
@@ -99,7 +99,9 @@ class _AccountConfirmationPageState extends State<AccountConfirmationPage> {
                       style: blackTextFont.copyWith(
                           fontSize: 20, fontWeight: FontWeight.bold),
                     ),
-                    Text("Your device ID: " + widget.registrationData.deviceId,
+                    Text(
+                        "Nomor ID Perangkatmu: " +
+                            widget.registrationData.deviceId,
                         style: blackTextFont.copyWith(fontSize: 12)),
                     SizedBox(
                       height: 50,
@@ -115,7 +117,7 @@ class _AccountConfirmationPageState extends State<AccountConfirmationPage> {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8),
                                 ),
-                                child: Text("Create My Account Now",
+                                child: Text("Buat Akun Sekarang",
                                     style:
                                         whiteTextFont.copyWith(fontSize: 16)),
                                 onPressed: () async {

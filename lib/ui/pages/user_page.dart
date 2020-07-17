@@ -77,9 +77,8 @@ class _UserPageState extends State<UserPage> {
                         String viewLat = position.latitude.toString();
                         String viewLong = position.longitude.toString();
 
-                        var time = DateFormat.jms().format(new DateTime.now());
-                        var date =
-                            DateFormat.yMMMEd().format(new DateTime.now());
+                        var time = DateTime.now().timeNow;
+                        var date = DateTime.now().dateNow;
 
                         if (qrcode == "Setiabudi" &&
                             latitude == '-6.2' &&
@@ -90,12 +89,12 @@ class _UserPageState extends State<UserPage> {
                                 return BottomSheetWidget(
                                   icon: MdiIcons.checkboxMarkedCircle,
                                   color: Colors.green,
-                                  result: "Success!",
-                                  text: "Your absense has succeed in the\n" +
-                                      qrcode +
-                                      " location",
+                                  result: "Berhasil!",
+                                  text:
+                                      "Absensi Telah Berhasil\nSelamat Bekerja",
                                   latitude: viewLat,
                                   longitude: viewLong,
+                                  location: qrcode,
                                   qrcode: qrcode,
                                   date: date,
                                   time: time,
@@ -132,16 +131,17 @@ class _UserPageState extends State<UserPage> {
                                 return BottomSheetWidget(
                                   icon: MdiIcons.closeCircle,
                                   color: Colors.red,
-                                  result: "Failed!",
+                                  result: "Upss!",
                                   text:
-                                      "The code is invalid or \nlocation not found,\nplease scan again!",
+                                      "Silahkan kamu periksa kembali\nkode dan lokasimu!",
                                   latitude: viewLat,
                                   longitude: viewLong,
+                                  location: qrcode,
                                   qrcode: qrcode,
                                   date: date,
                                   time: time,
                                   account: userState.user.name,
-                                  buttonText: "Back",
+                                  buttonText: "Kembali",
                                   onPressed: () {
                                     Navigator.pop(context);
                                   },

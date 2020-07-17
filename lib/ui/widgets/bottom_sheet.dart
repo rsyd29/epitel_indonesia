@@ -3,6 +3,7 @@ part of 'widgets.dart';
 class BottomSheetWidget extends StatelessWidget {
   final String latitude,
       longitude,
+      location,
       qrcode,
       date,
       time,
@@ -17,6 +18,7 @@ class BottomSheetWidget extends StatelessWidget {
   BottomSheetWidget(
       {this.latitude,
       this.longitude,
+      this.location,
       this.account,
       this.qrcode,
       this.date,
@@ -61,7 +63,7 @@ class BottomSheetWidget extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("Account : ",
+                      Text("Nama Lengkap : ",
                           style: blackTextFont.copyWith(
                               fontWeight: FontWeight.bold)),
                       Text(account, style: blackTextFont)
@@ -71,7 +73,7 @@ class BottomSheetWidget extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("Date : ",
+                      Text("Tanggal : ",
                           style: blackTextFont.copyWith(
                               fontWeight: FontWeight.bold)),
                       Text(date, style: blackTextFont)
@@ -81,7 +83,7 @@ class BottomSheetWidget extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("Time : ",
+                      Text("Waktu : ",
                           style: blackTextFont.copyWith(
                               fontWeight: FontWeight.bold)),
                       Text(time, style: blackTextFont)
@@ -91,7 +93,17 @@ class BottomSheetWidget extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("Coordinat Point : ",
+                      Text("Lokasi : ",
+                          style: blackTextFont.copyWith(
+                              fontWeight: FontWeight.bold)),
+                      Text(location, style: blackTextFont)
+                    ],
+                  ),
+                  SizedBox(height: 3.0),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("Titik Koordinat : ",
                           style: blackTextFont.copyWith(
                               fontWeight: FontWeight.bold)),
                       Text(latitude + ', ', style: blackTextFont),

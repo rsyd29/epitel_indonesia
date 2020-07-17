@@ -90,25 +90,25 @@ class _ErrorPageState extends State<ErrorPage> {
                     style: blackTextFont.copyWith(
                         fontSize: 20, fontWeight: FontWeight.bold)),
                 SizedBox(height: 5),
-                Text("Your device ID: " + widget.user.deviceId,
+                Text("Nomor ID perangkatmu: " + widget.user.deviceId,
                     style: blackTextFont.copyWith(fontSize: 12)),
                 SizedBox(height: 5),
-                Text("You login using the device ID: " + deviceId,
+                Text("Kamu masuk menggunakan ID perangkat: " + deviceId,
                     style: blackTextFont.copyWith(fontSize: 12)),
                 SizedBox(height: 5),
                 Text(
-                  "\"Your account is not active or device not registered,\nplease ask the admin!\"",
+                  "\"Akun kamu tidak aktif atau perangkat tidak terdaftar,\nsilahkan menanyakan kepada admin!\"",
                   style: redTextFont.copyWith(fontSize: 12),
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: 20),
                 ReusableButton(
                     height: 45,
-                    width: 120,
+                    width: 130,
                     icWidth: 0,
                     icons: MdiIcons.chevronLeft,
                     color: Colors.red,
-                    text: "BACK",
+                    text: "KEMBALI",
                     textStyle: whiteTextFont.copyWith(fontSize: 16),
                     onPressed: () {
                       context.bloc<UserBloc>().add(SignOut());

@@ -15,7 +15,7 @@ class UserServices {
       'profilePicture': user.profilePicture ?? "",
       'selectedGender': user.selectedGender ?? "",
       'selectedBranch': user.selectedBranch ?? "",
-      'status': user.status ?? "not active",
+      'status': user.status ?? "tidak aktif",
       'deviceId': user.deviceId ?? "",
     });
     return UpdateUserData(user: user);
