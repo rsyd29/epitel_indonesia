@@ -28,13 +28,13 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                             ? Firestore.instance
                                 .collection("absens")
                                 .where('checkOut',
-                                    isLessThanOrEqualTo: DateTime.now())
+                                    isGreaterThanOrEqualTo: DateTime.now())
                                 .orderBy("checkOut", descending: true)
                                 .snapshots()
                             : Firestore.instance
                                 .collection("absens")
                                 .where('checkOut',
-                                    isGreaterThanOrEqualTo: DateTime.now())
+                                    isLessThanOrEqualTo: DateTime.now())
                                 .orderBy("checkOut", descending: true)
                                 .snapshots(),
                         builder: (BuildContext context,
@@ -45,7 +45,7 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                           if (querySnapshot.connectionState ==
                               ConnectionState.waiting) {
                             return Loading(
-                                color: mainColor, colorBg: Colors.white);
+                                color: mainColor, colorBg: Colors.transparent);
                           } else {
                             final list = querySnapshot.data.documents;
                             return ListView.builder(
@@ -58,6 +58,8 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                                   DateTime checkOut =
                                       list[index]['checkOut'].toDate();
 
+                                  var listLength = list.length;
+
                                   return GestureDetector(
                                     onTap: () {
                                       print("masuk menggunakan absenID: " +
@@ -66,7 +68,8 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                                     child: Container(
                                       color: Colors.white,
                                       margin: EdgeInsets.only(
-                                          top: index == 0 ? 166 : 20),
+                                        top: index == 0 ? 166 : 20,
+                                      ),
                                       child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
@@ -153,44 +156,44 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                                                       )
                                                     ],
                                                   ),
-                                                  Row(
-                                                    children: [
-                                                      Icon(
-                                                        MdiIcons.mapMarker,
-                                                        color: Colors.red,
-                                                        size: 40,
-                                                      ),
-                                                      Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Text(
-                                                              "${checkOut.dateNow}",
-                                                              style: blackTextFont
-                                                                  .copyWith(
-                                                                      fontSize:
-                                                                          10,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold)),
-                                                          Text("Check Out",
-                                                              style: blackTextFont
-                                                                  .copyWith(
-                                                                      color: Colors
-                                                                          .red,
-                                                                      fontSize:
-                                                                          10)),
-                                                          Text(
-                                                              "${checkOut.timeNow}",
-                                                              style: blackTextFont
-                                                                  .copyWith(
-                                                                      fontSize:
-                                                                          10))
-                                                        ],
-                                                      )
-                                                    ],
-                                                  )
+                                                  (checkOut != checkIn)
+                                                      ? Row(
+                                                          children: [
+                                                            Icon(
+                                                              MdiIcons
+                                                                  .mapMarker,
+                                                              color: Colors.red,
+                                                              size: 40,
+                                                            ),
+                                                            Column(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Text(
+                                                                    "${checkOut.dateNow}",
+                                                                    style: blackTextFont.copyWith(
+                                                                        fontSize:
+                                                                            10,
+                                                                        fontWeight:
+                                                                            FontWeight.bold)),
+                                                                Text(
+                                                                    "Check Out",
+                                                                    style: blackTextFont.copyWith(
+                                                                        color: Colors
+                                                                            .red,
+                                                                        fontSize:
+                                                                            10)),
+                                                                Text(
+                                                                    "${checkOut.timeNow}",
+                                                                    style: blackTextFont.copyWith(
+                                                                        fontSize:
+                                                                            10))
+                                                              ],
+                                                            )
+                                                          ],
+                                                        )
+                                                      : Text('Belum CheckOut')
                                                 ],
                                               )),
                                         ],

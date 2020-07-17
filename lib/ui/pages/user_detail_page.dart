@@ -35,6 +35,7 @@ class _UserDetailPageState extends State<UserDetailPage> {
     return WillPopScope(
       onWillPop: () {
         context.bloc<PageBloc>().add(GoToAddPage(widget.user));
+
         return;
       },
       child: Scaffold(
@@ -58,8 +59,11 @@ class _UserDetailPageState extends State<UserDetailPage> {
                             padding: EdgeInsets.only(top: 20),
                             child: GestureDetector(
                               onTap: () async {
-                                context.bloc<PageBloc>().add(GoToAddPage(
-                                    (userState as UserLoaded).user));
+                                context
+                                    .bloc<PageBloc>()
+                                    .add(GoToAddPage(widget.user));
+
+                                print("udah ke tap");
                               },
                               child: Icon(
                                 Icons.arrow_back,
@@ -426,10 +430,12 @@ class _UserDetailPageState extends State<UserDetailPage> {
                                                     }
                                                   });
 
+                                                  // context
+                                                  //     .bloc<PageBloc>()
+                                                  //     .add(GoToUserDetailPage(detailUser));
+
                                                   context.bloc<PageBloc>().add(
-                                                      GoToAddPage((userState
-                                                              as UserLoaded)
-                                                          .user));
+                                                      GoToAddPage(widget.user));
 
                                                   return Flushbar(
                                                     duration: Duration(

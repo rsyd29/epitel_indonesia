@@ -15,8 +15,6 @@ class _UserPageState extends State<UserPage> {
   int bottomNavBarIndex;
   PageController pageController;
 
-  final _firestore = Firestore.instance;
-
   @override
   void initState() {
     super.initState();
@@ -73,9 +71,9 @@ class _UserPageState extends State<UserPage> {
                         String qrcode = '';
                         qrcode = await getScan();
                         var position = await getLocation();
-                        String latitude = position.latitude.toStringAsFixed(2);
+                        String latitude = position.latitude.toStringAsFixed(1);
                         String longitude =
-                            position.longitude.toStringAsFixed(2);
+                            position.longitude.toStringAsFixed(1);
                         String viewLat = position.latitude.toString();
                         String viewLong = position.longitude.toString();
 
@@ -84,8 +82,8 @@ class _UserPageState extends State<UserPage> {
                             DateFormat.yMMMEd().format(new DateTime.now());
 
                         if (qrcode == "Setiabudi" &&
-                            latitude == '-6.22' &&
-                            longitude == '106.83') {
+                            latitude == '-6.2' &&
+                            longitude == '106.8') {
                           return showModalBottomSheet(
                               context: context,
                               builder: (context) {
@@ -104,20 +102,25 @@ class _UserPageState extends State<UserPage> {
                                   account: userState.user.name,
                                   buttonText: "Done",
                                   onPressed: () async {
-                                    var checkIn = {
+                                    DocumentReference documentReference =
+                                        Firestore.instance
+                                            .collection('absens')
+                                            .document();
+                                    documentReference.setData({
                                       'uid': userState.user.uid,
+                                      'aid': documentReference.documentID,
                                       'name': userState.user.name,
+                                      'email': userState.user.email,
                                       'location': qrcode,
                                       'checkIn': DateTime.now(),
-                                      'checkOut': null,
+                                      'checkOut': DateTime.now(),
                                       'lat': latitude,
                                       'long': longitude,
                                       'status': "checkIn",
-                                    };
-
-                                    _firestore
-                                        .collection('absens')
-                                        .add(checkIn);
+                                    });
+                                    context
+                                        .bloc<PageBloc>()
+                                        .add(GoToUserPage());
                                     Navigator.pop(context);
                                   },
                                 );

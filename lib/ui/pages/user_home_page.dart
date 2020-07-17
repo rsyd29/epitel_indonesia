@@ -7,6 +7,7 @@ class HomeUserPage extends StatefulWidget {
 
 class _HomeUserPageState extends State<HomeUserPage> {
   bool isToday = false;
+  bool isCheckOut = true;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -25,16 +26,17 @@ class _HomeUserPageState extends State<HomeUserPage> {
                     stream: (isToday)
                         ? Firestore.instance
                             .collection("absens")
-                            .where("uid", isEqualTo: userState.user.uid)
+                            .where('uid', isEqualTo: userState.user.uid)
                             .where('checkOut',
-                                isLessThanOrEqualTo: DateTime.now())
+                                isGreaterThanOrEqualTo: DateTime.now().day)
                             .orderBy("checkOut", descending: true)
                             .snapshots()
                         : Firestore.instance
                             .collection("absens")
-                            .where("uid", isEqualTo: userState.user.uid)
+                            .where('uid', isEqualTo: userState.user.uid)
                             .where('checkOut',
-                                isGreaterThanOrEqualTo: DateTime.now())
+                                isLessThanOrEqualTo: DateTime.now())
+                            .orderBy("checkOut", descending: true)
                             .snapshots(),
                     builder: (BuildContext context,
                         AsyncSnapshot<QuerySnapshot> querySnapshot) {
@@ -43,13 +45,15 @@ class _HomeUserPageState extends State<HomeUserPage> {
                       }
                       if (querySnapshot.connectionState ==
                           ConnectionState.waiting) {
-                        return Loading(color: mainColor, colorBg: Colors.white);
+                        return Loading(
+                            color: mainColor, colorBg: Colors.transparent);
                       } else {
                         final list = querySnapshot.data.documents;
                         return ListView.builder(
                             itemCount: list.length,
                             itemBuilder: (_, index) {
                               String absenID = list[index]['aid'];
+                              String status = list[index]['status'];
                               DateTime checkIn =
                                   list[index]['checkIn'].toDate();
 
@@ -87,8 +91,10 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                                     color: Colors.white),
                                                 SizedBox(width: 5),
                                                 Text(list[index]['location'],
-                                                    style: whiteTextFont
-                                                        .copyWith(fontSize: 12))
+                                                    style:
+                                                        whiteTextFont.copyWith(
+                                                      fontSize: 12,
+                                                    ))
                                               ],
                                             ),
                                           ],
@@ -103,87 +109,243 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                           ),
                                           color: Colors.white,
                                           child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Row(
-                                                children: [
-                                                  Icon(
-                                                    MdiIcons.mapMarker,
-                                                    color: Colors.green,
-                                                    size: 40,
-                                                  ),
-                                                  Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text("${checkIn.dateNow}",
-                                                          style: blackTextFont
-                                                              .copyWith(
-                                                                  fontSize: 10,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold)),
-                                                      Text("Check In",
-                                                          style: blackTextFont
-                                                              .copyWith(
-                                                                  color: Colors
-                                                                      .green,
-                                                                  fontSize:
-                                                                      10)),
-                                                      Text("${checkIn.timeNow}",
-                                                          style: blackTextFont
-                                                              .copyWith(
-                                                                  fontSize: 10))
-                                                    ],
-                                                  )
-                                                ],
-                                              ),
-                                              (checkOut != null)
-                                                  ? Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Icon(
+                                                      MdiIcons.mapMarker,
+                                                      color: Colors.green,
+                                                      size: 40,
+                                                    ),
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
                                                       children: [
-                                                        Icon(
-                                                          MdiIcons.mapMarker,
-                                                          color: Colors.red,
-                                                          size: 40,
-                                                        ),
-                                                        Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Text(
-                                                                "${checkOut.dateNow}",
-                                                                style: blackTextFont.copyWith(
+                                                        Text(
+                                                            "${checkIn.dateNow}",
+                                                            style: blackTextFont
+                                                                .copyWith(
                                                                     fontSize:
                                                                         10,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .bold)),
-                                                            Text("Check Out",
-                                                                style: blackTextFont
-                                                                    .copyWith(
-                                                                        color: Colors
-                                                                            .red,
-                                                                        fontSize:
-                                                                            10)),
-                                                            Text(
-                                                                "${checkOut.timeNow}",
-                                                                style: blackTextFont
-                                                                    .copyWith(
-                                                                        fontSize:
-                                                                            10))
-                                                          ],
-                                                        )
+                                                        Text("Check In",
+                                                            style: blackTextFont
+                                                                .copyWith(
+                                                                    color: Colors
+                                                                        .green,
+                                                                    fontSize:
+                                                                        10)),
+                                                        Text(
+                                                            "${checkIn.timeNow}",
+                                                            style: blackTextFont
+                                                                .copyWith(
+                                                                    fontSize:
+                                                                        10))
                                                       ],
                                                     )
-                                                  : IconButton(
-                                                      icon:
-                                                          Icon(MdiIcons.qrcode),
-                                                      onPressed: () {}),
-                                            ],
-                                          )),
+                                                  ],
+                                                ),
+                                                (checkOut != checkIn)
+                                                    ? Row(
+                                                        children: [
+                                                          Icon(
+                                                            MdiIcons.mapMarker,
+                                                            color: Colors.red,
+                                                            size: 40,
+                                                          ),
+                                                          Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                  "${checkOut.dateNow}",
+                                                                  style: blackTextFont.copyWith(
+                                                                      fontSize:
+                                                                          10,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold)),
+                                                              Text("Check Out",
+                                                                  style: blackTextFont.copyWith(
+                                                                      color: Colors
+                                                                          .red,
+                                                                      fontSize:
+                                                                          10)),
+                                                              Text(
+                                                                  "${checkOut.timeNow}",
+                                                                  style: blackTextFont
+                                                                      .copyWith(
+                                                                          fontSize:
+                                                                              10))
+                                                            ],
+                                                          )
+                                                        ],
+                                                      )
+                                                    : IconButton(
+                                                        icon: Icon(
+                                                            MdiIcons.qrcode),
+                                                        onPressed: () async {
+                                                          if (PermissionStatus
+                                                                  .denied ==
+                                                              null) {
+                                                            return openLocationSettingsConfiguration();
+                                                          } else {
+                                                            String qrcode = '';
+                                                            qrcode =
+                                                                await getScan();
+                                                            var position =
+                                                                await getLocation();
+                                                            String latitude =
+                                                                position
+                                                                    .latitude
+                                                                    .toStringAsFixed(
+                                                                        2);
+                                                            String longitude =
+                                                                position
+                                                                    .longitude
+                                                                    .toStringAsFixed(
+                                                                        2);
+                                                            String viewLat =
+                                                                position
+                                                                    .latitude
+                                                                    .toString();
+                                                            String viewLong =
+                                                                position
+                                                                    .longitude
+                                                                    .toString();
+
+                                                            var time = DateFormat
+                                                                    .jms()
+                                                                .format(
+                                                                    new DateTime
+                                                                        .now());
+                                                            var date = DateFormat
+                                                                    .yMMMEd()
+                                                                .format(
+                                                                    new DateTime
+                                                                        .now());
+
+                                                            if (qrcode == "Setiabudi" &&
+                                                                latitude ==
+                                                                    '-6.22' &&
+                                                                longitude ==
+                                                                    '106.83') {
+                                                              return showModalBottomSheet(
+                                                                  context:
+                                                                      context,
+                                                                  builder:
+                                                                      (context) {
+                                                                    return BottomSheetWidget(
+                                                                      icon: MdiIcons
+                                                                          .checkboxMarkedCircle,
+                                                                      color: Colors
+                                                                          .green,
+                                                                      result:
+                                                                          "Success!",
+                                                                      text: "Your absense has succeed in the\n" +
+                                                                          qrcode +
+                                                                          " location",
+                                                                      latitude:
+                                                                          viewLat,
+                                                                      longitude:
+                                                                          viewLong,
+                                                                      qrcode:
+                                                                          qrcode,
+                                                                      date:
+                                                                          date,
+                                                                      time:
+                                                                          time,
+                                                                      account: userState
+                                                                          .user
+                                                                          .name,
+                                                                      buttonText:
+                                                                          "Done",
+                                                                      onPressed:
+                                                                          () async {
+                                                                        setState(
+                                                                            () {
+                                                                          isCheckOut =
+                                                                              !isCheckOut;
+                                                                        });
+                                                                        final Firestore
+                                                                            firestore =
+                                                                            Firestore.instance;
+
+                                                                        DocumentReference
+                                                                            documentTask =
+                                                                            firestore.document('absens/$absenID');
+                                                                        firestore
+                                                                            .runTransaction((transaction) async {
+                                                                          DocumentSnapshot
+                                                                              task =
+                                                                              await transaction.get(documentTask);
+                                                                          if (task
+                                                                              .exists) {
+                                                                            await transaction.update(
+                                                                              task.reference,
+                                                                              {
+                                                                                'checkOut': DateTime.now(),
+                                                                                'status': 'checkOut',
+                                                                              },
+                                                                            );
+                                                                          }
+                                                                        });
+                                                                        context
+                                                                            .bloc<PageBloc>()
+                                                                            .add(GoToUserPage());
+                                                                        Navigator.pop(
+                                                                            context);
+                                                                      },
+                                                                    );
+                                                                  });
+                                                            } else {
+                                                              return showModalBottomSheet(
+                                                                  context:
+                                                                      context,
+                                                                  builder:
+                                                                      (context) {
+                                                                    return BottomSheetWidget(
+                                                                      icon: MdiIcons
+                                                                          .closeCircle,
+                                                                      color: Colors
+                                                                          .red,
+                                                                      result:
+                                                                          "Failed!",
+                                                                      text:
+                                                                          "The code is invalid or \nlocation not found,\nplease scan again!",
+                                                                      latitude:
+                                                                          viewLat,
+                                                                      longitude:
+                                                                          viewLong,
+                                                                      qrcode:
+                                                                          qrcode,
+                                                                      date:
+                                                                          date,
+                                                                      time:
+                                                                          time,
+                                                                      account: userState
+                                                                          .user
+                                                                          .name,
+                                                                      buttonText:
+                                                                          "Back",
+                                                                      onPressed:
+                                                                          () {
+                                                                        Navigator.pop(
+                                                                            context);
+                                                                      },
+                                                                    );
+                                                                  });
+                                                            }
+                                                          }
+                                                        })
+                                              ])),
                                     ],
                                   ),
                                 ),
