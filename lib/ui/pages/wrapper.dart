@@ -4,7 +4,6 @@ class Wrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     FirebaseUser firebaseUser = Provider.of<FirebaseUser>(context);
-    User user;
 
     if (firebaseUser == null) {
       if (!(prevPageEvent is GoToSplashPage)) {
@@ -14,12 +13,7 @@ class Wrapper extends StatelessWidget {
     } else {
       if (!(prevPageEvent is GoToCheckPage)) {
         context.bloc<UserBloc>().add(LoadUser(firebaseUser.uid));
-        // context.bloc<AbsenBloc>().add(GetAbsens(firebaseUser.uid));
         prevPageEvent = GoToCheckPage();
-        context.bloc<PageBloc>().add(prevPageEvent);
-      } else if (prevPageEvent is GoToAddPage) {
-        context.bloc<UserBloc>().add(GetUsers(firebaseUser.uid));
-        prevPageEvent = GoToAddPage(user);
         context.bloc<PageBloc>().add(prevPageEvent);
       }
     }
@@ -37,9 +31,15 @@ class Wrapper extends StatelessWidget {
                             ? AccountConfirmationPage(
                                 pageState.registrationData)
                             : (pageState is OnAdminPage)
-                                ? AdminPage()
+                                ? AdminPage(
+                                    bottomNavBarIndex:
+                                        pageState.bottomNavBarIndex,
+                                  )
                                 : (pageState is OnUserPage)
-                                    ? UserPage()
+                                    ? UserPage(
+                                        bottomNavBarIndex:
+                                            pageState.bottomNavBarIndex,
+                                      )
                                     : (pageState is OnEditProfilePage)
                                         ? EditProfilePage(pageState.user)
                                         : (pageState is OnAboutPage)

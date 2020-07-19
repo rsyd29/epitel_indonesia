@@ -72,14 +72,6 @@ class GoToAboutPage extends PageEvent {
   List<Object> get props => [user];
 }
 
-class GoToRecapPage extends PageEvent {
-  final User user;
-
-  GoToRecapPage(this.user);
-  @override
-  List<Object> get props => [user];
-}
-
 class GoToAddPage extends PageEvent {
   final User user;
 

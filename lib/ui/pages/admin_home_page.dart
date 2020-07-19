@@ -27,15 +27,17 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                         stream: (isToday)
                             ? Firestore.instance
                                 .collection("absens")
-                                .where('checkOut',
-                                    isGreaterThanOrEqualTo: DateTime.now())
+                                .where("status", isEqualTo: "checkOut")
+                                // .where('checkOut',
+                                //     isLessThanOrEqualTo: DateTime.now())
                                 .orderBy("checkOut", descending: true)
                                 .snapshots()
                             : Firestore.instance
                                 .collection("absens")
-                                .where('checkOut',
-                                    isLessThanOrEqualTo: DateTime.now())
-                                .orderBy("checkOut", descending: true)
+                                .where("status", isEqualTo: "checkIn")
+                                // .where('checkOut',
+                                //     isGreaterThanOrEqualTo: DateTime.now())
+                                // .orderBy("checkOut", descending: true)
                                 .snapshots(),
                         builder: (BuildContext context,
                             AsyncSnapshot<QuerySnapshot> querySnapshot) {
@@ -57,8 +59,6 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
 
                                   DateTime checkOut =
                                       list[index]['checkOut'].toDate();
-
-                                  var listLength = list.length;
 
                                   return GestureDetector(
                                     onTap: () {

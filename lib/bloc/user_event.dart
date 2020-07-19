@@ -13,15 +13,6 @@ class LoadUser extends UserEvent {
   List<Object> get props => [uid];
 }
 
-class GetUsers extends UserEvent {
-  final String uid;
-
-  GetUsers(this.uid);
-
-  @override
-  List<Object> get props => [uid];
-}
-
 class SignOut extends UserEvent {
   @override
   List<Object> get props => [];
@@ -40,45 +31,6 @@ class UpdateData extends UserEvent {
   final String deviceId;
 
   UpdateData(
-      {this.uid,
-      this.name,
-      this.profilePicture,
-      this.noHp,
-      this.alamat,
-      this.selectedBranch,
-      this.selectedGender,
-      this.role,
-      this.status,
-      this.deviceId});
-
-  @override
-  List<Object> get props => [
-        uid,
-        name,
-        profilePicture,
-        noHp,
-        alamat,
-        selectedBranch,
-        selectedGender,
-        role,
-        status,
-        deviceId,
-      ];
-}
-
-class UpdateDataUsers extends UserEvent {
-  final String uid;
-  final String name;
-  final String profilePicture;
-  final String noHp;
-  final String alamat;
-  final String selectedBranch;
-  final String role;
-  final String selectedGender;
-  final String status;
-  final String deviceId;
-
-  UpdateDataUsers(
       {this.uid,
       this.name,
       this.profilePicture,

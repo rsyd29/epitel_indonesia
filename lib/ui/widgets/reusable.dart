@@ -1,22 +1,5 @@
 part of 'widgets.dart';
 
-class ReusableTextField extends StatelessWidget {
-  final String labelText, hintText;
-  final Function controller, trailing;
-
-  ReusableTextField(
-      {this.controller, this.trailing, this.labelText, this.hintText});
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      decoration: InputDecoration(
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-          labelText: labelText,
-          hintText: hintText),
-    );
-  }
-}
-
 class ReusableStyleTextProfile extends StatelessWidget {
   final String title;
   ReusableStyleTextProfile({@required this.title});
@@ -29,19 +12,6 @@ class ReusableStyleTextProfile extends StatelessWidget {
             title: Text(title,
                 style: blackTextFont.copyWith(
                     fontSize: 18, fontWeight: FontWeight.w600))));
-  }
-}
-
-class ReusableFlushBar extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-        child: Flushbar(
-      duration: Duration(milliseconds: 1500),
-      flushbarPosition: FlushbarPosition.BOTTOM,
-      backgroundColor: Color(0xFFFF5C83),
-      message: "Test",
-    )..show(context));
   }
 }
 

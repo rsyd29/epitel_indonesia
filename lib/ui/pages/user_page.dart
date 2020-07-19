@@ -3,9 +3,8 @@ part of 'pages.dart';
 class UserPage extends StatefulWidget {
   final int bottomNavBarIndex;
   final User user;
-  final Absen absen;
 
-  UserPage({this.bottomNavBarIndex = 0, this.user, this.absen});
+  UserPage({this.bottomNavBarIndex = 0, this.user});
 
   @override
   _UserPageState createState() => _UserPageState();
@@ -22,8 +21,6 @@ class _UserPageState extends State<UserPage> {
     bottomNavBarIndex = widget.bottomNavBarIndex;
     pageController = PageController(initialPage: bottomNavBarIndex);
   }
-
-  void checkIn() {}
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +88,7 @@ class _UserPageState extends State<UserPage> {
                                   color: Colors.green,
                                   result: "Berhasil!",
                                   text:
-                                      "Absensi Telah Berhasil\nSelamat Bekerja",
+                                      "Absen Masuk Telah Berhasil\nSelamat Bekerja",
                                   latitude: viewLat,
                                   longitude: viewLong,
                                   location: qrcode,
@@ -99,7 +96,7 @@ class _UserPageState extends State<UserPage> {
                                   date: date,
                                   time: time,
                                   account: userState.user.name,
-                                  buttonText: "Done",
+                                  buttonText: "Selesai",
                                   onPressed: () async {
                                     DocumentReference documentReference =
                                         Firestore.instance
@@ -136,7 +133,7 @@ class _UserPageState extends State<UserPage> {
                                       "Silahkan kamu periksa kembali\nkode dan lokasimu!",
                                   latitude: viewLat,
                                   longitude: viewLong,
-                                  location: qrcode,
+                                  location: "tidak diketahui",
                                   qrcode: qrcode,
                                   date: date,
                                   time: time,
@@ -160,52 +157,52 @@ class _UserPageState extends State<UserPage> {
     ));
   }
 
-  void getBottomSheet(context) async {
-    String qrcode = '';
-    qrcode = await getScan();
-    // var position;
-    // position = await getLocation();
-    var position = await Geolocator().getCurrentPosition();
-    String latitude = position.latitude.toString();
-    String longitude = position.longitude.toString();
-    if (qrcode == "Jatinegara") {
-      return showModalBottomSheet(
-          context: context,
-          builder: (context) {
-            return BottomSheetWidget(
-              icon: MdiIcons.checkboxMarkedCircle,
-              color: Colors.green,
-              result: "Success!",
-              text: "Your absense has succeed in the\n" + qrcode + " location",
-              latitude: latitude,
-              longitude: longitude,
-              qrcode: qrcode,
-              time: DateTime.now().millisecondsSinceEpoch.toString(),
-              account: "userState.user.name",
-              buttonText: "Done",
-              onPressed: () async {},
-            );
-          });
-    } else {
-      return showModalBottomSheet(
-          context: context,
-          builder: (context) {
-            return BottomSheetWidget(
-              icon: MdiIcons.closeCircle,
-              color: Colors.red,
-              result: "Failed!",
-              text: "Qr Code is not valid",
-              latitude: latitude,
-              longitude: longitude,
-              qrcode: qrcode,
-              time: DateTime.now().millisecondsSinceEpoch.toString(),
-              account: "userState.user.name",
-              buttonText: "Back",
-              onPressed: () {},
-            );
-          });
-    }
-  }
+  // void getBottomSheet(context) async {
+  //   String qrcode = '';
+  //   qrcode = await getScan();
+  //   // var position;
+  //   // position = await getLocation();
+  //   var position = await Geolocator().getCurrentPosition();
+  //   String latitude = position.latitude.toString();
+  //   String longitude = position.longitude.toString();
+  //   if (qrcode == "Jatinegara") {
+  //     return showModalBottomSheet(
+  //         context: context,
+  //         builder: (context) {
+  //           return BottomSheetWidget(
+  //             icon: MdiIcons.checkboxMarkedCircle,
+  //             color: Colors.green,
+  //             result: "Success!",
+  //             text: "Your absense has succeed in the\n" + qrcode + " location",
+  //             latitude: latitude,
+  //             longitude: longitude,
+  //             qrcode: qrcode,
+  //             time: DateTime.now().millisecondsSinceEpoch.toString(),
+  //             account: "userState.user.name",
+  //             buttonText: "Done",
+  //             onPressed: () async {},
+  //           );
+  //         });
+  //   } else {
+  //     return showModalBottomSheet(
+  //         context: context,
+  //         builder: (context) {
+  //           return BottomSheetWidget(
+  //             icon: MdiIcons.closeCircle,
+  //             color: Colors.red,
+  //             result: "Failed!",
+  //             text: "Qr Code is not valid",
+  //             latitude: latitude,
+  //             longitude: longitude,
+  //             qrcode: qrcode,
+  //             time: DateTime.now().millisecondsSinceEpoch.toString(),
+  //             account: "userState.user.name",
+  //             buttonText: "Back",
+  //             onPressed: () {},
+  //           );
+  //         });
+  //   }
+  // }
 
   Widget createCustomBottomNavBar() => Align(
         alignment: Alignment.bottomCenter,

@@ -59,7 +59,7 @@ class OnAccountConfirmationPage extends PageState {
   List<Object> get props => [];
 }
 
-class OnRoleCheckPage extends PageState {
+class OnCheckPage extends PageState {
   @override
   List<Object> get props => [];
 }
@@ -76,14 +76,6 @@ class OnAboutPage extends PageState {
   final User user;
 
   OnAboutPage(this.user);
-  @override
-  List<Object> get props => [user];
-}
-
-class OnRecapPage extends PageState {
-  final User user;
-
-  OnRecapPage(this.user);
   @override
   List<Object> get props => [user];
 }

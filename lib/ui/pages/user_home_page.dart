@@ -26,17 +26,19 @@ class _HomeUserPageState extends State<HomeUserPage> {
                     stream: (isToday)
                         ? Firestore.instance
                             .collection("absens")
-                            .where('uid', isEqualTo: userState.user.uid)
-                            .where('checkOut',
-                                isGreaterThanOrEqualTo: DateTime.now().day)
+                            .where("uid", isEqualTo: userState.user.uid)
+                            .where("status", isEqualTo: "checkOut")
+                            // .where('checkOut',
+                            //     isLessThanOrEqualTo: DateTime.now())
                             .orderBy("checkOut", descending: true)
                             .snapshots()
                         : Firestore.instance
                             .collection("absens")
-                            .where('uid', isEqualTo: userState.user.uid)
-                            .where('checkOut',
-                                isLessThanOrEqualTo: DateTime.now())
-                            .orderBy("checkOut", descending: true)
+                            .where("uid", isEqualTo: userState.user.uid)
+                            .where("status", isEqualTo: "checkIn")
+                            // .where('checkOut',
+                            //     isGreaterThanOrEqualTo: DateTime.now())
+                            // .orderBy("checkOut", descending: true)
                             .snapshots(),
                     builder: (BuildContext context,
                         AsyncSnapshot<QuerySnapshot> querySnapshot) {
@@ -53,7 +55,6 @@ class _HomeUserPageState extends State<HomeUserPage> {
                             itemCount: list.length,
                             itemBuilder: (_, index) {
                               String absenID = list[index]['aid'];
-                              String status = list[index]['status'];
                               DateTime checkIn =
                                   list[index]['checkIn'].toDate();
 
@@ -68,7 +69,9 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                 child: Container(
                                   color: Colors.white,
                                   margin: EdgeInsets.only(
-                                      top: index == 0 ? 166 : 20),
+                                    top: index == 0 ? 166 : 20,
+                                    // bottom: index != 0 ? 76 : 0,
+                                  ),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -206,12 +209,12 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                                                 position
                                                                     .latitude
                                                                     .toStringAsFixed(
-                                                                        2);
+                                                                        1);
                                                             String longitude =
                                                                 position
                                                                     .longitude
                                                                     .toStringAsFixed(
-                                                                        2);
+                                                                        1);
                                                             String viewLat =
                                                                 position
                                                                     .latitude
@@ -221,22 +224,19 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                                                     .longitude
                                                                     .toString();
 
-                                                            var time = DateFormat
-                                                                    .jms()
-                                                                .format(
-                                                                    new DateTime
-                                                                        .now());
-                                                            var date = DateFormat
-                                                                    .yMMMEd()
-                                                                .format(
-                                                                    new DateTime
-                                                                        .now());
+                                                            var time =
+                                                                DateTime.now()
+                                                                    .timeNow;
+                                                            var date =
+                                                                DateTime.now()
+                                                                    .dateNow;
 
-                                                            if (qrcode == "Setiabudi" &&
+                                                            if (qrcode ==
+                                                                    "Setiabudi" &&
                                                                 latitude ==
-                                                                    '-6.22' &&
+                                                                    '-6.2' &&
                                                                 longitude ==
-                                                                    '106.83') {
+                                                                    '106.8') {
                                                               return showModalBottomSheet(
                                                                   context:
                                                                       context,
@@ -248,14 +248,15 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                                                       color: Colors
                                                                           .green,
                                                                       result:
-                                                                          "Success!",
-                                                                      text: "Your absense has succeed in the\n" +
-                                                                          qrcode +
-                                                                          " location",
+                                                                          "Berhasil!",
+                                                                      text:
+                                                                          "Absen Keluar Telah Berhasil\nSelamat Istirahat",
                                                                       latitude:
                                                                           viewLat,
                                                                       longitude:
                                                                           viewLong,
+                                                                      location:
+                                                                          qrcode,
                                                                       qrcode:
                                                                           qrcode,
                                                                       date:
@@ -266,18 +267,12 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                                                           .user
                                                                           .name,
                                                                       buttonText:
-                                                                          "Done",
+                                                                          "Selesai",
                                                                       onPressed:
                                                                           () async {
-                                                                        setState(
-                                                                            () {
-                                                                          isCheckOut =
-                                                                              !isCheckOut;
-                                                                        });
                                                                         final Firestore
                                                                             firestore =
                                                                             Firestore.instance;
-
                                                                         DocumentReference
                                                                             documentTask =
                                                                             firestore.document('absens/$absenID');
@@ -291,8 +286,8 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                                                             await transaction.update(
                                                                               task.reference,
                                                                               {
-                                                                                'checkOut': DateTime.now(),
                                                                                 'status': 'checkOut',
+                                                                                'checkOut': DateTime.now(),
                                                                               },
                                                                             );
                                                                           }
@@ -317,13 +312,15 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                                                       color: Colors
                                                                           .red,
                                                                       result:
-                                                                          "Failed!",
+                                                                          "Upss!",
                                                                       text:
-                                                                          "The code is invalid or \nlocation not found,\nplease scan again!",
+                                                                          "Silahkan kamu periksa kembali\nkode dan lokasimu!",
                                                                       latitude:
                                                                           viewLat,
                                                                       longitude:
                                                                           viewLong,
+                                                                      location:
+                                                                          "tidak diketahui",
                                                                       qrcode:
                                                                           qrcode,
                                                                       date:
@@ -334,7 +331,7 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                                                           .user
                                                                           .name,
                                                                       buttonText:
-                                                                          "Back",
+                                                                          "Kembali",
                                                                       onPressed:
                                                                           () {
                                                                         Navigator.pop(
@@ -344,7 +341,7 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                                                   });
                                                             }
                                                           }
-                                                        })
+                                                        }),
                                               ])),
                                     ],
                                   ),
