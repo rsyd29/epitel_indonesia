@@ -302,9 +302,7 @@ class _UserDetailPageState extends State<UserDetailPage> {
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10)),
                                   labelText: "ID Pengguna",
-                                  hintText: (widget.user.deviceId == null)
-                                      ? "ID Pengguna"
-                                      : widget.user.deviceId),
+                                  hintText: "ID Pengguna"),
                             ),
                             SizedBox(height: 16),
                             TextField(
@@ -403,6 +401,8 @@ class _UserDetailPageState extends State<UserDetailPage> {
                                                       statusController.text;
                                                   String role =
                                                       roleController.text;
+                                                  String deviceId =
+                                                      deviceIdController.text;
 
                                                   print(
                                                       'update user: ' + status);
@@ -425,6 +425,7 @@ class _UserDetailPageState extends State<UserDetailPage> {
                                                         {
                                                           'role': role,
                                                           'status': status,
+                                                          'deviceId': deviceId,
                                                         },
                                                       );
                                                     }
