@@ -28,17 +28,13 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                         stream: (isToday)
                             ? Firestore.instance
                                 .collection("absens")
-                                .where("status", isEqualTo: "checkOut")
-                                // .where('checkOut',
-                                //     isLessThanOrEqualTo: DateTime.now())
+                                // .where("status", isEqualTo: "checkOut")
                                 .orderBy("checkOut", descending: true)
                                 .snapshots()
                             : Firestore.instance
                                 .collection("absens")
                                 .where("status", isEqualTo: "checkIn")
-                                // .where('checkOut',
-                                //     isGreaterThanOrEqualTo: DateTime.now())
-                                // .orderBy("checkOut", descending: true)
+                                // .orderBy("checkIn", descending: true)
                                 .snapshots(),
                         builder: (BuildContext context,
                             AsyncSnapshot<QuerySnapshot> querySnapshot) {
@@ -83,12 +79,29 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              Text(list[index]['name'],
+                                              Text(
+                                                  list[index]['name']
+                                                      .toUpperCase(),
                                                   style:
                                                       yellowTextFont.copyWith(
                                                           fontSize: 12.0,
                                                           fontWeight:
                                                               FontWeight.bold)),
+                                              Row(
+                                                children: [
+                                                  Icon(
+                                                    MdiIcons.email,
+                                                    color: Colors.white,
+                                                  ),
+                                                  SizedBox(width: 5),
+                                                  Text(list[index]['email'],
+                                                      style: whiteTextFont
+                                                          .copyWith(
+                                                        fontSize: 10,
+                                                      )),
+                                                  SizedBox(width: 5),
+                                                ],
+                                              ),
                                               Row(
                                                 children: [
                                                   Icon(MdiIcons.mapMarker,
@@ -97,8 +110,9 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                                                   Text(list[index]['location'],
                                                       style: whiteTextFont
                                                           .copyWith(
-                                                        fontSize: 12,
-                                                      ))
+                                                        fontSize: 10,
+                                                      )),
+                                                  SizedBox(width: 5),
                                                 ],
                                               ),
                                             ],

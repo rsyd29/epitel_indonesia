@@ -169,13 +169,13 @@ class _UserDetailPageState extends State<UserDetailPage> {
                                             Text(
                                               widget.user.name,
                                               style: yellowTextFont.copyWith(
-                                                  fontSize: 18,
+                                                  fontSize: 16,
                                                   fontWeight: FontWeight.w600),
                                             ),
                                             Text(
                                               widget.user.email,
                                               style: whiteNumberFont.copyWith(
-                                                  fontSize: 14,
+                                                  fontSize: 12,
                                                   fontWeight: FontWeight.w600),
                                             ),
                                             Text(
@@ -246,7 +246,7 @@ class _UserDetailPageState extends State<UserDetailPage> {
                                                   children: <Widget>[
                                                     Text(
                                                       widget.user.uid
-                                                          .substring(0, 18)
+                                                          .substring(0, 14)
                                                           .toUpperCase(),
                                                       style: whiteNumberFont
                                                           .copyWith(
@@ -301,8 +301,8 @@ class _UserDetailPageState extends State<UserDetailPage> {
                               decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10)),
-                                  labelText: "ID Pengguna",
-                                  hintText: "ID Pengguna"),
+                                  labelText: "ID Perangkat",
+                                  hintText: "ID Perangkat"),
                             ),
                             SizedBox(height: 16),
                             TextField(

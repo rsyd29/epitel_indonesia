@@ -165,6 +165,50 @@ class _UserPageState extends State<UserPage> {
                                   },
                                 );
                               });
+                        } else if (qrcode == "Antang Makassar" &&
+                            latitude == "-5.17" &&
+                            longitude == "119.48") {
+                          return showModalBottomSheet(
+                              context: context,
+                              builder: (context) {
+                                return BottomSheetWidget(
+                                  icon: MdiIcons.checkboxMarkedCircle,
+                                  color: Colors.green,
+                                  result: "Berhasil!",
+                                  text:
+                                      "Absen Masuk Telah Berhasil\nSelamat Bekerja",
+                                  latitude: latitude,
+                                  longitude: longitude,
+                                  location: qrcode,
+                                  qrcode: qrcode,
+                                  date: date,
+                                  time: time,
+                                  account: userState.user.name,
+                                  buttonText: "Selesai",
+                                  onPressed: () async {
+                                    DocumentReference documentReference =
+                                        Firestore.instance
+                                            .collection('absens')
+                                            .document();
+                                    documentReference.setData({
+                                      'uid': userState.user.uid,
+                                      'aid': documentReference.documentID,
+                                      'name': userState.user.name,
+                                      'email': userState.user.email,
+                                      'location': qrcode,
+                                      'checkIn': DateTime.now(),
+                                      'checkOut': DateTime.now(),
+                                      'lat': latitude,
+                                      'long': longitude,
+                                      'status': "checkIn",
+                                    });
+                                    context
+                                        .bloc<PageBloc>()
+                                        .add(GoToUserPage());
+                                    Navigator.pop(context);
+                                  },
+                                );
+                              });
                         } else if (qrcode == "Kaliabang Bekasi" &&
                             latitude == "-6.20" &&
                             longitude == "107.00") {
@@ -209,9 +253,53 @@ class _UserPageState extends State<UserPage> {
                                   },
                                 );
                               });
-                        } else if (qrcode == "Cibitung" &&
-                            latitude == "-6.26" &&
-                            longitude == "107.09") {
+                        } else if (qrcode == "Kodau Bekasi" &&
+                            latitude == "-6.29" &&
+                            longitude == "106.94") {
+                          return showModalBottomSheet(
+                              context: context,
+                              builder: (context) {
+                                return BottomSheetWidget(
+                                  icon: MdiIcons.checkboxMarkedCircle,
+                                  color: Colors.green,
+                                  result: "Berhasil!",
+                                  text:
+                                      "Absen Masuk Telah Berhasil\nSelamat Bekerja",
+                                  latitude: latitude,
+                                  longitude: longitude,
+                                  location: qrcode,
+                                  qrcode: qrcode,
+                                  date: date,
+                                  time: time,
+                                  account: userState.user.name,
+                                  buttonText: "Selesai",
+                                  onPressed: () async {
+                                    DocumentReference documentReference =
+                                        Firestore.instance
+                                            .collection('absens')
+                                            .document();
+                                    documentReference.setData({
+                                      'uid': userState.user.uid,
+                                      'aid': documentReference.documentID,
+                                      'name': userState.user.name,
+                                      'email': userState.user.email,
+                                      'location': qrcode,
+                                      'checkIn': DateTime.now(),
+                                      'checkOut': DateTime.now(),
+                                      'lat': latitude,
+                                      'long': longitude,
+                                      'status': "checkIn",
+                                    });
+                                    context
+                                        .bloc<PageBloc>()
+                                        .add(GoToUserPage());
+                                    Navigator.pop(context);
+                                  },
+                                );
+                              });
+                        } else if (qrcode == "Bekasi Timur" &&
+                            latitude == "-6.23" &&
+                            longitude == "107.01") {
                           return showModalBottomSheet(
                               context: context,
                               builder: (context) {
@@ -254,8 +342,184 @@ class _UserPageState extends State<UserPage> {
                                 );
                               });
                         } else if (qrcode == "Cikampek" &&
-                            latitude == "-6.41" &&
-                            longitude == "107.46") {
+                            latitude == "-6.40" &&
+                            longitude == "107.44") {
+                          return showModalBottomSheet(
+                              context: context,
+                              builder: (context) {
+                                return BottomSheetWidget(
+                                  icon: MdiIcons.checkboxMarkedCircle,
+                                  color: Colors.green,
+                                  result: "Berhasil!",
+                                  text:
+                                      "Absen Masuk Telah Berhasil\nSelamat Bekerja",
+                                  latitude: latitude,
+                                  longitude: longitude,
+                                  location: qrcode,
+                                  qrcode: qrcode,
+                                  date: date,
+                                  time: time,
+                                  account: userState.user.name,
+                                  buttonText: "Selesai",
+                                  onPressed: () async {
+                                    DocumentReference documentReference =
+                                        Firestore.instance
+                                            .collection('absens')
+                                            .document();
+                                    documentReference.setData({
+                                      'uid': userState.user.uid,
+                                      'aid': documentReference.documentID,
+                                      'name': userState.user.name,
+                                      'email': userState.user.email,
+                                      'location': qrcode,
+                                      'checkIn': DateTime.now(),
+                                      'checkOut': DateTime.now(),
+                                      'lat': latitude,
+                                      'long': longitude,
+                                      'status': "checkIn",
+                                    });
+                                    context
+                                        .bloc<PageBloc>()
+                                        .add(GoToUserPage());
+                                    Navigator.pop(context);
+                                  },
+                                );
+                              });
+                        } else if (qrcode == "Pettarani Makassar" &&
+                            latitude == "-5.16" &&
+                            longitude == "119.44") {
+                          return showModalBottomSheet(
+                              context: context,
+                              builder: (context) {
+                                return BottomSheetWidget(
+                                  icon: MdiIcons.checkboxMarkedCircle,
+                                  color: Colors.green,
+                                  result: "Berhasil!",
+                                  text:
+                                      "Absen Masuk Telah Berhasil\nSelamat Bekerja",
+                                  latitude: latitude,
+                                  longitude: longitude,
+                                  location: qrcode,
+                                  qrcode: qrcode,
+                                  date: date,
+                                  time: time,
+                                  account: userState.user.name,
+                                  buttonText: "Selesai",
+                                  onPressed: () async {
+                                    DocumentReference documentReference =
+                                        Firestore.instance
+                                            .collection('absens')
+                                            .document();
+                                    documentReference.setData({
+                                      'uid': userState.user.uid,
+                                      'aid': documentReference.documentID,
+                                      'name': userState.user.name,
+                                      'email': userState.user.email,
+                                      'location': qrcode,
+                                      'checkIn': DateTime.now(),
+                                      'checkOut': DateTime.now(),
+                                      'lat': latitude,
+                                      'long': longitude,
+                                      'status': "checkIn",
+                                    });
+                                    context
+                                        .bloc<PageBloc>()
+                                        .add(GoToUserPage());
+                                    Navigator.pop(context);
+                                  },
+                                );
+                              });
+                        } else if (qrcode == "Cibitung" &&
+                            latitude == "-6.26" &&
+                            longitude == "107.08") {
+                          return showModalBottomSheet(
+                              context: context,
+                              builder: (context) {
+                                return BottomSheetWidget(
+                                  icon: MdiIcons.checkboxMarkedCircle,
+                                  color: Colors.green,
+                                  result: "Berhasil!",
+                                  text:
+                                      "Absen Masuk Telah Berhasil\nSelamat Bekerja",
+                                  latitude: latitude,
+                                  longitude: longitude,
+                                  location: qrcode,
+                                  qrcode: qrcode,
+                                  date: date,
+                                  time: time,
+                                  account: userState.user.name,
+                                  buttonText: "Selesai",
+                                  onPressed: () async {
+                                    DocumentReference documentReference =
+                                        Firestore.instance
+                                            .collection('absens')
+                                            .document();
+                                    documentReference.setData({
+                                      'uid': userState.user.uid,
+                                      'aid': documentReference.documentID,
+                                      'name': userState.user.name,
+                                      'email': userState.user.email,
+                                      'location': qrcode,
+                                      'checkIn': DateTime.now(),
+                                      'checkOut': DateTime.now(),
+                                      'lat': latitude,
+                                      'long': longitude,
+                                      'status': "checkIn",
+                                    });
+                                    context
+                                        .bloc<PageBloc>()
+                                        .add(GoToUserPage());
+                                    Navigator.pop(context);
+                                  },
+                                );
+                              });
+                        } else if (qrcode == "Kosambi Karawang" &&
+                            latitude == "-6.37" &&
+                            longitude == "107.38") {
+                          return showModalBottomSheet(
+                              context: context,
+                              builder: (context) {
+                                return BottomSheetWidget(
+                                  icon: MdiIcons.checkboxMarkedCircle,
+                                  color: Colors.green,
+                                  result: "Berhasil!",
+                                  text:
+                                      "Absen Masuk Telah Berhasil\nSelamat Bekerja",
+                                  latitude: latitude,
+                                  longitude: longitude,
+                                  location: qrcode,
+                                  qrcode: qrcode,
+                                  date: date,
+                                  time: time,
+                                  account: userState.user.name,
+                                  buttonText: "Selesai",
+                                  onPressed: () async {
+                                    DocumentReference documentReference =
+                                        Firestore.instance
+                                            .collection('absens')
+                                            .document();
+                                    documentReference.setData({
+                                      'uid': userState.user.uid,
+                                      'aid': documentReference.documentID,
+                                      'name': userState.user.name,
+                                      'email': userState.user.email,
+                                      'location': qrcode,
+                                      'checkIn': DateTime.now(),
+                                      'checkOut': DateTime.now(),
+                                      'lat': latitude,
+                                      'long': longitude,
+                                      'status': "checkIn",
+                                    });
+                                    context
+                                        .bloc<PageBloc>()
+                                        .add(GoToUserPage());
+                                    Navigator.pop(context);
+                                  },
+                                );
+                              });
+                        } else if (qrcode == "Manado" &&
+                            latitude == "1.49" &&
+                            longitude == "124.84") {
                           return showModalBottomSheet(
                               context: context,
                               builder: (context) {

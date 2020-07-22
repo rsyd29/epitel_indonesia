@@ -28,7 +28,6 @@ class _HomeUserPageState extends State<HomeUserPage> {
                             .collection("absens")
                             .where("uid", isEqualTo: userState.user.uid)
                             .where("status", isEqualTo: "checkOut")
-                            .orderBy("checkOut", descending: true)
                             .snapshots()
                         : Firestore.instance
                             .collection("absens")
@@ -76,10 +75,25 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Text(list[index]['name'],
+                                          Text(
+                                              list[index]['name'].toUpperCase(),
                                               style: yellowTextFont.copyWith(
                                                   fontSize: 12.0,
                                                   fontWeight: FontWeight.bold)),
+                                          Row(
+                                            children: [
+                                              Icon(
+                                                MdiIcons.email,
+                                                color: Colors.white,
+                                              ),
+                                              SizedBox(width: 5),
+                                              Text(list[index]['email'],
+                                                  style: whiteTextFont.copyWith(
+                                                    fontSize: 10,
+                                                  )),
+                                              SizedBox(width: 5),
+                                            ],
+                                          ),
                                           Row(
                                             children: [
                                               Icon(MdiIcons.mapMarker,
@@ -87,8 +101,9 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                               SizedBox(width: 5),
                                               Text(list[index]['location'],
                                                   style: whiteTextFont.copyWith(
-                                                    fontSize: 12,
-                                                  ))
+                                                    fontSize: 10,
+                                                  )),
+                                              SizedBox(width: 5),
                                             ],
                                           ),
                                         ],
@@ -234,7 +249,7 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                                                     result:
                                                                         "Berhasil!",
                                                                     text:
-                                                                        "Absen Keluar Telah Berhasil\nSelamat Bekerja",
+                                                                        "Absen Keluar Telah Berhasil\nSelamat Istirahat",
                                                                     latitude:
                                                                         latitude,
                                                                     longitude:
@@ -253,31 +268,36 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                                                         "Selesai",
                                                                     onPressed:
                                                                         () async {
-                                                                      final Firestore
-                                                                          firestore =
-                                                                          Firestore
-                                                                              .instance;
-                                                                      DocumentReference
-                                                                          documentTask =
-                                                                          firestore
-                                                                              .document('absens/$absenID');
-                                                                      firestore
-                                                                          .runTransaction(
-                                                                              (transaction) async {
-                                                                        DocumentSnapshot
-                                                                            task =
-                                                                            await transaction.get(documentTask);
-                                                                        if (task
-                                                                            .exists) {
-                                                                          await transaction
-                                                                              .update(
-                                                                            task.reference,
-                                                                            {
-                                                                              'status': 'checkOut',
-                                                                              'checkOut': DateTime.now(),
-                                                                            },
-                                                                          );
-                                                                        }
+                                                                      DocumentReference documentReference = Firestore
+                                                                          .instance
+                                                                          .collection(
+                                                                              'absens')
+                                                                          .document();
+                                                                      documentReference
+                                                                          .setData({
+                                                                        'uid': userState
+                                                                            .user
+                                                                            .uid,
+                                                                        'aid': documentReference
+                                                                            .documentID,
+                                                                        'name': userState
+                                                                            .user
+                                                                            .name,
+                                                                        'email': userState
+                                                                            .user
+                                                                            .email,
+                                                                        'location':
+                                                                            qrcode,
+                                                                        'checkIn':
+                                                                            DateTime.now(),
+                                                                        'checkOut':
+                                                                            DateTime.now(),
+                                                                        'lat':
+                                                                            latitude,
+                                                                        'long':
+                                                                            longitude,
+                                                                        'status':
+                                                                            "checkIn",
                                                                       });
                                                                       context
                                                                           .bloc<
@@ -308,7 +328,7 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                                                     result:
                                                                         "Berhasil!",
                                                                     text:
-                                                                        "Absen Keluar Telah Berhasil\nSelamat Bekerja",
+                                                                        "Absen Keluar Telah Berhasil\nSelamat Istirahat",
                                                                     latitude:
                                                                         latitude,
                                                                     longitude:
@@ -327,31 +347,115 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                                                         "Selesai",
                                                                     onPressed:
                                                                         () async {
-                                                                      final Firestore
-                                                                          firestore =
-                                                                          Firestore
-                                                                              .instance;
-                                                                      DocumentReference
-                                                                          documentTask =
-                                                                          firestore
-                                                                              .document('absens/$absenID');
-                                                                      firestore
-                                                                          .runTransaction(
-                                                                              (transaction) async {
-                                                                        DocumentSnapshot
-                                                                            task =
-                                                                            await transaction.get(documentTask);
-                                                                        if (task
-                                                                            .exists) {
-                                                                          await transaction
-                                                                              .update(
-                                                                            task.reference,
-                                                                            {
-                                                                              'status': 'checkOut',
-                                                                              'checkOut': DateTime.now(),
-                                                                            },
-                                                                          );
-                                                                        }
+                                                                      DocumentReference documentReference = Firestore
+                                                                          .instance
+                                                                          .collection(
+                                                                              'absens')
+                                                                          .document();
+                                                                      documentReference
+                                                                          .setData({
+                                                                        'uid': userState
+                                                                            .user
+                                                                            .uid,
+                                                                        'aid': documentReference
+                                                                            .documentID,
+                                                                        'name': userState
+                                                                            .user
+                                                                            .name,
+                                                                        'email': userState
+                                                                            .user
+                                                                            .email,
+                                                                        'location':
+                                                                            qrcode,
+                                                                        'checkIn':
+                                                                            DateTime.now(),
+                                                                        'checkOut':
+                                                                            DateTime.now(),
+                                                                        'lat':
+                                                                            latitude,
+                                                                        'long':
+                                                                            longitude,
+                                                                        'status':
+                                                                            "checkIn",
+                                                                      });
+                                                                      context
+                                                                          .bloc<
+                                                                              PageBloc>()
+                                                                          .add(
+                                                                              GoToUserPage());
+                                                                      Navigator.pop(
+                                                                          context);
+                                                                    },
+                                                                  );
+                                                                });
+                                                          } else if (qrcode ==
+                                                                  "Antang Makassar" &&
+                                                              latitude ==
+                                                                  "-5.17" &&
+                                                              longitude ==
+                                                                  "119.48") {
+                                                            return showModalBottomSheet(
+                                                                context:
+                                                                    context,
+                                                                builder:
+                                                                    (context) {
+                                                                  return BottomSheetWidget(
+                                                                    icon: MdiIcons
+                                                                        .checkboxMarkedCircle,
+                                                                    color: Colors
+                                                                        .green,
+                                                                    result:
+                                                                        "Berhasil!",
+                                                                    text:
+                                                                        "Absen Keluar Telah Berhasil\nSelamat Istirahat",
+                                                                    latitude:
+                                                                        latitude,
+                                                                    longitude:
+                                                                        longitude,
+                                                                    location:
+                                                                        qrcode,
+                                                                    qrcode:
+                                                                        qrcode,
+                                                                    date: date,
+                                                                    time: time,
+                                                                    account:
+                                                                        userState
+                                                                            .user
+                                                                            .name,
+                                                                    buttonText:
+                                                                        "Selesai",
+                                                                    onPressed:
+                                                                        () async {
+                                                                      DocumentReference documentReference = Firestore
+                                                                          .instance
+                                                                          .collection(
+                                                                              'absens')
+                                                                          .document();
+                                                                      documentReference
+                                                                          .setData({
+                                                                        'uid': userState
+                                                                            .user
+                                                                            .uid,
+                                                                        'aid': documentReference
+                                                                            .documentID,
+                                                                        'name': userState
+                                                                            .user
+                                                                            .name,
+                                                                        'email': userState
+                                                                            .user
+                                                                            .email,
+                                                                        'location':
+                                                                            qrcode,
+                                                                        'checkIn':
+                                                                            DateTime.now(),
+                                                                        'checkOut':
+                                                                            DateTime.now(),
+                                                                        'lat':
+                                                                            latitude,
+                                                                        'long':
+                                                                            longitude,
+                                                                        'status':
+                                                                            "checkIn",
                                                                       });
                                                                       context
                                                                           .bloc<
@@ -382,7 +486,7 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                                                     result:
                                                                         "Berhasil!",
                                                                     text:
-                                                                        "Absen Keluar Telah Berhasil\nSelamat Bekerja",
+                                                                        "Absen Keluar Telah Berhasil\nSelamat Istirahat",
                                                                     latitude:
                                                                         latitude,
                                                                     longitude:
@@ -401,31 +505,352 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                                                         "Selesai",
                                                                     onPressed:
                                                                         () async {
-                                                                      final Firestore
-                                                                          firestore =
-                                                                          Firestore
-                                                                              .instance;
-                                                                      DocumentReference
-                                                                          documentTask =
-                                                                          firestore
-                                                                              .document('absens/$absenID');
-                                                                      firestore
-                                                                          .runTransaction(
-                                                                              (transaction) async {
-                                                                        DocumentSnapshot
-                                                                            task =
-                                                                            await transaction.get(documentTask);
-                                                                        if (task
-                                                                            .exists) {
-                                                                          await transaction
-                                                                              .update(
-                                                                            task.reference,
-                                                                            {
-                                                                              'status': 'checkOut',
-                                                                              'checkOut': DateTime.now(),
-                                                                            },
-                                                                          );
-                                                                        }
+                                                                      DocumentReference documentReference = Firestore
+                                                                          .instance
+                                                                          .collection(
+                                                                              'absens')
+                                                                          .document();
+                                                                      documentReference
+                                                                          .setData({
+                                                                        'uid': userState
+                                                                            .user
+                                                                            .uid,
+                                                                        'aid': documentReference
+                                                                            .documentID,
+                                                                        'name': userState
+                                                                            .user
+                                                                            .name,
+                                                                        'email': userState
+                                                                            .user
+                                                                            .email,
+                                                                        'location':
+                                                                            qrcode,
+                                                                        'checkIn':
+                                                                            DateTime.now(),
+                                                                        'checkOut':
+                                                                            DateTime.now(),
+                                                                        'lat':
+                                                                            latitude,
+                                                                        'long':
+                                                                            longitude,
+                                                                        'status':
+                                                                            "checkIn",
+                                                                      });
+                                                                      context
+                                                                          .bloc<
+                                                                              PageBloc>()
+                                                                          .add(
+                                                                              GoToUserPage());
+                                                                      Navigator.pop(
+                                                                          context);
+                                                                    },
+                                                                  );
+                                                                });
+                                                          } else if (qrcode ==
+                                                                  "Kodau Bekasi" &&
+                                                              latitude ==
+                                                                  "-6.29" &&
+                                                              longitude ==
+                                                                  "106.94") {
+                                                            return showModalBottomSheet(
+                                                                context:
+                                                                    context,
+                                                                builder:
+                                                                    (context) {
+                                                                  return BottomSheetWidget(
+                                                                    icon: MdiIcons
+                                                                        .checkboxMarkedCircle,
+                                                                    color: Colors
+                                                                        .green,
+                                                                    result:
+                                                                        "Berhasil!",
+                                                                    text:
+                                                                        "Absen Keluar Telah Berhasil\nSelamat Istirahat",
+                                                                    latitude:
+                                                                        latitude,
+                                                                    longitude:
+                                                                        longitude,
+                                                                    location:
+                                                                        qrcode,
+                                                                    qrcode:
+                                                                        qrcode,
+                                                                    date: date,
+                                                                    time: time,
+                                                                    account:
+                                                                        userState
+                                                                            .user
+                                                                            .name,
+                                                                    buttonText:
+                                                                        "Selesai",
+                                                                    onPressed:
+                                                                        () async {
+                                                                      DocumentReference documentReference = Firestore
+                                                                          .instance
+                                                                          .collection(
+                                                                              'absens')
+                                                                          .document();
+                                                                      documentReference
+                                                                          .setData({
+                                                                        'uid': userState
+                                                                            .user
+                                                                            .uid,
+                                                                        'aid': documentReference
+                                                                            .documentID,
+                                                                        'name': userState
+                                                                            .user
+                                                                            .name,
+                                                                        'email': userState
+                                                                            .user
+                                                                            .email,
+                                                                        'location':
+                                                                            qrcode,
+                                                                        'checkIn':
+                                                                            DateTime.now(),
+                                                                        'checkOut':
+                                                                            DateTime.now(),
+                                                                        'lat':
+                                                                            latitude,
+                                                                        'long':
+                                                                            longitude,
+                                                                        'status':
+                                                                            "checkIn",
+                                                                      });
+                                                                      context
+                                                                          .bloc<
+                                                                              PageBloc>()
+                                                                          .add(
+                                                                              GoToUserPage());
+                                                                      Navigator.pop(
+                                                                          context);
+                                                                    },
+                                                                  );
+                                                                });
+                                                          } else if (qrcode ==
+                                                                  "Bekasi Timur" &&
+                                                              latitude ==
+                                                                  "-6.23" &&
+                                                              longitude ==
+                                                                  "107.01") {
+                                                            return showModalBottomSheet(
+                                                                context:
+                                                                    context,
+                                                                builder:
+                                                                    (context) {
+                                                                  return BottomSheetWidget(
+                                                                    icon: MdiIcons
+                                                                        .checkboxMarkedCircle,
+                                                                    color: Colors
+                                                                        .green,
+                                                                    result:
+                                                                        "Berhasil!",
+                                                                    text:
+                                                                        "Absen Keluar Telah Berhasil\nSelamat Istirahat",
+                                                                    latitude:
+                                                                        latitude,
+                                                                    longitude:
+                                                                        longitude,
+                                                                    location:
+                                                                        qrcode,
+                                                                    qrcode:
+                                                                        qrcode,
+                                                                    date: date,
+                                                                    time: time,
+                                                                    account:
+                                                                        userState
+                                                                            .user
+                                                                            .name,
+                                                                    buttonText:
+                                                                        "Selesai",
+                                                                    onPressed:
+                                                                        () async {
+                                                                      DocumentReference documentReference = Firestore
+                                                                          .instance
+                                                                          .collection(
+                                                                              'absens')
+                                                                          .document();
+                                                                      documentReference
+                                                                          .setData({
+                                                                        'uid': userState
+                                                                            .user
+                                                                            .uid,
+                                                                        'aid': documentReference
+                                                                            .documentID,
+                                                                        'name': userState
+                                                                            .user
+                                                                            .name,
+                                                                        'email': userState
+                                                                            .user
+                                                                            .email,
+                                                                        'location':
+                                                                            qrcode,
+                                                                        'checkIn':
+                                                                            DateTime.now(),
+                                                                        'checkOut':
+                                                                            DateTime.now(),
+                                                                        'lat':
+                                                                            latitude,
+                                                                        'long':
+                                                                            longitude,
+                                                                        'status':
+                                                                            "checkIn",
+                                                                      });
+                                                                      context
+                                                                          .bloc<
+                                                                              PageBloc>()
+                                                                          .add(
+                                                                              GoToUserPage());
+                                                                      Navigator.pop(
+                                                                          context);
+                                                                    },
+                                                                  );
+                                                                });
+                                                          } else if (qrcode ==
+                                                                  "Cikampek" &&
+                                                              latitude ==
+                                                                  "-6.40" &&
+                                                              longitude ==
+                                                                  "107.44") {
+                                                            return showModalBottomSheet(
+                                                                context:
+                                                                    context,
+                                                                builder:
+                                                                    (context) {
+                                                                  return BottomSheetWidget(
+                                                                    icon: MdiIcons
+                                                                        .checkboxMarkedCircle,
+                                                                    color: Colors
+                                                                        .green,
+                                                                    result:
+                                                                        "Berhasil!",
+                                                                    text:
+                                                                        "Absen Keluar Telah Berhasil\nSelamat Istirahat",
+                                                                    latitude:
+                                                                        latitude,
+                                                                    longitude:
+                                                                        longitude,
+                                                                    location:
+                                                                        qrcode,
+                                                                    qrcode:
+                                                                        qrcode,
+                                                                    date: date,
+                                                                    time: time,
+                                                                    account:
+                                                                        userState
+                                                                            .user
+                                                                            .name,
+                                                                    buttonText:
+                                                                        "Selesai",
+                                                                    onPressed:
+                                                                        () async {
+                                                                      DocumentReference documentReference = Firestore
+                                                                          .instance
+                                                                          .collection(
+                                                                              'absens')
+                                                                          .document();
+                                                                      documentReference
+                                                                          .setData({
+                                                                        'uid': userState
+                                                                            .user
+                                                                            .uid,
+                                                                        'aid': documentReference
+                                                                            .documentID,
+                                                                        'name': userState
+                                                                            .user
+                                                                            .name,
+                                                                        'email': userState
+                                                                            .user
+                                                                            .email,
+                                                                        'location':
+                                                                            qrcode,
+                                                                        'checkIn':
+                                                                            DateTime.now(),
+                                                                        'checkOut':
+                                                                            DateTime.now(),
+                                                                        'lat':
+                                                                            latitude,
+                                                                        'long':
+                                                                            longitude,
+                                                                        'status':
+                                                                            "checkIn",
+                                                                      });
+                                                                      context
+                                                                          .bloc<
+                                                                              PageBloc>()
+                                                                          .add(
+                                                                              GoToUserPage());
+                                                                      Navigator.pop(
+                                                                          context);
+                                                                    },
+                                                                  );
+                                                                });
+                                                          } else if (qrcode ==
+                                                                  "Pettarani Makassar" &&
+                                                              latitude ==
+                                                                  "-5.16" &&
+                                                              longitude ==
+                                                                  "119.44") {
+                                                            return showModalBottomSheet(
+                                                                context:
+                                                                    context,
+                                                                builder:
+                                                                    (context) {
+                                                                  return BottomSheetWidget(
+                                                                    icon: MdiIcons
+                                                                        .checkboxMarkedCircle,
+                                                                    color: Colors
+                                                                        .green,
+                                                                    result:
+                                                                        "Berhasil!",
+                                                                    text:
+                                                                        "Absen Keluar Telah Berhasil\nSelamat Istirahat",
+                                                                    latitude:
+                                                                        latitude,
+                                                                    longitude:
+                                                                        longitude,
+                                                                    location:
+                                                                        qrcode,
+                                                                    qrcode:
+                                                                        qrcode,
+                                                                    date: date,
+                                                                    time: time,
+                                                                    account:
+                                                                        userState
+                                                                            .user
+                                                                            .name,
+                                                                    buttonText:
+                                                                        "Selesai",
+                                                                    onPressed:
+                                                                        () async {
+                                                                      DocumentReference documentReference = Firestore
+                                                                          .instance
+                                                                          .collection(
+                                                                              'absens')
+                                                                          .document();
+                                                                      documentReference
+                                                                          .setData({
+                                                                        'uid': userState
+                                                                            .user
+                                                                            .uid,
+                                                                        'aid': documentReference
+                                                                            .documentID,
+                                                                        'name': userState
+                                                                            .user
+                                                                            .name,
+                                                                        'email': userState
+                                                                            .user
+                                                                            .email,
+                                                                        'location':
+                                                                            qrcode,
+                                                                        'checkIn':
+                                                                            DateTime.now(),
+                                                                        'checkOut':
+                                                                            DateTime.now(),
+                                                                        'lat':
+                                                                            latitude,
+                                                                        'long':
+                                                                            longitude,
+                                                                        'status':
+                                                                            "checkIn",
                                                                       });
                                                                       context
                                                                           .bloc<
@@ -442,7 +867,7 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                                               latitude ==
                                                                   "-6.26" &&
                                                               longitude ==
-                                                                  "107.09") {
+                                                                  "107.08") {
                                                             return showModalBottomSheet(
                                                                 context:
                                                                     context,
@@ -456,7 +881,7 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                                                     result:
                                                                         "Berhasil!",
                                                                     text:
-                                                                        "Absen Keluar Telah Berhasil\nSelamat Bekerja",
+                                                                        "Absen Keluar Telah Berhasil\nSelamat Istirahat",
                                                                     latitude:
                                                                         latitude,
                                                                     longitude:
@@ -475,31 +900,36 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                                                         "Selesai",
                                                                     onPressed:
                                                                         () async {
-                                                                      final Firestore
-                                                                          firestore =
-                                                                          Firestore
-                                                                              .instance;
-                                                                      DocumentReference
-                                                                          documentTask =
-                                                                          firestore
-                                                                              .document('absens/$absenID');
-                                                                      firestore
-                                                                          .runTransaction(
-                                                                              (transaction) async {
-                                                                        DocumentSnapshot
-                                                                            task =
-                                                                            await transaction.get(documentTask);
-                                                                        if (task
-                                                                            .exists) {
-                                                                          await transaction
-                                                                              .update(
-                                                                            task.reference,
-                                                                            {
-                                                                              'status': 'checkOut',
-                                                                              'checkOut': DateTime.now(),
-                                                                            },
-                                                                          );
-                                                                        }
+                                                                      DocumentReference documentReference = Firestore
+                                                                          .instance
+                                                                          .collection(
+                                                                              'absens')
+                                                                          .document();
+                                                                      documentReference
+                                                                          .setData({
+                                                                        'uid': userState
+                                                                            .user
+                                                                            .uid,
+                                                                        'aid': documentReference
+                                                                            .documentID,
+                                                                        'name': userState
+                                                                            .user
+                                                                            .name,
+                                                                        'email': userState
+                                                                            .user
+                                                                            .email,
+                                                                        'location':
+                                                                            qrcode,
+                                                                        'checkIn':
+                                                                            DateTime.now(),
+                                                                        'checkOut':
+                                                                            DateTime.now(),
+                                                                        'lat':
+                                                                            latitude,
+                                                                        'long':
+                                                                            longitude,
+                                                                        'status':
+                                                                            "checkIn",
                                                                       });
                                                                       context
                                                                           .bloc<
@@ -512,11 +942,11 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                                                   );
                                                                 });
                                                           } else if (qrcode ==
-                                                                  "Cikampek" &&
+                                                                  "Kosambi Karawang" &&
                                                               latitude ==
-                                                                  "-6.41" &&
+                                                                  "-6.37" &&
                                                               longitude ==
-                                                                  "107.46") {
+                                                                  "107.38") {
                                                             return showModalBottomSheet(
                                                                 context:
                                                                     context,
@@ -530,7 +960,7 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                                                     result:
                                                                         "Berhasil!",
                                                                     text:
-                                                                        "Absen Keluar Telah Berhasil\nSelamat Bekerja",
+                                                                        "Absen Keluar Telah Berhasil\nSelamat Istirahat",
                                                                     latitude:
                                                                         latitude,
                                                                     longitude:
@@ -549,31 +979,115 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                                                         "Selesai",
                                                                     onPressed:
                                                                         () async {
-                                                                      final Firestore
-                                                                          firestore =
-                                                                          Firestore
-                                                                              .instance;
-                                                                      DocumentReference
-                                                                          documentTask =
-                                                                          firestore
-                                                                              .document('absens/$absenID');
-                                                                      firestore
-                                                                          .runTransaction(
-                                                                              (transaction) async {
-                                                                        DocumentSnapshot
-                                                                            task =
-                                                                            await transaction.get(documentTask);
-                                                                        if (task
-                                                                            .exists) {
-                                                                          await transaction
-                                                                              .update(
-                                                                            task.reference,
-                                                                            {
-                                                                              'status': 'checkOut',
-                                                                              'checkOut': DateTime.now(),
-                                                                            },
-                                                                          );
-                                                                        }
+                                                                      DocumentReference documentReference = Firestore
+                                                                          .instance
+                                                                          .collection(
+                                                                              'absens')
+                                                                          .document();
+                                                                      documentReference
+                                                                          .setData({
+                                                                        'uid': userState
+                                                                            .user
+                                                                            .uid,
+                                                                        'aid': documentReference
+                                                                            .documentID,
+                                                                        'name': userState
+                                                                            .user
+                                                                            .name,
+                                                                        'email': userState
+                                                                            .user
+                                                                            .email,
+                                                                        'location':
+                                                                            qrcode,
+                                                                        'checkIn':
+                                                                            DateTime.now(),
+                                                                        'checkOut':
+                                                                            DateTime.now(),
+                                                                        'lat':
+                                                                            latitude,
+                                                                        'long':
+                                                                            longitude,
+                                                                        'status':
+                                                                            "checkIn",
+                                                                      });
+                                                                      context
+                                                                          .bloc<
+                                                                              PageBloc>()
+                                                                          .add(
+                                                                              GoToUserPage());
+                                                                      Navigator.pop(
+                                                                          context);
+                                                                    },
+                                                                  );
+                                                                });
+                                                          } else if (qrcode ==
+                                                                  "Manado" &&
+                                                              latitude ==
+                                                                  "1.49" &&
+                                                              longitude ==
+                                                                  "124.84") {
+                                                            return showModalBottomSheet(
+                                                                context:
+                                                                    context,
+                                                                builder:
+                                                                    (context) {
+                                                                  return BottomSheetWidget(
+                                                                    icon: MdiIcons
+                                                                        .checkboxMarkedCircle,
+                                                                    color: Colors
+                                                                        .green,
+                                                                    result:
+                                                                        "Berhasil!",
+                                                                    text:
+                                                                        "Absen Keluar Telah Berhasil\nSelamat Istirahat",
+                                                                    latitude:
+                                                                        latitude,
+                                                                    longitude:
+                                                                        longitude,
+                                                                    location:
+                                                                        qrcode,
+                                                                    qrcode:
+                                                                        qrcode,
+                                                                    date: date,
+                                                                    time: time,
+                                                                    account:
+                                                                        userState
+                                                                            .user
+                                                                            .name,
+                                                                    buttonText:
+                                                                        "Selesai",
+                                                                    onPressed:
+                                                                        () async {
+                                                                      DocumentReference documentReference = Firestore
+                                                                          .instance
+                                                                          .collection(
+                                                                              'absens')
+                                                                          .document();
+                                                                      documentReference
+                                                                          .setData({
+                                                                        'uid': userState
+                                                                            .user
+                                                                            .uid,
+                                                                        'aid': documentReference
+                                                                            .documentID,
+                                                                        'name': userState
+                                                                            .user
+                                                                            .name,
+                                                                        'email': userState
+                                                                            .user
+                                                                            .email,
+                                                                        'location':
+                                                                            qrcode,
+                                                                        'checkIn':
+                                                                            DateTime.now(),
+                                                                        'checkOut':
+                                                                            DateTime.now(),
+                                                                        'lat':
+                                                                            latitude,
+                                                                        'long':
+                                                                            longitude,
+                                                                        'status':
+                                                                            "checkIn",
                                                                       });
                                                                       context
                                                                           .bloc<
@@ -604,7 +1118,7 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                                                     result:
                                                                         "Berhasil!",
                                                                     text:
-                                                                        "Absen Keluar Telah Berhasil\nSelamat Bekerja",
+                                                                        "Absen Keluar Telah Berhasil\nSelamat Istirahat",
                                                                     latitude:
                                                                         latitude,
                                                                     longitude:
@@ -623,31 +1137,36 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                                                         "Selesai",
                                                                     onPressed:
                                                                         () async {
-                                                                      final Firestore
-                                                                          firestore =
-                                                                          Firestore
-                                                                              .instance;
-                                                                      DocumentReference
-                                                                          documentTask =
-                                                                          firestore
-                                                                              .document('absens/$absenID');
-                                                                      firestore
-                                                                          .runTransaction(
-                                                                              (transaction) async {
-                                                                        DocumentSnapshot
-                                                                            task =
-                                                                            await transaction.get(documentTask);
-                                                                        if (task
-                                                                            .exists) {
-                                                                          await transaction
-                                                                              .update(
-                                                                            task.reference,
-                                                                            {
-                                                                              'status': 'checkOut',
-                                                                              'checkOut': DateTime.now(),
-                                                                            },
-                                                                          );
-                                                                        }
+                                                                      DocumentReference documentReference = Firestore
+                                                                          .instance
+                                                                          .collection(
+                                                                              'absens')
+                                                                          .document();
+                                                                      documentReference
+                                                                          .setData({
+                                                                        'uid': userState
+                                                                            .user
+                                                                            .uid,
+                                                                        'aid': documentReference
+                                                                            .documentID,
+                                                                        'name': userState
+                                                                            .user
+                                                                            .name,
+                                                                        'email': userState
+                                                                            .user
+                                                                            .email,
+                                                                        'location':
+                                                                            qrcode,
+                                                                        'checkIn':
+                                                                            DateTime.now(),
+                                                                        'checkOut':
+                                                                            DateTime.now(),
+                                                                        'lat':
+                                                                            latitude,
+                                                                        'long':
+                                                                            longitude,
+                                                                        'status':
+                                                                            "checkIn",
                                                                       });
                                                                       context
                                                                           .bloc<
