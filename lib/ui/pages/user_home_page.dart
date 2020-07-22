@@ -268,36 +268,32 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                                                         "Selesai",
                                                                     onPressed:
                                                                         () async {
-                                                                      DocumentReference documentReference = Firestore
-                                                                          .instance
-                                                                          .collection(
-                                                                              'absens')
-                                                                          .document();
-                                                                      documentReference
-                                                                          .setData({
-                                                                        'uid': userState
-                                                                            .user
-                                                                            .uid,
-                                                                        'aid': documentReference
-                                                                            .documentID,
-                                                                        'name': userState
-                                                                            .user
-                                                                            .name,
-                                                                        'email': userState
-                                                                            .user
-                                                                            .email,
-                                                                        'location':
-                                                                            qrcode,
-                                                                        'checkIn':
-                                                                            DateTime.now(),
-                                                                        'checkOut':
-                                                                            DateTime.now(),
-                                                                        'lat':
-                                                                            latitude,
-                                                                        'long':
-                                                                            longitude,
-                                                                        'status':
-                                                                            "checkIn",
+                                                                      final Firestore
+                                                                          firestore =
+                                                                          Firestore
+                                                                              .instance;
+
+                                                                      DocumentReference
+                                                                          documentTask =
+                                                                          firestore
+                                                                              .document('absens/$absenID');
+                                                                      firestore
+                                                                          .runTransaction(
+                                                                              (transaction) async {
+                                                                        DocumentSnapshot
+                                                                            task =
+                                                                            await transaction.get(documentTask);
+                                                                        if (task
+                                                                            .exists) {
+                                                                          await transaction
+                                                                              .update(
+                                                                            task.reference,
+                                                                            {
+                                                                              'status': 'checkOut',
+                                                                              'checkOut': DateTime.now()
+                                                                            },
+                                                                          );
+                                                                        }
                                                                       });
                                                                       context
                                                                           .bloc<
@@ -347,36 +343,32 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                                                         "Selesai",
                                                                     onPressed:
                                                                         () async {
-                                                                      DocumentReference documentReference = Firestore
-                                                                          .instance
-                                                                          .collection(
-                                                                              'absens')
-                                                                          .document();
-                                                                      documentReference
-                                                                          .setData({
-                                                                        'uid': userState
-                                                                            .user
-                                                                            .uid,
-                                                                        'aid': documentReference
-                                                                            .documentID,
-                                                                        'name': userState
-                                                                            .user
-                                                                            .name,
-                                                                        'email': userState
-                                                                            .user
-                                                                            .email,
-                                                                        'location':
-                                                                            qrcode,
-                                                                        'checkIn':
-                                                                            DateTime.now(),
-                                                                        'checkOut':
-                                                                            DateTime.now(),
-                                                                        'lat':
-                                                                            latitude,
-                                                                        'long':
-                                                                            longitude,
-                                                                        'status':
-                                                                            "checkIn",
+                                                                      final Firestore
+                                                                          firestore =
+                                                                          Firestore
+                                                                              .instance;
+
+                                                                      DocumentReference
+                                                                          documentTask =
+                                                                          firestore
+                                                                              .document('absens/$absenID');
+                                                                      firestore
+                                                                          .runTransaction(
+                                                                              (transaction) async {
+                                                                        DocumentSnapshot
+                                                                            task =
+                                                                            await transaction.get(documentTask);
+                                                                        if (task
+                                                                            .exists) {
+                                                                          await transaction
+                                                                              .update(
+                                                                            task.reference,
+                                                                            {
+                                                                              'status': 'checkOut',
+                                                                              'checkOut': DateTime.now()
+                                                                            },
+                                                                          );
+                                                                        }
                                                                       });
                                                                       context
                                                                           .bloc<
@@ -426,36 +418,32 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                                                         "Selesai",
                                                                     onPressed:
                                                                         () async {
-                                                                      DocumentReference documentReference = Firestore
-                                                                          .instance
-                                                                          .collection(
-                                                                              'absens')
-                                                                          .document();
-                                                                      documentReference
-                                                                          .setData({
-                                                                        'uid': userState
-                                                                            .user
-                                                                            .uid,
-                                                                        'aid': documentReference
-                                                                            .documentID,
-                                                                        'name': userState
-                                                                            .user
-                                                                            .name,
-                                                                        'email': userState
-                                                                            .user
-                                                                            .email,
-                                                                        'location':
-                                                                            qrcode,
-                                                                        'checkIn':
-                                                                            DateTime.now(),
-                                                                        'checkOut':
-                                                                            DateTime.now(),
-                                                                        'lat':
-                                                                            latitude,
-                                                                        'long':
-                                                                            longitude,
-                                                                        'status':
-                                                                            "checkIn",
+                                                                      final Firestore
+                                                                          firestore =
+                                                                          Firestore
+                                                                              .instance;
+
+                                                                      DocumentReference
+                                                                          documentTask =
+                                                                          firestore
+                                                                              .document('absens/$absenID');
+                                                                      firestore
+                                                                          .runTransaction(
+                                                                              (transaction) async {
+                                                                        DocumentSnapshot
+                                                                            task =
+                                                                            await transaction.get(documentTask);
+                                                                        if (task
+                                                                            .exists) {
+                                                                          await transaction
+                                                                              .update(
+                                                                            task.reference,
+                                                                            {
+                                                                              'status': 'checkOut',
+                                                                              'checkOut': DateTime.now()
+                                                                            },
+                                                                          );
+                                                                        }
                                                                       });
                                                                       context
                                                                           .bloc<
@@ -505,36 +493,32 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                                                         "Selesai",
                                                                     onPressed:
                                                                         () async {
-                                                                      DocumentReference documentReference = Firestore
-                                                                          .instance
-                                                                          .collection(
-                                                                              'absens')
-                                                                          .document();
-                                                                      documentReference
-                                                                          .setData({
-                                                                        'uid': userState
-                                                                            .user
-                                                                            .uid,
-                                                                        'aid': documentReference
-                                                                            .documentID,
-                                                                        'name': userState
-                                                                            .user
-                                                                            .name,
-                                                                        'email': userState
-                                                                            .user
-                                                                            .email,
-                                                                        'location':
-                                                                            qrcode,
-                                                                        'checkIn':
-                                                                            DateTime.now(),
-                                                                        'checkOut':
-                                                                            DateTime.now(),
-                                                                        'lat':
-                                                                            latitude,
-                                                                        'long':
-                                                                            longitude,
-                                                                        'status':
-                                                                            "checkIn",
+                                                                      final Firestore
+                                                                          firestore =
+                                                                          Firestore
+                                                                              .instance;
+
+                                                                      DocumentReference
+                                                                          documentTask =
+                                                                          firestore
+                                                                              .document('absens/$absenID');
+                                                                      firestore
+                                                                          .runTransaction(
+                                                                              (transaction) async {
+                                                                        DocumentSnapshot
+                                                                            task =
+                                                                            await transaction.get(documentTask);
+                                                                        if (task
+                                                                            .exists) {
+                                                                          await transaction
+                                                                              .update(
+                                                                            task.reference,
+                                                                            {
+                                                                              'status': 'checkOut',
+                                                                              'checkOut': DateTime.now()
+                                                                            },
+                                                                          );
+                                                                        }
                                                                       });
                                                                       context
                                                                           .bloc<
@@ -584,36 +568,32 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                                                         "Selesai",
                                                                     onPressed:
                                                                         () async {
-                                                                      DocumentReference documentReference = Firestore
-                                                                          .instance
-                                                                          .collection(
-                                                                              'absens')
-                                                                          .document();
-                                                                      documentReference
-                                                                          .setData({
-                                                                        'uid': userState
-                                                                            .user
-                                                                            .uid,
-                                                                        'aid': documentReference
-                                                                            .documentID,
-                                                                        'name': userState
-                                                                            .user
-                                                                            .name,
-                                                                        'email': userState
-                                                                            .user
-                                                                            .email,
-                                                                        'location':
-                                                                            qrcode,
-                                                                        'checkIn':
-                                                                            DateTime.now(),
-                                                                        'checkOut':
-                                                                            DateTime.now(),
-                                                                        'lat':
-                                                                            latitude,
-                                                                        'long':
-                                                                            longitude,
-                                                                        'status':
-                                                                            "checkIn",
+                                                                      final Firestore
+                                                                          firestore =
+                                                                          Firestore
+                                                                              .instance;
+
+                                                                      DocumentReference
+                                                                          documentTask =
+                                                                          firestore
+                                                                              .document('absens/$absenID');
+                                                                      firestore
+                                                                          .runTransaction(
+                                                                              (transaction) async {
+                                                                        DocumentSnapshot
+                                                                            task =
+                                                                            await transaction.get(documentTask);
+                                                                        if (task
+                                                                            .exists) {
+                                                                          await transaction
+                                                                              .update(
+                                                                            task.reference,
+                                                                            {
+                                                                              'status': 'checkOut',
+                                                                              'checkOut': DateTime.now()
+                                                                            },
+                                                                          );
+                                                                        }
                                                                       });
                                                                       context
                                                                           .bloc<
@@ -663,36 +643,32 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                                                         "Selesai",
                                                                     onPressed:
                                                                         () async {
-                                                                      DocumentReference documentReference = Firestore
-                                                                          .instance
-                                                                          .collection(
-                                                                              'absens')
-                                                                          .document();
-                                                                      documentReference
-                                                                          .setData({
-                                                                        'uid': userState
-                                                                            .user
-                                                                            .uid,
-                                                                        'aid': documentReference
-                                                                            .documentID,
-                                                                        'name': userState
-                                                                            .user
-                                                                            .name,
-                                                                        'email': userState
-                                                                            .user
-                                                                            .email,
-                                                                        'location':
-                                                                            qrcode,
-                                                                        'checkIn':
-                                                                            DateTime.now(),
-                                                                        'checkOut':
-                                                                            DateTime.now(),
-                                                                        'lat':
-                                                                            latitude,
-                                                                        'long':
-                                                                            longitude,
-                                                                        'status':
-                                                                            "checkIn",
+                                                                      final Firestore
+                                                                          firestore =
+                                                                          Firestore
+                                                                              .instance;
+
+                                                                      DocumentReference
+                                                                          documentTask =
+                                                                          firestore
+                                                                              .document('absens/$absenID');
+                                                                      firestore
+                                                                          .runTransaction(
+                                                                              (transaction) async {
+                                                                        DocumentSnapshot
+                                                                            task =
+                                                                            await transaction.get(documentTask);
+                                                                        if (task
+                                                                            .exists) {
+                                                                          await transaction
+                                                                              .update(
+                                                                            task.reference,
+                                                                            {
+                                                                              'status': 'checkOut',
+                                                                              'checkOut': DateTime.now()
+                                                                            },
+                                                                          );
+                                                                        }
                                                                       });
                                                                       context
                                                                           .bloc<
@@ -742,36 +718,32 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                                                         "Selesai",
                                                                     onPressed:
                                                                         () async {
-                                                                      DocumentReference documentReference = Firestore
-                                                                          .instance
-                                                                          .collection(
-                                                                              'absens')
-                                                                          .document();
-                                                                      documentReference
-                                                                          .setData({
-                                                                        'uid': userState
-                                                                            .user
-                                                                            .uid,
-                                                                        'aid': documentReference
-                                                                            .documentID,
-                                                                        'name': userState
-                                                                            .user
-                                                                            .name,
-                                                                        'email': userState
-                                                                            .user
-                                                                            .email,
-                                                                        'location':
-                                                                            qrcode,
-                                                                        'checkIn':
-                                                                            DateTime.now(),
-                                                                        'checkOut':
-                                                                            DateTime.now(),
-                                                                        'lat':
-                                                                            latitude,
-                                                                        'long':
-                                                                            longitude,
-                                                                        'status':
-                                                                            "checkIn",
+                                                                      final Firestore
+                                                                          firestore =
+                                                                          Firestore
+                                                                              .instance;
+
+                                                                      DocumentReference
+                                                                          documentTask =
+                                                                          firestore
+                                                                              .document('absens/$absenID');
+                                                                      firestore
+                                                                          .runTransaction(
+                                                                              (transaction) async {
+                                                                        DocumentSnapshot
+                                                                            task =
+                                                                            await transaction.get(documentTask);
+                                                                        if (task
+                                                                            .exists) {
+                                                                          await transaction
+                                                                              .update(
+                                                                            task.reference,
+                                                                            {
+                                                                              'status': 'checkOut',
+                                                                              'checkOut': DateTime.now()
+                                                                            },
+                                                                          );
+                                                                        }
                                                                       });
                                                                       context
                                                                           .bloc<
@@ -821,36 +793,32 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                                                         "Selesai",
                                                                     onPressed:
                                                                         () async {
-                                                                      DocumentReference documentReference = Firestore
-                                                                          .instance
-                                                                          .collection(
-                                                                              'absens')
-                                                                          .document();
-                                                                      documentReference
-                                                                          .setData({
-                                                                        'uid': userState
-                                                                            .user
-                                                                            .uid,
-                                                                        'aid': documentReference
-                                                                            .documentID,
-                                                                        'name': userState
-                                                                            .user
-                                                                            .name,
-                                                                        'email': userState
-                                                                            .user
-                                                                            .email,
-                                                                        'location':
-                                                                            qrcode,
-                                                                        'checkIn':
-                                                                            DateTime.now(),
-                                                                        'checkOut':
-                                                                            DateTime.now(),
-                                                                        'lat':
-                                                                            latitude,
-                                                                        'long':
-                                                                            longitude,
-                                                                        'status':
-                                                                            "checkIn",
+                                                                      final Firestore
+                                                                          firestore =
+                                                                          Firestore
+                                                                              .instance;
+
+                                                                      DocumentReference
+                                                                          documentTask =
+                                                                          firestore
+                                                                              .document('absens/$absenID');
+                                                                      firestore
+                                                                          .runTransaction(
+                                                                              (transaction) async {
+                                                                        DocumentSnapshot
+                                                                            task =
+                                                                            await transaction.get(documentTask);
+                                                                        if (task
+                                                                            .exists) {
+                                                                          await transaction
+                                                                              .update(
+                                                                            task.reference,
+                                                                            {
+                                                                              'status': 'checkOut',
+                                                                              'checkOut': DateTime.now()
+                                                                            },
+                                                                          );
+                                                                        }
                                                                       });
                                                                       context
                                                                           .bloc<
@@ -900,36 +868,32 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                                                         "Selesai",
                                                                     onPressed:
                                                                         () async {
-                                                                      DocumentReference documentReference = Firestore
-                                                                          .instance
-                                                                          .collection(
-                                                                              'absens')
-                                                                          .document();
-                                                                      documentReference
-                                                                          .setData({
-                                                                        'uid': userState
-                                                                            .user
-                                                                            .uid,
-                                                                        'aid': documentReference
-                                                                            .documentID,
-                                                                        'name': userState
-                                                                            .user
-                                                                            .name,
-                                                                        'email': userState
-                                                                            .user
-                                                                            .email,
-                                                                        'location':
-                                                                            qrcode,
-                                                                        'checkIn':
-                                                                            DateTime.now(),
-                                                                        'checkOut':
-                                                                            DateTime.now(),
-                                                                        'lat':
-                                                                            latitude,
-                                                                        'long':
-                                                                            longitude,
-                                                                        'status':
-                                                                            "checkIn",
+                                                                      final Firestore
+                                                                          firestore =
+                                                                          Firestore
+                                                                              .instance;
+
+                                                                      DocumentReference
+                                                                          documentTask =
+                                                                          firestore
+                                                                              .document('absens/$absenID');
+                                                                      firestore
+                                                                          .runTransaction(
+                                                                              (transaction) async {
+                                                                        DocumentSnapshot
+                                                                            task =
+                                                                            await transaction.get(documentTask);
+                                                                        if (task
+                                                                            .exists) {
+                                                                          await transaction
+                                                                              .update(
+                                                                            task.reference,
+                                                                            {
+                                                                              'status': 'checkOut',
+                                                                              'checkOut': DateTime.now()
+                                                                            },
+                                                                          );
+                                                                        }
                                                                       });
                                                                       context
                                                                           .bloc<
@@ -979,36 +943,32 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                                                         "Selesai",
                                                                     onPressed:
                                                                         () async {
-                                                                      DocumentReference documentReference = Firestore
-                                                                          .instance
-                                                                          .collection(
-                                                                              'absens')
-                                                                          .document();
-                                                                      documentReference
-                                                                          .setData({
-                                                                        'uid': userState
-                                                                            .user
-                                                                            .uid,
-                                                                        'aid': documentReference
-                                                                            .documentID,
-                                                                        'name': userState
-                                                                            .user
-                                                                            .name,
-                                                                        'email': userState
-                                                                            .user
-                                                                            .email,
-                                                                        'location':
-                                                                            qrcode,
-                                                                        'checkIn':
-                                                                            DateTime.now(),
-                                                                        'checkOut':
-                                                                            DateTime.now(),
-                                                                        'lat':
-                                                                            latitude,
-                                                                        'long':
-                                                                            longitude,
-                                                                        'status':
-                                                                            "checkIn",
+                                                                      final Firestore
+                                                                          firestore =
+                                                                          Firestore
+                                                                              .instance;
+
+                                                                      DocumentReference
+                                                                          documentTask =
+                                                                          firestore
+                                                                              .document('absens/$absenID');
+                                                                      firestore
+                                                                          .runTransaction(
+                                                                              (transaction) async {
+                                                                        DocumentSnapshot
+                                                                            task =
+                                                                            await transaction.get(documentTask);
+                                                                        if (task
+                                                                            .exists) {
+                                                                          await transaction
+                                                                              .update(
+                                                                            task.reference,
+                                                                            {
+                                                                              'status': 'checkOut',
+                                                                              'checkOut': DateTime.now()
+                                                                            },
+                                                                          );
+                                                                        }
                                                                       });
                                                                       context
                                                                           .bloc<
@@ -1058,36 +1018,32 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                                                         "Selesai",
                                                                     onPressed:
                                                                         () async {
-                                                                      DocumentReference documentReference = Firestore
-                                                                          .instance
-                                                                          .collection(
-                                                                              'absens')
-                                                                          .document();
-                                                                      documentReference
-                                                                          .setData({
-                                                                        'uid': userState
-                                                                            .user
-                                                                            .uid,
-                                                                        'aid': documentReference
-                                                                            .documentID,
-                                                                        'name': userState
-                                                                            .user
-                                                                            .name,
-                                                                        'email': userState
-                                                                            .user
-                                                                            .email,
-                                                                        'location':
-                                                                            qrcode,
-                                                                        'checkIn':
-                                                                            DateTime.now(),
-                                                                        'checkOut':
-                                                                            DateTime.now(),
-                                                                        'lat':
-                                                                            latitude,
-                                                                        'long':
-                                                                            longitude,
-                                                                        'status':
-                                                                            "checkIn",
+                                                                      final Firestore
+                                                                          firestore =
+                                                                          Firestore
+                                                                              .instance;
+
+                                                                      DocumentReference
+                                                                          documentTask =
+                                                                          firestore
+                                                                              .document('absens/$absenID');
+                                                                      firestore
+                                                                          .runTransaction(
+                                                                              (transaction) async {
+                                                                        DocumentSnapshot
+                                                                            task =
+                                                                            await transaction.get(documentTask);
+                                                                        if (task
+                                                                            .exists) {
+                                                                          await transaction
+                                                                              .update(
+                                                                            task.reference,
+                                                                            {
+                                                                              'status': 'checkOut',
+                                                                              'checkOut': DateTime.now()
+                                                                            },
+                                                                          );
+                                                                        }
                                                                       });
                                                                       context
                                                                           .bloc<
@@ -1137,36 +1093,32 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                                                         "Selesai",
                                                                     onPressed:
                                                                         () async {
-                                                                      DocumentReference documentReference = Firestore
-                                                                          .instance
-                                                                          .collection(
-                                                                              'absens')
-                                                                          .document();
-                                                                      documentReference
-                                                                          .setData({
-                                                                        'uid': userState
-                                                                            .user
-                                                                            .uid,
-                                                                        'aid': documentReference
-                                                                            .documentID,
-                                                                        'name': userState
-                                                                            .user
-                                                                            .name,
-                                                                        'email': userState
-                                                                            .user
-                                                                            .email,
-                                                                        'location':
-                                                                            qrcode,
-                                                                        'checkIn':
-                                                                            DateTime.now(),
-                                                                        'checkOut':
-                                                                            DateTime.now(),
-                                                                        'lat':
-                                                                            latitude,
-                                                                        'long':
-                                                                            longitude,
-                                                                        'status':
-                                                                            "checkIn",
+                                                                      final Firestore
+                                                                          firestore =
+                                                                          Firestore
+                                                                              .instance;
+
+                                                                      DocumentReference
+                                                                          documentTask =
+                                                                          firestore
+                                                                              .document('absens/$absenID');
+                                                                      firestore
+                                                                          .runTransaction(
+                                                                              (transaction) async {
+                                                                        DocumentSnapshot
+                                                                            task =
+                                                                            await transaction.get(documentTask);
+                                                                        if (task
+                                                                            .exists) {
+                                                                          await transaction
+                                                                              .update(
+                                                                            task.reference,
+                                                                            {
+                                                                              'status': 'checkOut',
+                                                                              'checkOut': DateTime.now()
+                                                                            },
+                                                                          );
+                                                                        }
                                                                       });
                                                                       context
                                                                           .bloc<
