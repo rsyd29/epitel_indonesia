@@ -173,27 +173,16 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         ),
                       ),
                       SizedBox(height: 16),
-                      TextField(
-                        controller: nameController,
-                        onChanged: (text) {
-                          setState(() {
-                            isDataEdited = (nameController.text.trim() !=
-                                        widget.user.name ||
-                                    noHpController.text.trim() !=
-                                        widget.user.noHp ||
-                                    alamatController.text.trim() !=
-                                        widget.user.alamat ||
-                                    profilePath != widget.user.profilePicture)
-                                ? true
-                                : false;
-                          });
-                        },
-                        style: blackTextFont,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                          hintText: "Nama Lengkap",
-                          labelText: "Nama Lengkap",
+                      AbsorbPointer(
+                        child: TextField(
+                          style: greyTextFont,
+                          controller: nameController,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            hintText: "Nama Lengkap",
+                            labelText: "Nama Lengkap",
+                          ),
                         ),
                       ),
                       SizedBox(height: 16),
@@ -201,9 +190,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         controller: noHpController,
                         onChanged: (text) {
                           setState(() {
-                            isDataEdited = (nameController.text.trim() !=
-                                        widget.user.name ||
-                                    noHpController.text.trim() !=
+                            isDataEdited = (noHpController.text.trim() !=
                                         widget.user.noHp ||
                                     alamatController.text.trim() !=
                                         widget.user.alamat ||
@@ -226,9 +213,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         controller: alamatController,
                         onChanged: (text) {
                           setState(() {
-                            isDataEdited = (nameController.text.trim() !=
-                                        widget.user.name ||
-                                    noHpController.text.trim() !=
+                            isDataEdited = (noHpController.text.trim() !=
                                         widget.user.noHp ||
                                     alamatController.text.trim() !=
                                         widget.user.alamat ||
