@@ -254,66 +254,85 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                 },
               ),
               // NOTE: Hapus Semua Data Absen
-              Container(
-                margin: EdgeInsets.only(top: 190.0, left: 14.0, right: 14.0),
-                child: ReusableButton(
-                  icons: MdiIcons.trashCan,
-                  width: double.infinity,
-                  onPressed: () {
-                    showDialog(
-                      builder: (context) => AlertDialog(
-                        title: Text("Hapus Semua Data Absen Karyawan"),
-                        content: Text(
-                            "Kamu yakin ingin menghapus semua data absen karyawan?"),
-                        actions: <Widget>[
-                          InkWell(
-                            borderRadius: BorderRadius.circular(3),
-                            onLongPress: () {
-                              print("Semua Data Absen Telah Berhasil Dihapus!");
-                              final Firestore firestore = Firestore.instance;
+              InkWell(
+                onLongPress: () {
+                  showDialog(
+                    builder: (context) => AlertDialog(
+                      title: Text("Hapus Semua Data Absen Karyawan"),
+                      content: Text(
+                          "Kamu yakin ingin menghapus semua data absen karyawan? Semua data tidak dapat kembali lagi nantinya"),
+                      actions: <Widget>[
+                        InkWell(
+                          borderRadius: BorderRadius.circular(3),
+                          onTap: () {
+                            return Flushbar(
+                              duration: Duration(seconds: 3),
+                              flushbarPosition: FlushbarPosition.BOTTOM,
+                              backgroundColor: Color(0xFFFF5C83),
+                              message:
+                                  "Tekan yang lebih lama untuk menghapus semua data absen",
+                            )..show(context);
+                          },
+                          onLongPress: () {
+                            print("Semua Data Absen Telah Berhasil Dihapus!");
+                            final Firestore firestore = Firestore.instance;
 
-                              firestore
-                                  .collection("absens")
-                                  .getDocuments()
-                                  .then((snapshot) {
-                                    for (DocumentSnapshot ds
-                                        in snapshot.documents) {
-                                      ds.reference.delete();
-                                    }
-                                  })
-                                  .then((value) => Navigator.of(context).pop())
-                                  .then((value) => Flushbar(
-                                        duration: Duration(seconds: 3),
-                                        flushbarPosition:
-                                            FlushbarPosition.BOTTOM,
-                                        backgroundColor: Color(0xFFFF5C83),
-                                        message:
-                                            "Semua Data Absen Telah Berhasil Dihapus!",
-                                      )..show(context));
-                            },
-                            child: Text(
-                              'Benar',
-                              style: blackTextFont,
-                            ),
+                            firestore
+                                .collection("absens")
+                                .getDocuments()
+                                .then((snapshot) {
+                                  for (DocumentSnapshot ds
+                                      in snapshot.documents) {
+                                    ds.reference.delete();
+                                  }
+                                })
+                                .then((value) => Navigator.of(context).pop())
+                                .then((value) => Flushbar(
+                                      duration: Duration(seconds: 3),
+                                      flushbarPosition: FlushbarPosition.BOTTOM,
+                                      backgroundColor: Color(0xFFFF5C83),
+                                      message:
+                                          "Semua Data Absen Telah Berhasil Dihapus!",
+                                    )..show(context));
+                          },
+                          child: Text(
+                            'Benar',
+                            style: blackTextFont,
                           ),
-                          FlatButton(
-                            color: Colors.red,
-                            onPressed: () => Navigator.of(context).pop(),
-                            child: Text(
-                              'Batal',
-                              style: whiteTextFont.copyWith(
-                                  fontWeight: FontWeight.bold),
-                            ),
+                        ),
+                        FlatButton(
+                          color: Colors.red,
+                          onPressed: () => Navigator.of(context).pop(),
+                          child: Text(
+                            'Batal',
+                            style: whiteTextFont.copyWith(
+                                fontWeight: FontWeight.bold),
                           ),
-                        ],
-                      ),
-                      context: context,
-                    );
-                  },
-                  color: Colors.red,
-                  disabledColor: Color(0xFFE4E4E4),
-                  text: "Hapus Semua Data Absen",
-                  textStyle: whiteTextFont.copyWith(fontSize: 16.0),
+                        ),
+                      ],
+                    ),
+                    context: context,
+                  );
+                },
+                child: Container(
+                  margin: EdgeInsets.only(top: 190.0, left: 14.0, right: 14.0),
+                  child: ReusableButton(
+                    icons: MdiIcons.trashCan,
+                    width: double.infinity,
+                    onPressed: () {
+                      return Flushbar(
+                        duration: Duration(seconds: 3),
+                        flushbarPosition: FlushbarPosition.BOTTOM,
+                        backgroundColor: Color(0xFFFF5C83),
+                        message:
+                            "Tekan yang lebih lama untuk menghapus semua data absen",
+                      )..show(context);
+                    },
+                    color: Colors.red,
+                    disabledColor: Color(0xFFE4E4E4),
+                    text: "Hapus Semua Data Absen",
+                    textStyle: whiteTextFont.copyWith(fontSize: 16.0),
+                  ),
                 ),
               ),
               // NOTE: HEADER

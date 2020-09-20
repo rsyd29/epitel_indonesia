@@ -78,11 +78,22 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                     builder: (context) => AlertDialog(
                                       title: Text("Hapus Data Absen Ini"),
                                       content: Text(
-                                          "Kamu yakin ingin menghapus data absen ini?"),
+                                          "Kamu yakin ingin menghapus data absen ini? Data tidak dapat kembali lagi nantinya"),
                                       actions: <Widget>[
                                         InkWell(
                                           borderRadius:
                                               BorderRadius.circular(3),
+                                          onTap: () {
+                                            return Flushbar(
+                                              duration: Duration(seconds: 3),
+                                              flushbarPosition:
+                                                  FlushbarPosition.BOTTOM,
+                                              backgroundColor:
+                                                  Color(0xFFFF5C83),
+                                              message:
+                                                  "Tekan yang lebih lama untuk menghapus data absen ini",
+                                            )..show(context);
+                                          },
                                           onLongPress: () {
                                             final Firestore firestore =
                                                 Firestore.instance;
@@ -297,6 +308,9 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                                             .instance
                                                             .collection(
                                                                 'branchs')
+                                                            .where('status',
+                                                                isEqualTo:
+                                                                    'aktif')
                                                             .snapshots(),
                                                         builder: (BuildContext
                                                                 context,

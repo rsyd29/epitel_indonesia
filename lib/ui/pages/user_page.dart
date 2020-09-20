@@ -72,7 +72,10 @@ class _UserPageState extends State<UserPage> {
               }
 
               return StreamBuilder<QuerySnapshot>(
-                  stream: Firestore.instance.collection('branchs').snapshots(),
+                  stream: Firestore.instance
+                      .collection('branchs')
+                      .where('status', isEqualTo: 'aktif')
+                      .snapshots(),
                   builder: (BuildContext context,
                       AsyncSnapshot<QuerySnapshot> querySnapshot) {
                     if (querySnapshot.hasError) {

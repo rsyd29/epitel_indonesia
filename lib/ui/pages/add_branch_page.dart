@@ -164,16 +164,17 @@ class _BranchAddPageState extends State<BranchAddPage> {
                                                                   EdgeInsets
                                                                       .all(0)),
                                                           Text(
-                                                              list[index]
-                                                                      ['cabang']
-                                                                  .toUpperCase(),
-                                                              style: blackTextFont
-                                                                  .copyWith(
-                                                                      fontSize:
-                                                                          24,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold))
+                                                            list[index]
+                                                                    ['cabang']
+                                                                .toUpperCase(),
+                                                            style: blackTextFont
+                                                                .copyWith(
+                                                                    fontSize:
+                                                                        24,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold),
+                                                          ),
                                                         ],
                                                       ),
                                                     )))));
