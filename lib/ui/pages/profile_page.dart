@@ -36,7 +36,7 @@ class ProfilePage extends StatelessWidget {
                           onTap: () {
                             context
                                 .bloc<PageBloc>()
-                                .add(GoToEditProfilePage(userState.user));
+                                .add(GoToUserDetailPage(userState.user));
                             print(userState.user.uid);
                           },
                           child: Container(
@@ -110,7 +110,20 @@ class ProfilePage extends StatelessWidget {
             onTap: () {
               context
                   .bloc<PageBloc>()
-                  .add(GoToEditProfilePage((userState as UserLoaded).user));
+                  .add(GoToEditUserPage((userState as UserLoaded).user));
+            },
+          ),
+        ),
+        ReusableSizedBox(height: 10),
+        ReusableStyleTextProfile(title: "Lihat Profil"),
+        BlocBuilder<UserBloc, UserState>(
+          builder: (_, userState) => ReusableList(
+            icon: MdiIcons.accountBox,
+            title: "Lihat Profil",
+            onTap: () {
+              context
+                  .bloc<PageBloc>()
+                  .add(GoToUserDetailPage((userState as UserLoaded).user));
             },
           ),
         ),
@@ -130,20 +143,47 @@ class ProfilePage extends StatelessWidget {
         ReusableSizedBox(height: 10),
         NotReusableSizedBoxAndButton(
           app: "Epitel Indonesia",
-          versi: "Versi 1.0.0",
+          versi: "Versi 2.0.0",
           text: "Keluar Akun",
           color: accentColor3,
           onPressed: () {
-            context.bloc<UserBloc>().add(SignOut());
-            AuthServices.signOut();
-
-            return Flushbar(
-              duration: Duration(milliseconds: 1500),
-              flushbarPosition: FlushbarPosition.TOP,
-              backgroundColor: Color(0xFFFF5C83),
-              message:
-                  "Kamu telah keluar dari akun, terima kasih untuk hari ini",
-            )..show(context);
+            showDialog(
+              builder: (context) => AlertDialog(
+                title: Text("Keluar Akun"),
+                content: Text("Kamu yakin ingin keluar dari akun ini?"),
+                actions: <Widget>[
+                  FlatButton(
+                    // color: Colors.white.withOpacity(0.5),
+                    onPressed: () {
+                      context.bloc<UserBloc>().add(SignOut());
+                      AuthServices.signOut()
+                          .then((value) => Navigator.of(context).pop())
+                          .then((value) => Flushbar(
+                                duration: Duration(seconds: 3),
+                                flushbarPosition: FlushbarPosition.TOP,
+                                backgroundColor: Color(0xFFFF5C83),
+                                message:
+                                    "Kamu telah keluar dari akun, terima kasih untuk hari ini",
+                              )..show(context));
+                    },
+                    child: Text(
+                      'Keluar',
+                      style: blackTextFont,
+                    ),
+                  ),
+                  FlatButton(
+                    color: Colors.blue,
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: Text(
+                      'Batal',
+                      style:
+                          whiteTextFont.copyWith(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              ),
+              context: context,
+            );
           },
         ),
       ],

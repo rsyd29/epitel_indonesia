@@ -1,24 +1,24 @@
-// part of 'absen_bloc.dart';
+part of 'absen_bloc.dart';
 
-// abstract class AbsenEvent extends Equatable {
-//   const AbsenEvent();
-// }
+abstract class AbsenEvent extends Equatable {
+  const AbsenEvent();
+}
 
-// class GetAbsens extends AbsenEvent {
-//   final String uid;
+class GetAbsens extends AbsenEvent {
+  final String uid;
 
-//   GetAbsens(this.uid);
+  GetAbsens(this.uid);
 
-//   @override
-//   List<Object> get props => throw [uid];
-// }
+  @override
+  List<Object> get props => [uid];
+}
 
-// class FetchAbsens extends AbsenEvent {
-//   final Absen absen;
-//   final String uid;
+class FetchAbsens extends AbsenEvent {
+  final Absen absen;
+  final String uid;
 
-//   FetchAbsens(this.absen, this.uid);
+  FetchAbsens(this.absen, this.uid);
 
-//   @override
-//   List<Object> get props => [absen, uid];
-// }
+  @override
+  List<Object> get props => [absen, uid];
+}

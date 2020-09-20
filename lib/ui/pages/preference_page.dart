@@ -6,21 +6,6 @@ class PreferencePage extends StatefulWidget {
     "Wanita",
   ];
 
-  final List<String> branch = [
-    "Cibitung",
-    "Cikampek",
-    "Kosambi",
-    "Karawang",
-    "Kodau Jatiasih",
-    "Kaliabang",
-    "A Pettarani",
-    "Jatinegara",
-    "Antang Makassar",
-    "Bekasi Timur",
-    "Sukabumi",
-    "Manado",
-  ];
-
   final RegistrationData registrationData;
 
   PreferencePage(this.registrationData);
@@ -33,8 +18,28 @@ class _PreferencePageState extends State<PreferencePage> {
   String selectedGender = "Pria";
   String selectedBranch = "Jatinegara";
 
+  Future getBranch() async {
+    var firestore = Firestore.instance;
+    QuerySnapshot qs = await firestore.collection("branchs").getDocuments();
+    return qs.documents;
+  }
+
+  void _onPressed() {
+    var firestore = Firestore.instance;
+    firestore.collection("branchs").getDocuments().then((querySnapshot) {
+      querySnapshot.documents.forEach((result) {
+        print(result.data);
+      });
+    });
+    widget.registrationData.selectedGender = selectedGender;
+    widget.registrationData.selectedBranch = selectedBranch;
+  }
+
   @override
   Widget build(BuildContext context) {
+    double width =
+        (MediaQuery.of(context).size.width - 2 * defaultMargin - 24) / 2;
+
     return WillPopScope(
       onWillPop: () async {
         widget.registrationData.password = "";
@@ -59,6 +64,7 @@ class _PreferencePageState extends State<PreferencePage> {
                     child: GestureDetector(
                         onTap: () {
                           widget.registrationData.password = "";
+
                           context.bloc<PageBloc>().add(
                               GoToRegistrationPage(widget.registrationData));
                           return;
@@ -81,10 +87,44 @@ class _PreferencePageState extends State<PreferencePage> {
                     style: blackTextFont.copyWith(fontSize: 20),
                   ),
                   SizedBox(height: 16),
-                  Wrap(
-                    spacing: 24,
-                    runSpacing: 24,
-                    children: generateBranchWidgets(context),
+                  StreamBuilder<QuerySnapshot>(
+                    stream:
+                        Firestore.instance.collection('branchs').snapshots(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<QuerySnapshot> querySnapshot) {
+                      if (querySnapshot.hasError) {
+                        return Text('Terdapat Kesalahan');
+                      } else if (!querySnapshot.hasData) {
+                        return Loading(
+                            colorBg: Colors.transparent, color: mainColor);
+                      } else {
+                        final list = querySnapshot.data.documents;
+
+                        List<Widget> generateBranchsWidgets(
+                            BuildContext context) {
+                          return list.map((element) {
+                            String cabangSemua = element.data['cabang'];
+                            print(cabangSemua);
+                            return SelectableBox(
+                              cabangSemua,
+                              width: width,
+                              isSelected: selectedBranch == cabangSemua,
+                              onTap: () {
+                                setState(() {
+                                  selectedBranch = cabangSemua;
+                                });
+                              },
+                            );
+                          }).toList();
+                        }
+
+                        return Wrap(
+                          spacing: 24,
+                          runSpacing: 24,
+                          children: generateBranchsWidgets(context),
+                        );
+                      }
+                    },
                   ),
                   SizedBox(height: 30),
                   Center(
@@ -93,11 +133,7 @@ class _PreferencePageState extends State<PreferencePage> {
                         elevation: 0,
                         backgroundColor: mainColor,
                         onPressed: () {
-                          widget.registrationData.selectedGender =
-                              selectedGender;
-                          widget.registrationData.selectedBranch =
-                              selectedBranch;
-
+                          _onPressed();
                           context.bloc<PageBloc>().add(
                               GoToAccountConfirmationPage(
                                   widget.registrationData));
@@ -125,24 +161,6 @@ class _PreferencePageState extends State<PreferencePage> {
               onTap: () {
                 setState(() {
                   selectedGender = e;
-                });
-              },
-            ))
-        .toList();
-  }
-
-  List<Widget> generateBranchWidgets(BuildContext context) {
-    double width =
-        (MediaQuery.of(context).size.width - 2 * defaultMargin - 24) / 2;
-
-    return widget.branch
-        .map((e) => SelectableBox(
-              e,
-              width: width,
-              isSelected: selectedBranch == e,
-              onTap: () {
-                setState(() {
-                  selectedBranch = e;
                 });
               },
             ))

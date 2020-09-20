@@ -25,13 +25,13 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     } else if (event is UpdateData) {
       User updatedUser = (state as UserLoaded).user.copyWith(
           uid: event.uid,
+          profilePicture: event.profilePicture,
           name: event.name,
           noHp: event.noHp,
           alamat: event.alamat,
           selectedBranch: event.selectedBranch,
           role: event.role,
           selectedGender: event.selectedGender,
-          profilePicture: event.profilePicture,
           deviceId: event.deviceId,
           status: event.status);
       await UserServices.updateUser(updatedUser);

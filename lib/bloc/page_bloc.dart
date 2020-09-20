@@ -30,15 +30,27 @@ class PageBloc extends Bloc<PageEvent, PageState> {
     } else if (event is GoToAccountConfirmationPage) {
       yield OnAccountConfirmationPage(event.registrationData);
     } else if (event is GoToCheckPage) {
-      yield OnCheckPage();
-    } else if (event is GoToEditProfilePage) {
-      yield OnEditProfilePage(event.user);
+      yield OnRoleCheckPage();
+    } else if (event is GoToEditUserPage) {
+      yield OnEditUserPage(event.user);
+    } else if (event is GoToEditKaryawanPage) {
+      yield OnEditKaryawanPage(event.user);
+    } else if (event is GoToEditBranchPage) {
+      yield OnEditBranchPage(event.branch);
     } else if (event is GoToAboutPage) {
       yield OnAboutPage(event.user);
+    } else if (event is GoToRecapPage) {
+      yield OnRecapPage(event.user);
+    } else if (event is GoToApplyPage) {
+      yield OnApplyPage(event.user);
     } else if (event is GoToAddPage) {
       yield OnAddPage(event.user);
     } else if (event is GoToUserDetailPage) {
       yield OnUserDetailPage(event.user);
+    } else if (event is GoToAddUserPage) {
+      yield OnAddUserPage(event.user);
+    } else if (event is GoToAddBranchPage) {
+      yield OnAddBranchPage(event.user);
     }
   }
 }

@@ -132,6 +132,17 @@ class _SignUpPageState extends State<SignUpPage> {
                         return id;
                       });
                     },
+                    onLongPress: () {
+                      Clipboard.setData(ClipboardData(text: "$deviceId"))
+                          .then((value) => Flushbar(
+                                duration: Duration(milliseconds: 1500),
+                                flushbarPosition: FlushbarPosition.BOTTOM,
+                                backgroundColor: Color(0xFFFF5C83),
+                                message:
+                                    "ID Perangkat Berhasil Disalin: $deviceId",
+                              )..show(context));
+                      print("Data Berhasil Disalin: $deviceId");
+                    },
                     child: AbsorbPointer(
                       child: TextField(
                         onChanged: (id) {
@@ -221,7 +232,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             duration: Duration(milliseconds: 1500),
                             flushbarPosition: FlushbarPosition.BOTTOM,
                             backgroundColor: Color(0xFFFF5C83),
-                            message: "Please fill all the fields",
+                            message: "Silahkan isi semua data yang disediakan",
                           )..show(context);
                         } else if (passwordController.text !=
                             retypePasswordController.text) {
@@ -230,14 +241,14 @@ class _SignUpPageState extends State<SignUpPage> {
                             flushbarPosition: FlushbarPosition.BOTTOM,
                             backgroundColor: Color(0xFFFF5C83),
                             message:
-                                "Missmatch your password and retype password",
+                                "Kata sandi dan ketik ulang kata sandi tidak sama",
                           )..show(context);
                         } else if (passwordController.text.length < 6) {
                           Flushbar(
                             duration: Duration(milliseconds: 1500),
                             flushbarPosition: FlushbarPosition.BOTTOM,
                             backgroundColor: Color(0xFFFF5C83),
-                            message: "Password's length min 6 characters",
+                            message: "Panjang kata sandi minimal 6 karakter",
                           )..show(context);
                         } else if (!EmailValidator.validate(
                             emailController.text)) {
@@ -245,7 +256,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             duration: Duration(milliseconds: 1500),
                             flushbarPosition: FlushbarPosition.BOTTOM,
                             backgroundColor: Color(0xFFFF5C83),
-                            message: "Wrong formatted email address",
+                            message: "Alamat email salah format",
                           )..show(context);
                         } else {
                           widget.registrationData.name = nameController.text;

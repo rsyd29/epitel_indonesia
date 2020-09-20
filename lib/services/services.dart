@@ -5,4 +5,5 @@ import 'package:Epitel_Indonesia/extensions/extensions.dart';
 
 part 'auth_services.dart';
 part 'user_services.dart';
-// part 'absen_services.dart';
+part 'branch_services.dart';
+part 'absen_services.dart';

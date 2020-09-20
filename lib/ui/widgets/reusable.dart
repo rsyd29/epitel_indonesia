@@ -156,3 +156,36 @@ class NotReusableSizedBoxAndButton extends StatelessWidget {
     ]);
   }
 }
+
+class Hapus extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      icon: Icon(MdiIcons.alertRemove),
+      onPressed: () {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Hapus Data Absen?'),
+            content: const Text(
+                'This will reset your device to its default factory settings.'),
+            actions: <Widget>[
+              FlatButton(
+                child: const Text('Batal'),
+                onPressed: () {
+                  print("Button Batal");
+                },
+              ),
+              FlatButton(
+                child: const Text('Hapus'),
+                onPressed: () {
+                  print("Button Hapus");
+                },
+              )
+            ],
+          ),
+        );
+      },
+    );
+  }
+}

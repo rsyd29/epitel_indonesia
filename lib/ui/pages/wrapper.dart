@@ -40,16 +40,32 @@ class Wrapper extends StatelessWidget {
                                         bottomNavBarIndex:
                                             pageState.bottomNavBarIndex,
                                       )
-                                    : (pageState is OnEditProfilePage)
-                                        ? EditProfilePage(pageState.user)
-                                        : (pageState is OnAboutPage)
-                                            ? AboutPage(pageState.user)
-                                            : (pageState is OnAddPage)
-                                                ? AddAdminPage(pageState.user)
-                                                : (pageState
-                                                        is OnUserDetailPage)
-                                                    ? UserDetailPage(
-                                                        pageState.user)
-                                                    : CheckPage());
+                                    : (pageState is OnEditUserPage)
+                                        ? EditUserPage(pageState.user)
+                                        : (pageState is OnEditKaryawanPage)
+                                            ? EditKaryawanPage(pageState.user)
+                                            : (pageState is OnEditBranchPage)
+                                                ? EditBranchPage(
+                                                    pageState.branch)
+                                                : (pageState is OnAboutPage)
+                                                    ? AboutPage(pageState.user)
+                                                    : (pageState is OnAddPage)
+                                                        ? AddAdminPage(
+                                                            pageState.user)
+                                                        : (pageState
+                                                                is OnUserDetailPage)
+                                                            ? UserDetailPage(
+                                                                pageState.user)
+                                                            : (pageState
+                                                                    is OnAddUserPage)
+                                                                ? UserAddPage(
+                                                                    pageState
+                                                                        .user)
+                                                                : (pageState
+                                                                        is OnAddBranchPage)
+                                                                    ? BranchAddPage(
+                                                                        pageState
+                                                                            .user)
+                                                                    : CheckPage());
   }
 }

@@ -4,6 +4,8 @@ extension DateTimeExtension on DateTime {
   String get timeNow =>
       "${this.hour}:${this.minute}:${this.second} ${this.timeZoneName}";
   String get dateNow =>
+      "${this.dayName}\n${this.day} ${this.monthName} ${this.year}";
+  String get dateScanNow =>
       "${this.dayName}, ${this.day} ${this.monthName} ${this.year}";
 
   String get shortDayName {
@@ -55,21 +57,21 @@ extension DateTimeExtension on DateTime {
       case 4:
         return 'Apr';
       case 5:
-        return 'May';
+        return 'Mei';
       case 6:
         return 'Jun';
       case 7:
         return 'Jul';
       case 8:
-        return 'Aug';
+        return 'Agu';
       case 9:
         return 'Sep';
       case 10:
-        return 'Oct';
+        return 'Okt';
       case 11:
         return 'Nov';
       default:
-        return 'Dec';
+        return 'Des';
     }
   }
 
@@ -99,6 +101,35 @@ extension DateTimeExtension on DateTime {
         return 'November';
       default:
         return 'Desember';
+    }
+  }
+
+  String get monthNumber {
+    switch (this.month) {
+      case 1:
+        return '01';
+      case 2:
+        return '02';
+      case 3:
+        return '03';
+      case 4:
+        return '04';
+      case 5:
+        return '05';
+      case 6:
+        return '06';
+      case 7:
+        return '07';
+      case 8:
+        return '08';
+      case 9:
+        return '09';
+      case 10:
+        return '10';
+      case 11:
+        return '11';
+      default:
+        return '12';
     }
   }
 }

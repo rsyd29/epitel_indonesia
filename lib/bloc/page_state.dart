@@ -59,23 +59,55 @@ class OnAccountConfirmationPage extends PageState {
   List<Object> get props => [];
 }
 
-class OnCheckPage extends PageState {
+class OnRoleCheckPage extends PageState {
   @override
   List<Object> get props => [];
 }
 
-class OnEditProfilePage extends PageState {
+class OnEditUserPage extends PageState {
   final User user;
 
-  OnEditProfilePage(this.user);
+  OnEditUserPage(this.user);
   @override
   List<Object> get props => [user];
+}
+
+class OnEditKaryawanPage extends PageState {
+  final User user;
+
+  OnEditKaryawanPage(this.user);
+  @override
+  List<Object> get props => [user];
+}
+
+class OnEditBranchPage extends PageState {
+  final Branch branch;
+
+  OnEditBranchPage(this.branch);
+  @override
+  List<Object> get props => [branch];
 }
 
 class OnAboutPage extends PageState {
   final User user;
 
   OnAboutPage(this.user);
+  @override
+  List<Object> get props => [user];
+}
+
+class OnRecapPage extends PageState {
+  final User user;
+
+  OnRecapPage(this.user);
+  @override
+  List<Object> get props => [user];
+}
+
+class OnApplyPage extends PageState {
+  final User user;
+
+  OnApplyPage(this.user);
   @override
   List<Object> get props => [user];
 }
@@ -92,6 +124,22 @@ class OnUserDetailPage extends PageState {
   final User user;
 
   OnUserDetailPage(this.user);
+  @override
+  List<Object> get props => [user];
+}
+
+class OnAddUserPage extends PageState {
+  final User user;
+
+  OnAddUserPage(this.user);
+  @override
+  List<Object> get props => [user];
+}
+
+class OnAddBranchPage extends PageState {
+  final User user;
+
+  OnAddBranchPage(this.user);
   @override
   List<Object> get props => [user];
 }

@@ -13,6 +13,15 @@ class LoadUser extends UserEvent {
   List<Object> get props => [uid];
 }
 
+class GetUsers extends UserEvent {
+  final String uid;
+
+  GetUsers(this.uid);
+
+  @override
+  List<Object> get props => [uid];
+}
+
 class SignOut extends UserEvent {
   @override
   List<Object> get props => [];

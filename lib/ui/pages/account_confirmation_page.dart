@@ -99,9 +99,16 @@ class _AccountConfirmationPageState extends State<AccountConfirmationPage> {
                       style: blackTextFont.copyWith(
                           fontSize: 20, fontWeight: FontWeight.bold),
                     ),
+                    SizedBox(height: 5),
                     Text(
                         "Nomor ID Perangkatmu: " +
                             widget.registrationData.deviceId,
+                        style: blackTextFont.copyWith(fontSize: 12)),
+                    Text("Alamat Emailmu: " + widget.registrationData.email,
+                        style: blackTextFont.copyWith(fontSize: 12)),
+                    Text(
+                        "Tempatmu bekerja: " +
+                            widget.registrationData.selectedBranch,
                         style: blackTextFont.copyWith(fontSize: 12)),
                     SizedBox(
                       height: 50,

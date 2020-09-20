@@ -10,7 +10,7 @@ Future<String> getScan() async {
   return qrCode;
 }
 
-Future getLocation() async {
+Future<dynamic> getLocation() async {
   try {
     Position position = await Geolocator()
         .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);

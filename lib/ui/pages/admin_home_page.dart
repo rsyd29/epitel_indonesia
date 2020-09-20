@@ -23,7 +23,7 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                 builder: (_, userState) {
                   if (userState is UserLoaded) {
                     return Container(
-                      margin: EdgeInsets.symmetric(horizontal: defaultMargin),
+                      margin: EdgeInsets.symmetric(horizontal: 14.0),
                       child: StreamBuilder<QuerySnapshot>(
                         stream: (isToday)
                             ? Firestore.instance
@@ -65,7 +65,7 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                                   child: Container(
                                     color: Colors.white,
                                     margin: EdgeInsets.only(
-                                      top: index == 0 ? 166 : 20,
+                                      top: index == 0 ? 216 : 20,
                                     ),
                                     child: Column(
                                       mainAxisAlignment:
@@ -107,7 +107,9 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                                                   Icon(MdiIcons.mapMarker,
                                                       color: Colors.white),
                                                   SizedBox(width: 5),
-                                                  Text(list[index]['location'],
+                                                  Text(
+                                                      list[index]['branch'] ??
+                                                          "-",
                                                       style: whiteTextFont
                                                           .copyWith(
                                                         fontSize: 10,
@@ -120,9 +122,9 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                                         ),
                                         Container(
                                           padding: EdgeInsets.fromLTRB(
-                                            10.0,
+                                            0.0,
                                             16.0,
-                                            10.0,
+                                            5.0,
                                             16.0,
                                           ),
                                           color: Colors.white,
@@ -135,7 +137,7 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                                                   Icon(
                                                     MdiIcons.mapMarker,
                                                     color: Colors.green,
-                                                    size: 40,
+                                                    size: 50,
                                                   ),
                                                   Column(
                                                     crossAxisAlignment:
@@ -159,7 +161,16 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                                                       Text("${checkIn.timeNow}",
                                                           style: blackTextFont
                                                               .copyWith(
-                                                                  fontSize: 10))
+                                                                  fontSize:
+                                                                      10)),
+                                                      Text(
+                                                          list[index][
+                                                                  'location_in'] ??
+                                                              "-",
+                                                          style: blackTextFont
+                                                              .copyWith(
+                                                                  fontSize:
+                                                                      10)),
                                                     ],
                                                   )
                                                 ],
@@ -170,7 +181,7 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                                                         Icon(
                                                           MdiIcons.mapMarker,
                                                           color: Colors.red,
-                                                          size: 40,
+                                                          size: 50,
                                                         ),
                                                         Column(
                                                           crossAxisAlignment:
@@ -197,12 +208,32 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                                                                 style: blackTextFont
                                                                     .copyWith(
                                                                         fontSize:
-                                                                            10))
+                                                                            10)),
+                                                            Text(
+                                                                list[index][
+                                                                        'location_out'] ??
+                                                                    "-",
+                                                                style: blackTextFont
+                                                                    .copyWith(
+                                                                        fontSize:
+                                                                            10)),
                                                           ],
                                                         )
                                                       ],
                                                     )
-                                                  : Text('Belum CheckOut'),
+                                                  : Container(
+                                                      padding:
+                                                          EdgeInsets.all(5),
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.red,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(6),
+                                                      ),
+                                                      child: Text(
+                                                          'Belum CheckOut',
+                                                          style:
+                                                              whiteTextFont)),
                                             ],
                                           ),
                                         ),
@@ -221,6 +252,69 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                     return Loading();
                   }
                 },
+              ),
+              // NOTE: Hapus Semua Data Absen
+              Container(
+                margin: EdgeInsets.only(top: 190.0, left: 14.0, right: 14.0),
+                child: ReusableButton(
+                  icons: MdiIcons.trashCan,
+                  width: double.infinity,
+                  onPressed: () {
+                    showDialog(
+                      builder: (context) => AlertDialog(
+                        title: Text("Hapus Semua Data Absen Karyawan"),
+                        content: Text(
+                            "Kamu yakin ingin menghapus semua data absen karyawan?"),
+                        actions: <Widget>[
+                          InkWell(
+                            borderRadius: BorderRadius.circular(3),
+                            onLongPress: () {
+                              print("Semua Data Absen Telah Berhasil Dihapus!");
+                              final Firestore firestore = Firestore.instance;
+
+                              firestore
+                                  .collection("absens")
+                                  .getDocuments()
+                                  .then((snapshot) {
+                                    for (DocumentSnapshot ds
+                                        in snapshot.documents) {
+                                      ds.reference.delete();
+                                    }
+                                  })
+                                  .then((value) => Navigator.of(context).pop())
+                                  .then((value) => Flushbar(
+                                        duration: Duration(seconds: 3),
+                                        flushbarPosition:
+                                            FlushbarPosition.BOTTOM,
+                                        backgroundColor: Color(0xFFFF5C83),
+                                        message:
+                                            "Semua Data Absen Telah Berhasil Dihapus!",
+                                      )..show(context));
+                            },
+                            child: Text(
+                              'Benar',
+                              style: blackTextFont,
+                            ),
+                          ),
+                          FlatButton(
+                            color: Colors.red,
+                            onPressed: () => Navigator.of(context).pop(),
+                            child: Text(
+                              'Batal',
+                              style: whiteTextFont.copyWith(
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ],
+                      ),
+                      context: context,
+                    );
+                  },
+                  color: Colors.red,
+                  disabledColor: Color(0xFFE4E4E4),
+                  text: "Hapus Semua Data Absen",
+                  textStyle: whiteTextFont.copyWith(fontSize: 16.0),
+                ),
               ),
               // NOTE: HEADER
               Container(
@@ -259,8 +353,7 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                                     GestureDetector(
                                       onTap: () {
                                         context.bloc<PageBloc>().add(
-                                            GoToEditProfilePage(
-                                                userState.user));
+                                            GoToUserDetailPage(userState.user));
                                         print(userState.user.uid);
                                       },
                                       child: Container(
@@ -392,19 +485,5 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
         );
       }
     });
-  }
-}
-
-class RecapMemberAdmin extends StatelessWidget {
-  final List<User> users;
-
-  RecapMemberAdmin(this.users);
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-        itemCount: 1,
-        itemBuilder: (_, index) => Container(
-              margin: EdgeInsets.only(top: index == 0 ? 133.0 : 20.0),
-            ));
   }
 }

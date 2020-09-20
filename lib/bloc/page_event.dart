@@ -56,18 +56,50 @@ class GoToCheckPage extends PageEvent {
   List<Object> get props => [];
 }
 
-class GoToEditProfilePage extends PageEvent {
+class GoToEditUserPage extends PageEvent {
   final User user;
 
-  GoToEditProfilePage(this.user);
+  GoToEditUserPage(this.user);
   @override
   List<Object> get props => [user];
+}
+
+class GoToEditKaryawanPage extends PageEvent {
+  final User user;
+
+  GoToEditKaryawanPage(this.user);
+  @override
+  List<Object> get props => [user];
+}
+
+class GoToEditBranchPage extends PageEvent {
+  final Branch branch;
+
+  GoToEditBranchPage(this.branch);
+  @override
+  List<Object> get props => [branch];
 }
 
 class GoToAboutPage extends PageEvent {
   final User user;
 
   GoToAboutPage(this.user);
+  @override
+  List<Object> get props => [user];
+}
+
+class GoToRecapPage extends PageEvent {
+  final User user;
+
+  GoToRecapPage(this.user);
+  @override
+  List<Object> get props => [user];
+}
+
+class GoToApplyPage extends PageEvent {
+  final User user;
+
+  GoToApplyPage(this.user);
   @override
   List<Object> get props => [user];
 }
@@ -84,6 +116,22 @@ class GoToUserDetailPage extends PageEvent {
   final User user;
 
   GoToUserDetailPage(this.user);
+  @override
+  List<Object> get props => [user];
+}
+
+class GoToAddUserPage extends PageEvent {
+  final User user;
+
+  GoToAddUserPage(this.user);
+  @override
+  List<Object> get props => [user];
+}
+
+class GoToAddBranchPage extends PageEvent {
+  final User user;
+
+  GoToAddBranchPage(this.user);
   @override
   List<Object> get props => [user];
 }
