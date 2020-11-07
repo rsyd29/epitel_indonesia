@@ -27,9 +27,9 @@ class _EditKaryawanPageState extends State<EditKaryawanPage> {
     profilePath = widget.user.profilePicture;
     nameController.text = widget.user.name;
     deviceIdController.text = widget.user.deviceId;
-    branchController.text = widget.user.selectedBranch;
-    statusController.text = widget.user.status;
-    roleController.text = widget.user.role;
+    _currentBranch = widget.user.selectedBranch;
+    _currentStatus = widget.user.status;
+    _currentRole = widget.user.role;
   }
 
   @override

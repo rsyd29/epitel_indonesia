@@ -122,6 +122,7 @@ class NotReusableSizedBoxAndButton extends StatelessWidget {
       SingleChildScrollView(
           child: Container(
               // margin: EdgeInsets.symmetric(horizontal: defaultMargin),
+              // margin: EdgeInsets.only(bottom: 76),
               alignment: Alignment.topCenter,
               height: 120.0,
               color: Colors.white,

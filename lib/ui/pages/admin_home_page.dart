@@ -43,8 +43,18 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                           }
                           if (querySnapshot.connectionState ==
                               ConnectionState.waiting) {
-                            return Loading(
-                                color: mainColor, colorBg: Colors.transparent);
+                            return Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Loading(
+                                    color: mainColor,
+                                    colorBg: Colors.transparent),
+                                SizedBox(height: 5.0),
+                                Text("Harap Bersabar",
+                                    style: blackTextFont.copyWith(
+                                        color: mainColor))
+                              ],
+                            );
                           } else {
                             final list = querySnapshot.data.documents;
                             return ListView.builder(

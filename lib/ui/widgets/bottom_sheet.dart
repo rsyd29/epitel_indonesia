@@ -237,13 +237,13 @@ class _BottomSheetBranchState extends State<BottomSheetBranch> {
                                           .document();
 
                                   documentReference.setData({
-                                    'bid': documentReference.documentID,
-                                    'cabang': cabang,
-                                    'latitude': latitude,
-                                    'longitude': longitude,
-                                    'kota': kota,
-                                    'qrcode': qrCode,
-                                    'status': status,
+                                    'bid': documentReference.documentID ?? "",
+                                    'cabang': cabang ?? "",
+                                    'latitude': latitude ?? "",
+                                    'longitude': longitude ?? "",
+                                    'kota': kota ?? "",
+                                    'qrcode': qrCode ?? "",
+                                    'status': status ?? "",
                                   });
 
                                   Navigator.of(context).pop();

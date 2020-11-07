@@ -95,7 +95,7 @@ class _ErrorPageState extends State<ErrorPage> {
                       fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  widget.user.deviceId,
+                  widget.user.uid,
                   style: blackTextFont.copyWith(
                       fontSize: 12, fontWeight: FontWeight.bold),
                 ),

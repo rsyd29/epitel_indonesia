@@ -165,7 +165,7 @@ class _BranchAddPageState extends State<BranchAddPage> {
                                                                       .all(0)),
                                                           Text(
                                                             list[index]
-                                                                    ['cabang']
+                                                                    ['qrcode']
                                                                 .toUpperCase(),
                                                             style: blackTextFont
                                                                 .copyWith(

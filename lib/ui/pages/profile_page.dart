@@ -101,7 +101,6 @@ class ProfilePage extends StatelessWidget {
             }
           }),
         ),
-        ReusableSizedBox(height: 10),
         ReusableStyleTextProfile(title: "Ubah Profil"),
         BlocBuilder<UserBloc, UserState>(
           builder: (_, userState) => ReusableList(
@@ -114,7 +113,7 @@ class ProfilePage extends StatelessWidget {
             },
           ),
         ),
-        ReusableSizedBox(height: 10),
+        ReusableSizedBox(height: 5),
         ReusableStyleTextProfile(title: "Lihat Profil"),
         BlocBuilder<UserBloc, UserState>(
           builder: (_, userState) => ReusableList(
@@ -127,23 +126,23 @@ class ProfilePage extends StatelessWidget {
             },
           ),
         ),
-        ReusableSizedBox(height: 10),
-        ReusableStyleTextProfile(title: "Tentang Aplikasi"),
-        BlocBuilder<UserBloc, UserState>(
-          builder: (_, userState) => ReusableList(
-            icon: MdiIcons.information,
-            title: "Tentang Aplikasi",
-            onTap: () {
-              context
-                  .bloc<PageBloc>()
-                  .add(GoToAboutPage((userState as UserLoaded).user));
-            },
-          ),
-        ),
-        ReusableSizedBox(height: 10),
+        ReusableSizedBox(height: 5),
+        // ReusableStyleTextProfile(title: "Tentang Aplikasi"),
+        // BlocBuilder<UserBloc, UserState>(
+        //   builder: (_, userState) => ReusableList(
+        //     icon: MdiIcons.information,
+        //     title: "Tentang Aplikasi",
+        //     onTap: () {
+        //       context
+        //           .bloc<PageBloc>()
+        //           .add(GoToAboutPage((userState as UserLoaded).user));
+        //     },
+        //   ),
+        // ),
+        // ReusableSizedBox(height: 3),
         NotReusableSizedBoxAndButton(
           app: "Epitel Indonesia",
-          versi: "Versi 2.0.0",
+          versi: "Versi 3.0.0",
           text: "Keluar Akun",
           color: accentColor3,
           onPressed: () {
