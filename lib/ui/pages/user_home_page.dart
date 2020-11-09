@@ -73,6 +73,15 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                   list[index]['checkOut'].toDate();
 
                               return GestureDetector(
+                                onTap: () {
+                                  return Flushbar(
+                                    duration: Duration(seconds: 3),
+                                    flushbarPosition: FlushbarPosition.BOTTOM,
+                                    backgroundColor: Color(0xFFFF5C83),
+                                    message:
+                                        "Tekan yang lebih lama untuk menghapus data absen ini",
+                                  )..show(context);
+                                },
                                 onLongPress: () {
                                   showDialog(
                                     builder: (context) => AlertDialog(
@@ -405,9 +414,9 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                                                 list.forEach(
                                                                     (element) {
                                                                   String
-                                                                      cabangSemua =
+                                                                      qrCodeSemua =
                                                                       element.data[
-                                                                          'cabang'];
+                                                                          'qrcode'];
                                                                   String
                                                                       latSemua =
                                                                       element.data[
@@ -418,7 +427,7 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                                                           'longitude'];
 
                                                                   if (qrcode ==
-                                                                          cabangSemua &&
+                                                                          qrCodeSemua &&
                                                                       latitude ==
                                                                           latSemua &&
                                                                       longitude ==
