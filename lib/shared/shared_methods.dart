@@ -1,5 +1,23 @@
 part of 'shared.dart';
 
+double formatPositionLatitude(double num) {
+  final position = num.toStringAsFixed(4).split("");
+
+  num < 0 ? position.removeAt(6) : position.removeAt(5);
+
+  final fixPosition = double.parse(position.join());
+  return fixPosition;
+}
+
+double formatPositionLongitude(double num) {
+  final position = num.toStringAsFixed(4).split("");
+
+  num < 0 ? position.removeAt(8) : position.removeAt(7);
+
+  final fixPosition = double.parse(position.join());
+  return fixPosition;
+}
+
 Future<File> getImage() async {
   var image = await ImagePicker.pickImage(source: ImageSource.gallery);
   return image;

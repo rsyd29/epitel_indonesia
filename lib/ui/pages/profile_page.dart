@@ -142,7 +142,7 @@ class ProfilePage extends StatelessWidget {
         // ReusableSizedBox(height: 3),
         NotReusableSizedBoxAndButton(
           app: "Epitel Indonesia",
-          versi: "Versi 3.0.1",
+          versi: "Versi 3.0.2",
           text: "Keluar Akun",
           color: accentColor3,
           onPressed: () {

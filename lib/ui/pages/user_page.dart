@@ -98,9 +98,11 @@ class _UserPageState extends State<UserPage> {
                                 final qrcode = await getScan();
                                 final position = await getLocation();
                                 final latitude =
-                                    position.latitude.toStringAsFixed(3);
+                                    formatPositionLatitude(position.latitude)
+                                        .toString();
                                 final longitude =
-                                    position.longitude.toStringAsFixed(3);
+                                    formatPositionLongitude(position.longitude)
+                                        .toString();
                                 final viewLat = position.latitude.toString();
                                 final viewLong = position.longitude.toString();
                                 final time = DateTime.now().timeNow;
@@ -173,7 +175,7 @@ class _UserPageState extends State<UserPage> {
           return BottomSheetScan(
             icon: MdiIcons.closeCircle,
             colorIc: Colors.red,
-            result: "Upss!",
+            result: "Upss! Absen Masuk Gagal!",
             text: "Silahkan kamu periksa kembali\nkode dan lokasimu!",
             viewLatitude: viewLat,
             latitude: latitude,

@@ -317,18 +317,20 @@ class BottomSheetScan extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              SizedBox(height: 3.0),
               Icon(icon, color: colorIc, size: 50.0),
+              SizedBox(height: 3.0),
               Text(result.toUpperCase(),
                   textAlign: TextAlign.center,
                   style: blackTextFont.copyWith(
                       fontSize: 24.0, fontWeight: FontWeight.bold)),
-              SizedBox(height: 12.0),
+              SizedBox(height: 10.0),
               Text(
                 text,
                 textAlign: TextAlign.center,
                 style: blackTextFont.copyWith(fontSize: 18.0),
               ),
-              SizedBox(height: 12.0),
+              SizedBox(height: 10.0),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -405,9 +407,6 @@ class BottomSheetScan extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(
-                height: 12.0,
-              ),
               RaisedButton(
                 onPressed: onPressed,
                 shape: RoundedRectangleBorder(
@@ -418,6 +417,9 @@ class BottomSheetScan extends StatelessWidget {
                   style: whiteTextFont,
                 ),
                 color: mainColor,
+              ),
+              SizedBox(
+                height: 5.0,
               ),
             ],
           ),

@@ -114,7 +114,7 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                                               ),
                                               Row(
                                                 children: [
-                                                  Icon(MdiIcons.mapMarker,
+                                                  Icon(MdiIcons.briefcase,
                                                       color: Colors.white),
                                                   SizedBox(width: 5),
                                                   Text(
@@ -268,7 +268,11 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                 onLongPress: () {
                   showDialog(
                     builder: (context) => AlertDialog(
-                      title: Text("Hapus Semua Data Absen Karyawan"),
+                      title: Text(
+                        "Hapus Semua Data Absen Karyawan",
+                        style: blackTextFont.copyWith(
+                            color: Colors.red, fontWeight: FontWeight.bold),
+                      ),
                       content: Text(
                           "Kamu yakin ingin menghapus semua data absen karyawan? Semua data tidak dapat kembali lagi nantinya"),
                       actions: <Widget>[
@@ -458,7 +462,7 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                                     });
                                   },
                                   child: Text(
-                                    "Hari Ini",
+                                    "Masuk",
                                     style: whiteTextFont.copyWith(
                                         fontSize: 16,
                                         color: !isToday
@@ -482,7 +486,7 @@ class _HomeAdminPageState extends State<HomeAdminPage> {
                                     });
                                   },
                                   child: Text(
-                                    "Kemarin",
+                                    "Keluar",
                                     style: whiteTextFont.copyWith(
                                         fontSize: 16,
                                         color: isToday

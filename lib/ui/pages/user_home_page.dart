@@ -85,7 +85,12 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                 onLongPress: () {
                                   showDialog(
                                     builder: (context) => AlertDialog(
-                                      title: Text("Hapus Data Absen Ini"),
+                                      title: Text(
+                                        "Hapus Data Absen Ini",
+                                        style: blackTextFont.copyWith(
+                                            color: Colors.red,
+                                            fontWeight: FontWeight.bold),
+                                      ),
                                       content: Text(
                                           "Kamu yakin ingin menghapus data absen ini? Data tidak dapat kembali lagi nantinya"),
                                       actions: <Widget>[
@@ -191,7 +196,7 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                             ),
                                             Row(
                                               children: [
-                                                Icon(MdiIcons.mapMarker,
+                                                Icon(MdiIcons.briefcase,
                                                     color: Colors.white),
                                                 SizedBox(width: 5),
                                                 Text(
@@ -337,15 +342,13 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                                                 final position =
                                                                     await getLocation();
                                                                 final latitude =
-                                                                    position
-                                                                        .latitude
-                                                                        .toStringAsFixed(
-                                                                            3);
+                                                                    formatPositionLatitude(
+                                                                            position.latitude)
+                                                                        .toString();
                                                                 final longitude =
-                                                                    position
-                                                                        .longitude
-                                                                        .toStringAsFixed(
-                                                                            3);
+                                                                    formatPositionLongitude(
+                                                                            position.longitude)
+                                                                        .toString();
                                                                 final viewLat =
                                                                     position
                                                                         .latitude
@@ -492,154 +495,154 @@ class _HomeUserPageState extends State<HomeUserPage> {
                 child: ClipPath(
                   clipper: HeaderClipper(),
                   child: Container(
-                      height: 150,
-                      color: accentColor3,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Container(
-                            padding: EdgeInsets.only(left: 24.0),
-                            child: Row(
-                              children: [
-                                Column(
-                                  children: [
-                                    Container(
-                                      height: 13,
-                                      width: 50,
+                    height: 150,
+                    color: accentColor3,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.only(left: 24.0),
+                          child: Row(
+                            children: [
+                              Column(
+                                children: [
+                                  Container(
+                                    height: 13,
+                                    width: 50,
+                                    decoration: BoxDecoration(
+                                        shape: BoxShape.rectangle,
+                                        image: DecorationImage(
+                                            image: (userState.user.role ==
+                                                    "admin")
+                                                ? AssetImage(
+                                                    "assets/bandage_admin.png")
+                                                : AssetImage(
+                                                    "assets/bandage_user.png"))),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      context.bloc<PageBloc>().add(
+                                          GoToUserDetailPage(userState.user));
+                                      print(userState.user.uid);
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.all(5),
                                       decoration: BoxDecoration(
-                                          shape: BoxShape.rectangle,
-                                          image: DecorationImage(
-                                              image: (userState.user.role ==
-                                                      "admin")
-                                                  ? AssetImage(
-                                                      "assets/bandage_admin.png")
-                                                  : AssetImage(
-                                                      "assets/bandage_user.png"))),
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        context.bloc<PageBloc>().add(
-                                            GoToUserDetailPage(userState.user));
-                                        print(userState.user.uid);
-                                      },
-                                      child: Container(
-                                        padding: EdgeInsets.all(5),
-                                        decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            border: Border.all(
-                                                color: Color(0xFF64B5F6),
-                                                width: 1)),
-                                        child: Stack(
-                                          children: [
-                                            Loading(
-                                                colorBg: Colors.transparent,
-                                                color: accentColor1),
-                                            Container(
-                                              width: 50,
-                                              height: 50,
-                                              decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  image: DecorationImage(
-                                                      image: (userState.user
-                                                                  .profilePicture ==
-                                                              ""
-                                                          ? AssetImage(
-                                                              "assets/edit_profile.png")
-                                                          : NetworkImage(userState
-                                                              .user
-                                                              .profilePicture)),
-                                                      fit: BoxFit.cover)),
-                                            ),
-                                          ],
-                                        ),
+                                          shape: BoxShape.circle,
+                                          border: Border.all(
+                                              color: Color(0xFF64B5F6),
+                                              width: 1)),
+                                      child: Stack(
+                                        children: [
+                                          Loading(
+                                              colorBg: Colors.transparent,
+                                              color: accentColor1),
+                                          Container(
+                                            width: 50,
+                                            height: 50,
+                                            decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                image: DecorationImage(
+                                                    image: (userState.user
+                                                                .profilePicture ==
+                                                            ""
+                                                        ? AssetImage(
+                                                            "assets/edit_profile.png")
+                                                        : NetworkImage(userState
+                                                            .user
+                                                            .profilePicture)),
+                                                    fit: BoxFit.cover)),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  width: 16,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SizedBox(
-                                      width:
-                                          size.width - 2 * defaultMargin - 78,
-                                      child: Text(
-                                        userState.user.name,
-                                        style: whiteTextFont.copyWith(
-                                            fontSize: 18),
-                                        maxLines: 1,
-                                        overflow: TextOverflow.clip,
-                                      ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                width: 16,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    width: size.width - 2 * defaultMargin - 78,
+                                    child: Text(
+                                      userState.user.name,
+                                      style:
+                                          whiteTextFont.copyWith(fontSize: 18),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.clip,
                                     ),
-                                    Text(
-                                      userState.user.email,
-                                      style: yellowTextFont.copyWith(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w400),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
+                                  ),
+                                  Text(
+                                    userState.user.email,
+                                    style: yellowTextFont.copyWith(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400),
+                                  ),
+                                ],
+                              )
+                            ],
                           ),
-                          Container(
-                            padding: EdgeInsets.only(top: 16.0),
-                            child: Row(children: [
-                              Column(children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      isToday = !isToday;
-                                    });
-                                  },
-                                  child: Text(
-                                    "Hari Ini",
-                                    style: whiteTextFont.copyWith(
-                                        fontSize: 16,
-                                        color: !isToday
-                                            ? Colors.white
-                                            : Color(0xFF007CDB)),
-                                  ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: 16.0),
+                          child: Row(children: [
+                            Column(children: [
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    isToday = !isToday;
+                                  });
+                                },
+                                child: Text(
+                                  "Masuk",
+                                  style: whiteTextFont.copyWith(
+                                      fontSize: 16,
+                                      color: !isToday
+                                          ? Colors.white
+                                          : Color(0xFF007CDB)),
                                 ),
-                                SizedBox(height: 15.0),
-                                Container(
-                                    height: 4.0,
-                                    width: size.width * 0.5,
-                                    color: !isToday
-                                        ? accentColor1
-                                        : Colors.transparent),
-                              ]),
-                              Column(children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      isToday = !isToday;
-                                    });
-                                  },
-                                  child: Text(
-                                    "Kemarin",
-                                    style: whiteTextFont.copyWith(
-                                        fontSize: 16,
-                                        color: isToday
-                                            ? Colors.white
-                                            : Color(0xFF007CDB)),
-                                  ),
-                                ),
-                                SizedBox(height: 15.0),
-                                Container(
-                                    height: 4.0,
-                                    width: size.width * 0.5,
-                                    color: isToday
-                                        ? accentColor1
-                                        : Colors.transparent),
-                              ]),
+                              ),
+                              SizedBox(height: 15.0),
+                              Container(
+                                  height: 4.0,
+                                  width: size.width * 0.5,
+                                  color: !isToday
+                                      ? accentColor1
+                                      : Colors.transparent),
                             ]),
-                          )
-                        ],
-                      )),
+                            Column(children: [
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    isToday = !isToday;
+                                  });
+                                },
+                                child: Text(
+                                  "Keluar",
+                                  style: whiteTextFont.copyWith(
+                                      fontSize: 16,
+                                      color: isToday
+                                          ? Colors.white
+                                          : Color(0xFF007CDB)),
+                                ),
+                              ),
+                              SizedBox(height: 15.0),
+                              Container(
+                                  height: 4.0,
+                                  width: size.width * 0.5,
+                                  color: isToday
+                                      ? accentColor1
+                                      : Colors.transparent),
+                            ]),
+                          ]),
+                        )
+                      ],
+                    ),
+                  ),
                 ),
               );
             } else {
@@ -667,7 +670,7 @@ class _HomeUserPageState extends State<HomeUserPage> {
           return BottomSheetScan(
             icon: MdiIcons.closeCircle,
             colorIc: Colors.red,
-            result: "Upss!",
+            result: "Upss! Absen Keluar Gagal!",
             text: "Silahkan kamu periksa kembali\nkode dan lokasimu!",
             viewLatitude: viewLat,
             latitude: latitude,
