@@ -97,9 +97,7 @@ class _AdminPageState extends State<AdminPage> {
                 },
                 items: [
                   BottomNavigationBarItem(
-                      title: Text("Home",
-                          style: GoogleFonts.poppins().copyWith(
-                              fontSize: 13, fontWeight: FontWeight.w600)),
+                      label: "Home",
                       icon: Container(
                         margin: EdgeInsets.only(bottom: 6),
                         height: 30,
@@ -108,9 +106,7 @@ class _AdminPageState extends State<AdminPage> {
                             : 'assets/ic_home_grey.png'),
                       )),
                   BottomNavigationBarItem(
-                      title: Text("Profile",
-                          style: GoogleFonts.poppins().copyWith(
-                              fontSize: 13, fontWeight: FontWeight.w600)),
+                      label: "Profile",
                       icon: Container(
                         margin: EdgeInsets.only(bottom: 6),
                         height: 30,

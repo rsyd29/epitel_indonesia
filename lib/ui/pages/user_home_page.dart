@@ -341,14 +341,24 @@ class _HomeUserPageState extends State<HomeUserPage> {
                                                                     await getScan();
                                                                 final position =
                                                                     await getLocation();
+                                                                // final latitude =
+                                                                //     formatPositionLatitude(
+                                                                //             position.latitude)
+                                                                //         .toString();
+                                                                // final longitude =
+                                                                //     formatPositionLongitude(
+                                                                //             position.longitude)
+                                                                //         .toString();
                                                                 final latitude =
-                                                                    formatPositionLatitude(
-                                                                            position.latitude)
-                                                                        .toString();
+                                                                    position
+                                                                        .latitude
+                                                                        .toStringAsFixed(
+                                                                            2);
                                                                 final longitude =
-                                                                    formatPositionLongitude(
-                                                                            position.longitude)
-                                                                        .toString();
+                                                                    position
+                                                                        .longitude
+                                                                        .toStringAsFixed(
+                                                                            2);
                                                                 final viewLat =
                                                                     position
                                                                         .latitude

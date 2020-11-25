@@ -97,12 +97,16 @@ class _UserPageState extends State<UserPage> {
                               onPressed: () async {
                                 final qrcode = await getScan();
                                 final position = await getLocation();
+                                // final latitude =
+                                //     formatPositionLatitude(position.latitude)
+                                //         .toString();
+                                // final longitude =
+                                //     formatPositionLongitude(position.longitude)
+                                //         .toString();
                                 final latitude =
-                                    formatPositionLatitude(position.latitude)
-                                        .toString();
+                                    position.latitude.toStringAsFixed(2);
                                 final longitude =
-                                    formatPositionLongitude(position.longitude)
-                                        .toString();
+                                    position.longitude.toStringAsFixed(2);
                                 final viewLat = position.latitude.toString();
                                 final viewLong = position.longitude.toString();
                                 final time = DateTime.now().timeNow;
@@ -116,6 +120,14 @@ class _UserPageState extends State<UserPage> {
                                   String latSemua = element.data['latitude'];
                                   String longSemua = element.data['longitude'];
 
+                                  // if (qrcode == qrCodeSemua &&
+                                  //     latitude == latSemua &&
+                                  //     longitude == longSemua) {
+                                  //   setState(() {
+                                  //     isTrue = !isTrue;
+                                  //   });
+                                  // }
+
                                   if (qrcode == qrCodeSemua &&
                                       latitude == latSemua &&
                                       longitude == longSemua) {
@@ -123,6 +135,14 @@ class _UserPageState extends State<UserPage> {
                                       isTrue = !isTrue;
                                     });
                                   }
+
+                                  // if (qrcode == qrCodeSemua &&
+                                  //     latitude == latSemua &&
+                                  //     longitude == longSemua) {
+                                  //   setState(() {
+                                  //     isTrue = !isTrue;
+                                  //   });
+                                  // }
                                 });
 
                                 (isTrue)
@@ -271,9 +291,7 @@ class _UserPageState extends State<UserPage> {
                 },
                 items: [
                   BottomNavigationBarItem(
-                      title: Text("Home",
-                          style: GoogleFonts.poppins().copyWith(
-                              fontSize: 13, fontWeight: FontWeight.w600)),
+                      label: "Home",
                       icon: Container(
                         margin: EdgeInsets.only(bottom: 6),
                         height: 30,
@@ -282,9 +300,7 @@ class _UserPageState extends State<UserPage> {
                             : 'assets/ic_home_grey.png'),
                       )),
                   BottomNavigationBarItem(
-                      title: Text("Profile",
-                          style: GoogleFonts.poppins().copyWith(
-                              fontSize: 13, fontWeight: FontWeight.w600)),
+                      label: "Profile",
                       icon: Container(
                         margin: EdgeInsets.only(bottom: 6),
                         height: 30,

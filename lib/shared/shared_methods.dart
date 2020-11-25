@@ -1,25 +1,25 @@
 part of 'shared.dart';
 
 double formatPositionLatitude(double num) {
-  final position = num.toStringAsFixed(4).split("");
+  final position = num.toStringAsFixed(3).split("");
 
-  num < 0 ? position.removeAt(6) : position.removeAt(5);
+  num < 0 ? position.removeAt(5) : position.removeAt(4);
 
   final fixPosition = double.parse(position.join());
   return fixPosition;
 }
 
 double formatPositionLongitude(double num) {
-  final position = num.toStringAsFixed(4).split("");
+  final position = num.toStringAsFixed(3).split("");
 
-  num < 0 ? position.removeAt(8) : position.removeAt(7);
+  num < 0 ? position.removeAt(7) : position.removeAt(6);
 
   final fixPosition = double.parse(position.join());
   return fixPosition;
 }
 
 Future<File> getImage() async {
-  var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+  var image = await ImagePicker.pickImage(source: ImageSource.camera);
   return image;
 }
 
@@ -31,7 +31,7 @@ Future<String> getScan() async {
 Future<dynamic> getLocation() async {
   try {
     Position position = await Geolocator()
-        .getCurrentPosition(desiredAccuracy: LocationAccuracy.lowest);
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.values[0]);
     return position;
   } catch (e) {
     print(e);
